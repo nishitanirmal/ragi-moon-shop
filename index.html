@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Homemade ragi and millet snacks from Chandrika's kitchen. Order on WhatsApp.">
+<meta property="og:title" content="Ragi & Moon">
+<meta property="og:description" content="Homemade savoury snacks and sugarless sweets. Order on WhatsApp.">
+<meta property="og:image" content="images/thattai.jpg">
+<meta name="theme-color" content="#B35642">
+<link rel="icon" href="images/logo.png">
+<title>Ragi &amp; Moon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Noto+Sans+Tamil:wght@400&family=Noto+Sans+Devanagari:wght@400&display=swap">
+<style>
+/* Layout: two catalogue "pages" (savoury on terracotta, sweets on blush) as stacked bands; sticky header, bottom cart bar, slide-up order sheet. Single brand look, taken from the printed catalogue. */
+:root{
+  --terracotta:#B35642;
+  --terracotta-deep:#9c4639;
+  --peach:#fddcc0;
+  --blush:#FFEBEC;
+  --rose:#f4b8c6;
+  --maroon:#4a1a1e;
+  --ink:#2b1a17;
+  --muted-on-terra:#f3c6ad;
+  --muted-on-blush:#a14d42;
+  --wa:#1f8f4e;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --indic:"Noto Sans Tamil","Noto Sans Devanagari",var(--body);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--terracotta);color:var(--peach);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--peach);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:16px}
+
+/* Header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--terracotta);border-bottom:1px solid rgba(253,220,192,.35)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.logo{display:block;line-height:0}
+.logo img{height:30px;width:auto;display:block}
+.foot-logo{height:26px;width:auto;display:block}
+.band-head h2 img{height:clamp(70px,16vw,104px);width:auto;display:block;max-width:100%}
+.cart-btn{display:flex;align-items:center;gap:8px;background:var(--peach);color:var(--maroon);border:0;border-radius:999px;padding:8px 14px;font-weight:600;font-size:14px}
+.cart-btn .count{background:var(--maroon);color:var(--peach);border-radius:999px;min-width:22px;height:22px;display:inline-grid;place-items:center;font-size:12px;padding-inline:6px;font-variant-numeric:tabular-nums}
+nav.sections{display:flex;gap:8px;padding-bottom:12px;overflow-x:auto}
+nav.sections a{color:var(--peach);text-decoration:none;font-size:13px;font-weight:500;border:1px solid rgba(253,220,192,.5);border-radius:999px;padding:5px 12px;white-space:nowrap}
+
+/* Intro */
+.intro{padding-block:36px 8px;display:grid;gap:14px;max-width:62ch}
+.intro h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,6vw,42px);line-height:1.1;margin:0;text-wrap:balance}
+.intro p{margin:0;color:var(--muted-on-terra)}
+.intro .sig{font-style:italic}
+.intro p.how{font-size:13.5px;color:var(--peach);font-weight:500}
+
+/* Sections */
+section.band{padding-block:40px 56px}
+section.band.sweet{background:var(--blush);color:var(--ink)}
+.band-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.band-head h2{font-family:var(--display);font-weight:400;font-style:italic;font-size:clamp(26px,5vw,36px);margin:0;letter-spacing:.02em}
+.sweet .band-head h2{color:var(--terracotta)}
+.band-head p{margin:0;font-size:13px;opacity:.85}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+
+.card{display:flex;flex-direction:column;background:var(--terracotta-deep);border-radius:14px;overflow:hidden;min-width:0}
+.sweet .card{background:#fff6f6;border:1px solid #f6d3d6}
+.card .pic{aspect-ratio:4/3;max-width:100%;display:grid;place-items:center;background:var(--terracotta);overflow:hidden}
+.sweet .card .pic{background:var(--blush)}
+.card .pic img{width:100%;height:100%;object-fit:contain;padding:10px}
+.card .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.card h3{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.2;margin:0;color:var(--peach)}
+.sweet .card h3{color:var(--maroon);font-size:19px}
+.alt{font-family:var(--indic);font-size:13px;color:var(--muted-on-terra);display:flex;flex-wrap:wrap;gap:2px 10px}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.tags span{font-size:11.5px;font-weight:600;letter-spacing:.02em;border:1px solid rgba(253,220,192,.45);border-radius:999px;padding:1px 8px}
+.sweet .tags span{border-color:#e9b6ad;color:var(--terracotta)}
+.desc{font-size:13.5px;color:var(--muted-on-terra);margin:2px 0 0}
+.sweet .desc{color:var(--muted-on-blush)}
+.buy{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.price{font-variant-numeric:tabular-nums;font-weight:600;font-size:16px}
+.price small{font-weight:400;opacity:.8;font-size:13px;margin-left:4px}
+.flavours{display:flex;gap:6px;width:100%}
+.flavours button{flex:1;border:1px solid #e9b6ad;background:transparent;color:var(--terracotta);border-radius:8px;padding:5px 8px;font-size:13px}
+.flavours button[aria-pressed="true"]{background:var(--terracotta);color:var(--blush);border-color:var(--terracotta)}
+
+.add{border:0;border-radius:999px;background:var(--peach);color:var(--maroon);font-weight:600;padding:9px 18px;font-size:14px}
+.sweet .add{background:var(--terracotta);color:#fff}
+.stepper{display:inline-flex;align-items:center;border-radius:999px;background:var(--peach);color:var(--maroon);overflow:hidden}
+.sweet .stepper{background:var(--terracotta);color:#fff}
+.stepper button{border:0;background:transparent;color:inherit;width:36px;height:36px;font-size:18px;font-weight:600}
+.stepper output{min-width:24px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
+
+footer{background:var(--maroon);color:var(--peach);padding-block:28px 120px;font-size:13px}
+footer .wrap{display:grid;gap:6px}
+
+/* Bottom cart bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--maroon);color:var(--peach);box-shadow:0 -6px 20px rgba(43,26,23,.25)}
+.bar .inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.bar .sum{font-variant-numeric:tabular-nums;font-size:14px}
+.bar .sum strong{font-size:17px;display:block}
+.bar button{border:0;border-radius:999px;background:var(--peach);color:var(--maroon);font-weight:600;padding:11px 20px}
+
+/* Order sheet */
+.scrim{position:fixed;inset:0;background:rgba(43,26,23,.55);z-index:40}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;max-height:92%;overflow-y:auto;background:var(--blush);color:var(--ink);border-radius:18px 18px 0 0;padding:18px 16px calc(24px + env(safe-area-inset-bottom,0px));max-width:640px;margin:0 auto;box-shadow:0 -10px 40px rgba(43,26,23,.3)}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+.sheet h2{font-family:var(--display);font-weight:600;font-size:24px;margin:0;color:var(--maroon)}
+.close{border:0;background:transparent;font-size:26px;line-height:1;color:var(--maroon);width:40px;height:40px}
+.lines{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.lines li{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #f1cfd2}
+.lines .nm{min-width:0}
+.lines .nm b{display:block;font-family:var(--display);font-weight:600;color:var(--maroon)}
+.lines .nm span{font-size:12.5px;color:var(--muted-on-blush)}
+.lines .amt{font-variant-numeric:tabular-nums;font-weight:600;min-width:56px;text-align:right}
+.lines .stepper{background:var(--terracotta);color:#fff}
+.lines .stepper button{width:32px;height:32px}
+.total{display:flex;justify-content:space-between;padding:12px 0 4px;font-weight:600;font-size:17px;font-variant-numeric:tabular-nums;color:var(--maroon)}
+.fields{display:grid;gap:10px;margin:14px 0}
+.fields label{display:grid;gap:4px;font-size:13px;font-weight:500;color:var(--maroon)}
+.fields input,.fields textarea{font:inherit;font-size:15px;border:1px solid #e9b6ad;border-radius:10px;padding:9px 11px;background:#fff;color:var(--ink);width:100%}
+.fields textarea{resize:vertical;min-height:60px}
+.steps{margin:18px 0 8px;font-size:13.5px;color:var(--maroon)}
+.steps ol{margin:6px 0 0;padding-left:20px;display:grid;gap:2px}
+.msg{width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.45;background:#fff;border:1px dashed var(--terracotta);border-radius:10px;padding:10px 12px;color:var(--ink);min-height:180px;resize:vertical}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.actions .copy,.actions .wa{display:flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:13px 10px;font-weight:600;font-size:15px;text-decoration:none;text-align:center}
+.actions .copy{background:var(--maroon);color:var(--peach)}
+.actions .copy.done{background:var(--terracotta);color:#fff}
+.actions .wa{background:var(--wa);color:#fff}
+.wa-num{font-size:12.5px;color:var(--muted-on-blush);margin-top:8px;text-align:center}
+.wa-num span{user-select:all;font-variant-numeric:tabular-nums}
+.empty{padding:20px 0;color:var(--muted-on-blush)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--maroon);color:var(--peach);padding:8px 16px;border-radius:999px;font-size:13.5px;z-index:60;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+@media (prefers-reduced-motion:no-preference){
+  .sheet:not([hidden]){animation:up .22s ease-out}
+  @keyframes up{from{transform:translateY(30px)}to{transform:none}}
+}
+@media (max-width:420px){
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top"><img id="logoImg" alt="Ragi &amp; Moon"></a>
+    <button class="cart-btn" id="openCart" type="button" aria-label="Open your order">Your order <span class="count" id="count">0</span></button>
+  </div>
+  <div class="wrap"><nav class="sections" aria-label="Sections"><a href="#savoury">Savoury Snacks</a><a href="#sweets">Sugarless Sweets</a></nav></div>
+</header>
+
+<main id="top">
+  <div class="wrap intro">
+    <h1>Homemade snacks from Chandrika’s kitchen</h1>
+    <p>Every snack is made with love, using date sweeteners and real, unprocessed ingredients. These are recipes developed while trying to get the kids to eat healthier.</p>
+    <p class="how">To order, add what you like, open your order, then copy the message and send it to us on WhatsApp.</p>
+  </div>
+  <section class="band" id="savoury">
+    <div class="wrap">
+      <div class="band-head"><h2><img id="hSavoury" alt="Savoury Snacks"></h2><p>200g packs</p></div>
+      <div class="grid" id="grid-savoury"></div>
+    </div>
+  </section>
+  <section class="band sweet" id="sweets">
+    <div class="wrap">
+      <div class="band-head"><h2><img id="hSweets" alt="Sugarless Sweets"></h2><p>Sweetened with dates and jaggery</p></div>
+      <div class="grid" id="grid-sweet"></div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap"><img class="foot-logo" id="footLogo" alt="Ragi &amp; Moon"><span>Homemade by Chandrika (moon). Prices in ₹, per pack.</span></div></footer>
+
+<div class="bar" id="bar" hidden>
+  <div class="inner">
+    <div class="sum"><span id="barItems">0 items</span><strong id="barTotal">₹0</strong></div>
+    <button type="button" id="barOpen">View order</button>
+  </div>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+  <div class="sheet-head"><h2 id="sheetTitle">Your order</h2><button class="close" id="closeSheet" type="button" aria-label="Close">×</button></div>
+  <ul class="lines" id="lines"></ul>
+  <div class="total" id="totalRow"><span>Total</span><span id="total">₹0</span></div>
+  <div id="orderBits">
+    <div class="fields">
+      <label for="custName">Your name<input id="custName" autocomplete="name" placeholder="e.g. Priya"></label>
+      <label for="custAddr">Delivery address or area<textarea id="custAddr" autocomplete="street-address" placeholder="Flat, street, area"></textarea></label>
+      <label for="custNote">Anything else? (optional)<input id="custNote" placeholder="Delivery date, gift note…"></label>
+    </div>
+    <div class="steps"><strong>To place your order</strong>
+      <ol><li>Tap <b>Copy message</b>.</li><li>Tap <b>Open WhatsApp</b>. It opens a chat with us.</li><li>Paste the message if it isn't already there, and press Send.</li></ol>
+    </div>
+    <label for="msg" class="steps" style="display:block;margin:0 0 6px"><strong>Your order message</strong></label>
+    <textarea class="msg" id="msg" readonly></textarea>
+    <div class="actions">
+      <button class="copy" id="copyBtn" type="button">Copy message</button>
+      <a class="wa" id="waBtn" href="#" target="_blank" rel="noopener">Open WhatsApp</a>
+    </div>
+    <p class="wa-num">Or message us at <span id="waShown"></span></p>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+// ---- Shop settings: change the number here (country code + number, digits only) ----
+const WHATSAPP_NUMBER = "917066327312";
+
+const IMG = {"choco-chunk-cookies": "images/choco-chunk-cookies.jpg", "dryfruit-brittles": "images/dryfruit-brittles.jpg", "dryfruit-delight": "images/dryfruit-delight.jpg", "h-savoury": "images/h-savoury.png", "h-sweets": "images/h-sweets.png", "jowar-oats-cookies": "images/jowar-oats-cookies.jpg", "logo": "images/logo.png", "murukku-sticks": "images/murukku-sticks.jpg", "oma-pudi": "images/oma-pudi.jpg", "pepper-murukku": "images/pepper-murukku.jpg", "protein-bites": "images/protein-bites.jpg", "ragi-bites": "images/ragi-bites.jpg", "ragi-choc-fudge": "images/ragi-choc-fudge.jpg", "ragi-theinkuzhal": "images/ragi-theinkuzhal.jpg", "ribbon-murukku": "images/ribbon-murukku.jpg", "rice-crispies": "images/rice-crispies.jpg", "thattai": "images/thattai.jpg", "theinkuzhal": "images/theinkuzhal.jpg", "uppu-seedai": "images/uppu-seedai.jpg", "wholewheat-bites": "images/wholewheat-bites.jpg"};
+const PRODUCTS = [
+  {id:"murukku-sticks",cat:"savoury",name:"Murukku Sticks",ta:"முறுக்கு",hi:"मुरुक्कु स्टिक्स्",size:"200g",price:200,tags:["Savoury","Crunchy","Buttery","Crumbly"],desc:"Rice and chana flour, shaped into twisty sticks. Buttery, with jeera and sesame, and just a little heat. Good source of protein from the mix of dals."},
+  {id:"ribbon-murukku",cat:"savoury",name:"Ribbon Murukku",ta:"ரிப்பன் முறுக்கு",hi:"रिब्बन मुरुक्कु",size:"200g",price:200,tags:["Savoury","Crunchy","Buttery","Crumbly"],desc:"Rice and roasted chana flour, shaped into ribbons. Jeera and a little heat, recommended with a dip on the side."},
+  {id:"pepper-murukku",cat:"savoury",name:"Pepper Murukku",ta:"மிளகு முறுக்கு",hi:"पेप्पर मुरुक्कु",size:"200g",price:200,tags:["Savoury","Crunchy","Buttery","Crumbly"],desc:"Rice flour and sattu, with black pepper for warmth. A good one for the rainy days, and easy to digest."},
+  {id:"theinkuzhal",cat:"savoury",name:"Theinkuzhal",ta:"தேன்குழல்",hi:"थेंकुळल",size:"200g",price:200,tags:["Salty","Crunchy","Buttery"],desc:"Rice flour and urad dal, shaped into a hollow coil. Tastes of coconut milk and sesame, no spice to it at all. The urad dal makes it a good source of protein."},
+  {id:"ragi-theinkuzhal",cat:"savoury",name:"Ragi Theinkuzhal",ta:"ராகி தேன்குழல்",hi:"रागी थेंकुळल",size:"200g",price:200,tags:["Salty","Crunchy","Buttery","Hard"],desc:"Ragi, rice flour and urad dal, shaped into a hollow coil. Sesame comes through, with more crispness from the ragi and a deeper, earthier flavour. Good source of iron and calcium."},
+  {id:"uppu-seedai",cat:"savoury",name:"Uppu Seedai",ta:"உப்புச் சீடை",hi:"उप्पु सीडई",size:"200g",price:200,tags:["Salty","Crunchy","Buttery","Hard"],desc:"Rice, chana dal and urad dal, shaped small and fried till hard. Coconut pieces and a little chilli, with hints of saunf."},
+  {id:"thattai",cat:"savoury",name:"Thattai",ta:"தட்டை",hi:"तट्टई",size:"200g",price:200,tags:["Spiced","Crispy","Buttery","Crumbly"],desc:"Rice and dal, hand patted into shape. Curry leaf, groundnut and hing, with a little heat. The hing and curry leaf make it good for digestion."},
+  {id:"oma-pudi",cat:"savoury",name:"Oma Pudi",ta:"ஓமப்பொடி",hi:"ओमप्पोडी",size:"200g",price:200,tags:["Spiced","Crunchy","Buttery","Crispy"],desc:"Ajwain and chana dal, shaped into thin sev-like strands. Hing and a little spice."},
+  {id:"rice-crispies",cat:"savoury",name:"Rice Crispies",size:"200g",price:200,tags:["Salty","Crunchy","Buttery","Crispy"],desc:"Rice flour, cheesy with a bit of chaat masala. No heat, just crisp all the way through."},
+  {id:"choco-chunk-cookies",cat:"sweet",name:"Ragi Choco Chunk Cookies",size:"200g",price:250,tags:["Sweet","Crumbly","Chewy"],desc:"Ragi and oats with chocolate chunks through them. Crisp outside, a little soft in the middle. Good source of iron, calcium, magnesium, zinc and dietary fibre."},
+  {id:"dryfruit-brittles",cat:"sweet",name:"Dry-fruit Brittles",size:"100g",price:190,flavours:["Vanilla","Chocolate"],tags:["Sweet","Chewy","Crunchy","Crumbly"],desc:"Almond, cashew and pistachio set in caramelised jaggery. Vanilla or chocolate, a good crunch. Good source of iron, calcium, magnesium, zinc, vitamin E and healthy fats."},
+  {id:"protein-bites",cat:"sweet",name:"Protein Bites",size:"200g",price:300,tags:["Sweet","Chewy","Crunchy"],desc:"Five seeds and three nuts, sweetened only with dates, no added sugar. Nutty and naturally sweet. Rich in protein, omega-3, magnesium, zinc, healthy fats and fibre."},
+  {id:"jowar-oats-cookies",cat:"sweet",name:"Jowar Oats Cookies",size:"200g",price:200,tags:["Sweet","Chewy","Crunchy","Crumbly"],desc:"Jowar and oats, with cinnamon, cashew and a bit of jaggery. Crisp and crunchy, nothing fussy about it. Rich in dietary fibre and plant protein, with beta-glucan from the oats."},
+  {id:"ragi-choc-fudge",cat:"sweet",name:"Ragi Chocolate Fudge",size:"4 pc",price:275,tags:["Sweet","Chewy","Crunchy","Crumbly"],desc:"Dry fruit praline, dates, almond butter, ragi and oats, with bitter dark chocolate. No added sugar, sweetened with dates alone. Good for a sugar craving, and good for everyone."},
+  {id:"ragi-bites",cat:"sweet",name:"Ragi Bites",size:"200g",price:250,tags:["Sweet","Chewy","Crumbly"],desc:"Ragi, slow roasted the traditional way. Melts in the mouth, medium sweet. High in calcium, iron, vitamin E, magnesium and plant based protein."},
+  {id:"dryfruit-delight",cat:"sweet",name:"Dry-fruit Delight",size:"100g",price:200,tags:["Sweet","Chewy","Crunchy","Crumbly"],desc:"Dates stuffed with dry-fruit brittles, nothing else added. Sweet and simple, with the natural goodness of dried fruit and nuts."},
+  {id:"wholewheat-bites",cat:"sweet",name:"Whole-wheat Bites (Gondh)",size:"200g",price:250,tags:["Sweet","Chewy","Crumbly"],desc:"Whole wheat and gondh, made the slow way. Rich in iron, calcium, magnesium, fibre and vitamins A, D, E and K."}
+];
+const byId = Object.fromEntries(PRODUCTS.map(p=>[p.id,p]));
+const rupees = n => "₹" + n.toLocaleString("en-IN");
+
+// cart: key -> qty ; key is id or id|Flavour
+let cart = {};
+const flavourPick = {};
+try { cart = JSON.parse(localStorage.getItem("rm-cart")||"{}") || {}; } catch(e) { cart = {}; }
+for (const k of Object.keys(cart)) { if (!byId[k.split("|")[0]] || !(cart[k] > 0)) delete cart[k]; }
+let fields = {};
+try { fields = JSON.parse(localStorage.getItem("rm-fields")||"{}") || {}; } catch(e) {}
+
+const save = () => { try { localStorage.setItem("rm-cart", JSON.stringify(cart)); } catch(e) {} };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function keyFor(p){ return p.flavours ? p.id + "|" + (flavourPick[p.id] || p.flavours[0]) : p.id; }
+
+function cardHTML(p){
+  const alt = (p.ta||p.hi) ? `<div class="alt">${p.ta?`<span lang="ta">${p.ta}</span>`:""}${p.hi?`<span lang="hi">${p.hi}</span>`:""}</div>` : "";
+  const fl = p.flavours ? `<div class="flavours" role="group" aria-label="Flavour">${p.flavours.map(f=>`<button type="button" data-flavour="${f}" data-id="${p.id}" aria-pressed="${(flavourPick[p.id]||p.flavours[0])===f}">${f}</button>`).join("")}</div>` : "";
+  return `<article class="card" id="p-${p.id}">
+    <div class="pic"><img src="${IMG[p.id]}" alt="Illustration of ${esc(p.name)}" loading="lazy"></div>
+    <div class="body">
+      <h3>${esc(p.name)}</h3>${alt}
+      <div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join("")}</div>
+      <p class="desc">${esc(p.desc)}</p>
+      <div class="buy">${fl}<span class="price">${rupees(p.price)}<small>/ ${p.size}</small></span><span class="ctl" data-ctl="${p.id}"></span></div>
+    </div></article>`;
+}
+function ctlHTML(p){
+  const q = cart[keyFor(p)] || 0;
+  const label = p.flavours ? `${flavourPick[p.id]||p.flavours[0]} ` : "";
+  if (!q) return `<button class="add" type="button" data-add="${p.id}">Add${label?" "+label.trim():""}</button>`;
+  return `<span class="stepper"><button type="button" data-dec="${keyFor(p)}" aria-label="One less ${esc(label+p.name)}">−</button><output aria-live="polite">${q}</output><button type="button" data-inc="${keyFor(p)}" aria-label="One more ${esc(label+p.name)}">+</button></span>`;
+}
+
+function renderGrid(){
+  document.getElementById("grid-savoury").innerHTML = PRODUCTS.filter(p=>p.cat==="savoury").map(cardHTML).join("");
+  document.getElementById("grid-sweet").innerHTML = PRODUCTS.filter(p=>p.cat==="sweet").map(cardHTML).join("");
+}
+function renderCtls(){
+  document.querySelectorAll("[data-ctl]").forEach(el => { el.innerHTML = ctlHTML(byId[el.dataset.ctl]); });
+  document.querySelectorAll("[data-flavour]").forEach(b => b.setAttribute("aria-pressed", (flavourPick[b.dataset.id]||byId[b.dataset.id].flavours[0]) === b.dataset.flavour));
+}
+function lines(){
+  return Object.entries(cart).filter(([,q])=>q>0).map(([k,q])=>{
+    const [id,fl] = k.split("|"); const p = byId[id];
+    return {k,q,p,fl,name: p.name + (fl?` (${fl})`:""), amt: p.price*q};
+  });
+}
+function message(){
+  const L = lines(); if (!L.length) return "";
+  const tot = L.reduce((s,l)=>s+l.amt,0);
+  const name = document.getElementById("custName").value.trim();
+  const addr = document.getElementById("custAddr").value.trim();
+  const note = document.getElementById("custNote").value.trim();
+  let m = "Hi Ragi & Moon! I'd like to order:\n\n";
+  L.forEach((l,i)=>{ m += `${i+1}. ${l.name} (${l.p.size}) x ${l.q} = ${rupees(l.amt)}\n`; });
+  m += `\nTotal: ${rupees(tot)}\n`;
+  if (name) m += `\nName: ${name}`;
+  if (addr) m += `\nDeliver to: ${addr}`;
+  if (note) m += `\nNote: ${note}`;
+  return m.trim();
+}
+function renderCart(){
+  const L = lines();
+  const items = L.reduce((s,l)=>s+l.q,0), tot = L.reduce((s,l)=>s+l.amt,0);
+  document.getElementById("count").textContent = items;
+  document.getElementById("barItems").textContent = items + (items===1?" item":" items");
+  document.getElementById("barTotal").textContent = rupees(tot);
+  document.getElementById("bar").hidden = items === 0;
+  document.getElementById("total").textContent = rupees(tot);
+  const ul = document.getElementById("lines");
+  ul.innerHTML = L.length ? L.map(l=>`<li><div class="nm"><b>${esc(l.name)}</b><span>${l.p.size} · ${rupees(l.p.price)} each</span></div>
+    <span class="stepper"><button type="button" data-dec="${l.k}" aria-label="One less">−</button><output>${l.q}</output><button type="button" data-inc="${l.k}" aria-label="One more">+</button></span>
+    <span class="amt">${rupees(l.amt)}</span></li>`).join("")
+    : `<li class="empty" style="display:block;border:0">Your order is empty. Add a few snacks to get started.</li>`;
+  document.getElementById("totalRow").hidden = !L.length;
+  document.getElementById("orderBits").hidden = !L.length;
+  updateMsg();
+}
+function updateMsg(){
+  const m = message();
+  document.getElementById("msg").value = m;
+  document.getElementById("waBtn").href = "https://wa.me/" + WHATSAPP_NUMBER + (m ? "?text=" + encodeURIComponent(m) : "");
+}
+function change(k, d){
+  cart[k] = Math.max(0, (cart[k]||0) + d);
+  if (!cart[k]) delete cart[k];
+  save(); renderCtls(); renderCart();
+}
+let toastT;
+function toast(t){ const el=document.getElementById("toast"); el.textContent=t; el.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>el.hidden=true,1600); }
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("button"); if (!t) return;
+  if (t.dataset.add){ const p=byId[t.dataset.add]; change(keyFor(p),1); toast(`Added ${p.flavours?(flavourPick[p.id]||p.flavours[0])+" ":""}${p.name}`); }
+  else if (t.dataset.inc) change(t.dataset.inc, 1);
+  else if (t.dataset.dec) change(t.dataset.dec, -1);
+  else if (t.dataset.flavour){ flavourPick[t.dataset.id]=t.dataset.flavour; renderCtls(); }
+});
+function openSheet(){ document.getElementById("sheet").hidden=false; document.getElementById("scrim").hidden=false; document.getElementById("closeSheet").focus(); }
+function closeSheet(){ document.getElementById("sheet").hidden=true; document.getElementById("scrim").hidden=true; }
+document.getElementById("openCart").onclick = openSheet;
+document.getElementById("barOpen").onclick = openSheet;
+document.getElementById("closeSheet").onclick = closeSheet;
+document.getElementById("scrim").onclick = closeSheet;
+document.addEventListener("keydown", e => { if (e.key==="Escape") closeSheet(); });
+
+["custName","custAddr","custNote"].forEach(id => {
+  const el = document.getElementById(id); el.value = fields[id] || "";
+  el.addEventListener("input", () => { fields[id]=el.value; try{localStorage.setItem("rm-fields",JSON.stringify(fields));}catch(e){} updateMsg(); });
+});
+
+document.getElementById("copyBtn").onclick = async () => {
+  const btn = document.getElementById("copyBtn"), ta = document.getElementById("msg");
+  const ok = () => { btn.textContent = "Copied ✓"; btn.classList.add("done"); setTimeout(()=>{btn.textContent="Copy message"; btn.classList.remove("done");},2200); };
+  try { await navigator.clipboard.writeText(ta.value); ok(); }
+  catch(err){
+    ta.removeAttribute("readonly"); ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length);
+    let done=false; try { done = document.execCommand("copy"); } catch(e) {}
+    ta.setAttribute("readonly","");
+    if (done) ok(); else toast("Message selected. Tap and hold to copy.");
+  }
+};
+document.getElementById("waShown").textContent = "+" + WHATSAPP_NUMBER;
+document.getElementById("logoImg").src = IMG.logo;
+document.getElementById("footLogo").src = IMG.logo;
+document.getElementById("hSavoury").src = IMG["h-savoury"];
+document.getElementById("hSweets").src = IMG["h-sweets"];
+
+renderGrid(); renderCtls(); renderCart();
+</script>
+</body>
+</html>
