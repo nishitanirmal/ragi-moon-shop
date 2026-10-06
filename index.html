@@ -67,9 +67,9 @@ section.band.sweet{background:var(--blush);color:var(--ink)}
 
 .card{display:flex;flex-direction:column;background:var(--terracotta-deep);border-radius:14px;overflow:hidden;min-width:0}
 .sweet .card{background:#fff6f6;border:1px solid #f6d3d6}
-.card .pic{aspect-ratio:4/3;max-width:100%;display:grid;place-items:center;background:var(--terracotta);overflow:hidden}
+.card .pic{position:relative;aspect-ratio:5/4;max-width:100%;background:var(--terracotta);overflow:hidden}
 .sweet .card .pic{background:var(--blush)}
-.card .pic img{width:100%;height:100%;object-fit:contain;padding:10px}
+.card .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:14px;box-sizing:border-box}
 .card .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
 .card h3{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.2;margin:0;color:var(--peach)}
 .sweet .card h3{color:var(--maroon);font-size:19px}
@@ -93,7 +93,7 @@ section.band.sweet{background:var(--blush);color:var(--ink)}
 .stepper button{border:0;background:transparent;color:inherit;width:36px;height:36px;font-size:18px;font-weight:600}
 .stepper output{min-width:24px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
 
-footer{background:var(--maroon);color:var(--peach);padding-block:28px 120px;font-size:13px}
+footer{background:var(--terracotta);border-top:1px solid rgba(253,220,192,.35);color:var(--peach);padding-block:28px 120px;font-size:13px}
 footer .wrap{display:grid;gap:6px}
 
 /* Bottom cart bar */
@@ -222,13 +222,13 @@ const PRODUCTS = [
   {id:"oma-pudi",cat:"savoury",name:"Oma Pudi",ta:"ஓமப்பொடி",hi:"ओमप्पोडी",size:"200g",price:200,tags:["Spiced","Crunchy","Buttery","Crispy"],desc:"Ajwain and chana dal, shaped into thin sev-like strands. Hing and a little spice."},
   {id:"rice-crispies",cat:"savoury",name:"Rice Crispies",size:"200g",price:200,tags:["Salty","Crunchy","Buttery","Crispy"],desc:"Rice flour, cheesy with a bit of chaat masala. No heat, just crisp all the way through."},
   {id:"choco-chunk-cookies",cat:"sweet",name:"Ragi Choco Chunk Cookies",size:"200g",price:250,tags:["Sweet","Crumbly","Chewy"],desc:"Ragi and oats with chocolate chunks through them. Crisp outside, a little soft in the middle. Good source of iron, calcium, magnesium, zinc and dietary fibre."},
-  {id:"dryfruit-brittles",cat:"sweet",name:"Dry-fruit Brittles",size:"100g",price:190,flavours:["Vanilla","Chocolate"],tags:["Sweet","Chewy","Crunchy","Crumbly"],desc:"Almond, cashew and pistachio set in caramelised jaggery. Vanilla or chocolate, a good crunch. Good source of iron, calcium, magnesium, zinc, vitamin E and healthy fats."},
-  {id:"protein-bites",cat:"sweet",name:"Protein Bites",size:"200g",price:300,tags:["Sweet","Chewy","Crunchy"],desc:"Five seeds and three nuts, sweetened only with dates, no added sugar. Nutty and naturally sweet. Rich in protein, omega-3, magnesium, zinc, healthy fats and fibre."},
   {id:"jowar-oats-cookies",cat:"sweet",name:"Jowar Oats Cookies",size:"200g",price:200,tags:["Sweet","Chewy","Crunchy","Crumbly"],desc:"Jowar and oats, with cinnamon, cashew and a bit of jaggery. Crisp and crunchy, nothing fussy about it. Rich in dietary fibre and plant protein, with beta-glucan from the oats."},
-  {id:"ragi-choc-fudge",cat:"sweet",name:"Ragi Chocolate Fudge",size:"4 pc",price:275,tags:["Sweet","Chewy","Crunchy","Crumbly"],desc:"Dry fruit praline, dates, almond butter, ragi and oats, with bitter dark chocolate. No added sugar, sweetened with dates alone. Good for a sugar craving, and good for everyone."},
-  {id:"ragi-bites",cat:"sweet",name:"Ragi Bites",size:"200g",price:250,tags:["Sweet","Chewy","Crumbly"],desc:"Ragi, slow roasted the traditional way. Melts in the mouth, medium sweet. High in calcium, iron, vitamin E, magnesium and plant based protein."},
+  {id:"dryfruit-brittles",cat:"sweet",name:"Dry-fruit Brittles",size:"100g",price:190,flavours:["Vanilla","Chocolate"],tags:["Sweet","Chewy","Crunchy","Crumbly"],desc:"Almond, cashew and pistachio set in caramelised jaggery. Vanilla or chocolate, a good crunch. Good source of iron, calcium, magnesium, zinc, vitamin E and healthy fats."},
   {id:"dryfruit-delight",cat:"sweet",name:"Dry-fruit Delight",size:"100g",price:200,tags:["Sweet","Chewy","Crunchy","Crumbly"],desc:"Dates stuffed with dry-fruit brittles, nothing else added. Sweet and simple, with the natural goodness of dried fruit and nuts."},
-  {id:"wholewheat-bites",cat:"sweet",name:"Whole-wheat Bites (Gondh)",size:"200g",price:250,tags:["Sweet","Chewy","Crumbly"],desc:"Whole wheat and gondh, made the slow way. Rich in iron, calcium, magnesium, fibre and vitamins A, D, E and K."}
+  {id:"protein-bites",cat:"sweet",name:"Protein Bites",size:"200g",price:300,tags:["Sweet","Chewy","Crunchy"],desc:"Five seeds and three nuts, sweetened only with dates, no added sugar. Nutty and naturally sweet. Rich in protein, omega-3, magnesium, zinc, healthy fats and fibre."},
+  {id:"ragi-bites",cat:"sweet",name:"Ragi Bites",size:"200g",price:250,tags:["Sweet","Chewy","Crumbly"],desc:"Ragi, slow roasted the traditional way. Melts in the mouth, medium sweet. High in calcium, iron, vitamin E, magnesium and plant based protein."},
+  {id:"wholewheat-bites",cat:"sweet",name:"Whole-wheat Bites (Gondh)",size:"200g",price:250,tags:["Sweet","Chewy","Crumbly"],desc:"Whole wheat and gondh, made the slow way. Rich in iron, calcium, magnesium, fibre and vitamins A, D, E and K."},
+  {id:"ragi-choc-fudge",cat:"sweet",name:"Ragi Chocolate Fudge",size:"4 pc",price:275,tags:["Sweet","Chewy","Crunchy","Crumbly"],desc:"Dry fruit praline, dates, almond butter, ragi and oats, with bitter dark chocolate. No added sugar, sweetened with dates alone. Good for a sugar craving, and good for everyone."}
 ];
 const byId = Object.fromEntries(PRODUCTS.map(p=>[p.id,p]));
 const rupees = n => "₹" + n.toLocaleString("en-IN");
@@ -250,7 +250,7 @@ function cardHTML(p){
   const alt = (p.ta||p.hi) ? `<div class="alt">${p.ta?`<span lang="ta">${p.ta}</span>`:""}${p.hi?`<span lang="hi">${p.hi}</span>`:""}</div>` : "";
   const fl = p.flavours ? `<div class="flavours" role="group" aria-label="Flavour">${p.flavours.map(f=>`<button type="button" data-flavour="${f}" data-id="${p.id}" aria-pressed="${(flavourPick[p.id]||p.flavours[0])===f}">${f}</button>`).join("")}</div>` : "";
   return `<article class="card" id="p-${p.id}">
-    <div class="pic"><img src="${IMG[p.id]}" alt="Illustration of ${esc(p.name)}" loading="lazy"></div>
+    <div class="pic"><img src="${IMG[p.id]}" loading="lazy" alt="Illustration of ${esc(p.name)}"></div>
     <div class="body">
       <h3>${esc(p.name)}</h3>${alt}
       <div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join("")}</div>
