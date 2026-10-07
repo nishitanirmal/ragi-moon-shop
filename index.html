@@ -98,6 +98,8 @@ footer .wrap{display:grid;gap:8px}
 footer a{color:var(--peach)}
 .foot-links{display:flex;flex-wrap:wrap;gap:6px 16px}
 nav.sections a.ig,nav.sections a.about{border-style:dashed}
+nav.sections a[aria-current="true"]{background:var(--peach);color:var(--maroon);border-color:var(--peach)}
+section.band,section.gifting{scroll-margin-top:var(--head-h,110px)}
 section.gifting{background:var(--maroon);color:var(--peach);padding-block:32px}
 .gifting h2{font-family:var(--display);font-weight:600;font-size:clamp(22px,4.5vw,30px);margin:0 0 6px}
 .gifting p{margin:0 0 14px;color:var(--muted-on-terra);max-width:56ch}
@@ -403,6 +405,29 @@ document.getElementById("hSavoury").src = IMG["h-savoury"];
 document.getElementById("hSweets").src = IMG["h-sweets"];
 
 renderGrid(); renderCtls(); renderCart();
+
+// Section chips: offset jumps below the sticky header, and highlight the section being viewed.
+(function(){
+  const head = document.querySelector("header.top");
+  const setH = () => document.documentElement.style.setProperty("--head-h", head.offsetHeight + "px");
+  setH(); addEventListener("resize", setH);
+  const chips = [...document.querySelectorAll('nav.sections a[href^="#"]')];
+  const secs = chips.map(a => document.querySelector(a.getAttribute("href")));
+  const nav = document.querySelector("nav.sections");
+  let current = null;
+  const update = () => {
+    const y = head.offsetHeight + 8;
+    let idx = -1;
+    secs.forEach((sec, i) => { if (sec.getBoundingClientRect().top <= y) idx = i; });
+    if (idx >= 0 && secs[idx].getBoundingClientRect().bottom <= y) idx = -1;
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) idx = secs.length - 1;
+    if (idx === current) return;
+    current = idx;
+    chips.forEach((a, i) => a.setAttribute("aria-current", i === idx ? "true" : "false"));
+    if (idx >= 0) { const c = chips[idx]; nav.scrollTo({left: c.offsetLeft - 16, behavior: "smooth"}); }
+  };
+  addEventListener("scroll", update, {passive: true}); update();
+})();
 </script>
 </body>
 </html>
