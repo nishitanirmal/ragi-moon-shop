@@ -5,91 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Ragi & Moon started in Chandrika's kitchen in Pune. Homemade snacks with date sweeteners and real, unprocessed ingredients. Pan-India shipping.">
 <meta property="og:title" content="About Ragi & Moon">
-<meta property="og:image" content="images/ragi-plant.png">
+<meta property="og:image" content="images/ragi-plate.jpg">
 <meta name="theme-color" content="#B35642">
 <link rel="icon" href="images/logo.png">
 <title>About Ragi &amp; Moon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=Inter:wght@400;500&display=swap">
 <style>
+/* Editorial layout after the catalogue's story page: terracotta ground, peach type.
+   Type scale: kicker 12 / body 16 / standfirst 22 / headline 34. Serif for display, sans for reading. */
 :root{
   --terracotta:#B35642;
   --peach:#fddcc0;
-  --blush:#FFEBEC;
-  --maroon:#4a1a1e;
-  --ink:#2b1a17;
-  --muted-on-terra:#f3c6ad;
-  --muted-on-blush:#a14d42;
-  --wa:#1f8f4e;
-  --display:"Fraunces",Georgia,"Times New Roman",serif;
-  --body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --soft:rgba(253,220,192,.75);
+  --line:rgba(253,220,192,.32);
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--terracotta);color:var(--peach);font-family:var(--body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
-.wrap{max-width:760px;margin:0 auto;padding-inline:16px}
-header.top{background:var(--terracotta);border-bottom:1px solid rgba(253,220,192,.35)}
-header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
-.logo img{height:34px;width:auto;display:block}
-.shop-btn{background:var(--peach);color:var(--maroon);border-radius:999px;padding:8px 14px;font-weight:600;font-size:14px;text-decoration:none}
-.story{background:var(--blush);color:var(--ink);padding-block:36px 24px}
-.story h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,6vw,40px);line-height:1.1;margin:0 0 18px;color:var(--terracotta)}
-.story p{margin:0 0 14px;max-width:60ch}
-.story .sig{font-family:var(--display);font-style:italic;color:var(--terracotta);font-size:17px}
-.story img.plant{display:block;width:160px;max-width:45%;height:auto;margin:8px 0 0 auto}
-section.gifting{background:var(--maroon);color:var(--peach);padding-block:32px}
-.gifting h2{font-family:var(--display);font-weight:600;font-size:clamp(22px,4.5vw,30px);margin:0 0 6px}
-.gifting p{margin:0 0 14px;color:var(--muted-on-terra)}
-.story p.facts{font-family:var(--display);font-style:italic;font-size:19px;color:var(--terracotta);margin:18px 0 4px}
-.story p.facts span{font-style:normal;font-size:12px;margin-inline:6px;vertical-align:2px}
-.story p.ig-line{font-size:14px;color:var(--muted-on-blush)}
-.story p.ig-line a{color:var(--terracotta);font-weight:600}
-.btns{display:grid;gap:10px}
-@media (min-width:600px){.btns{grid-template-columns:repeat(2,max-content)}}
-.btns a{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;padding:10px 18px;font-weight:600;font-size:14px;text-decoration:none}
-.btns a.wa{background:var(--wa);color:#fff}
-.btns a.tel{background:var(--peach);color:var(--maroon)}
-footer{padding-block:28px 40px;font-size:13px}
-footer .wrap{display:grid;gap:8px}
-footer a{color:var(--peach)}
-.foot-links{display:flex;flex-wrap:wrap;gap:6px 16px}
-:focus-visible{outline:2px solid var(--peach);outline-offset:2px}
+body{background:var(--terracotta);color:var(--peach);font-family:var(--sans);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--peach);outline-offset:3px}
+.nobr{white-space:nowrap}
+.wrap{max-width:600px;margin:0 auto;padding-inline:24px}
+
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:18px}
+header .logo img{height:28px;width:auto;display:block}
+header .back{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--soft)}
+
+.kicker{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin:0 0 16px}
+.rule{border:0;border-top:1px solid var(--line);margin:0}
+
+.hero{padding-block:40px 8px}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.15;letter-spacing:-.005em;margin:0 0 20px;text-wrap:balance}
+.hero .stand{font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.4;color:var(--peach);margin:0;text-wrap:pretty}
+
+.plate{margin:36px 0 0}
+.plate img{display:block;width:100%;height:auto;border-radius:999px 999px 0 0}
+
+.body{padding-block:36px 44px}
+.body p{margin:0 0 18px;text-wrap:pretty}
+.body .sig{font-family:var(--serif);font-style:italic;font-size:18px;margin:28px 0 0}
+
+.facts{padding-block:36px}
+.facts dl{margin:0}
+.facts dl div{display:flex;justify-content:space-between;gap:16px;padding-block:14px;border-top:1px solid var(--line)}
+.facts dl div:last-child{border-bottom:1px solid var(--line)}
+.facts dt{color:var(--soft)}
+.facts dd{margin:0;text-align:right}
+
+.gift{padding-block:8px 48px}
+.gift h2{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.2;margin:0 0 12px}
+.gift p{margin:0}
+.btns{display:grid;gap:10px;margin-top:24px}
+.btns a{display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:999px;font-size:15px;font-weight:500;text-decoration:none;border:1px solid var(--peach)}
+.btns a.primary{background:var(--peach);color:var(--terracotta)}
+@media (min-width:520px){.btns{grid-template-columns:1fr 1fr}}
+
+footer .wrap{padding-block:22px 40px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);border-top:1px solid var(--line)}
 </style>
 </head>
 <body>
-<header class="top">
-  <div class="wrap">
-    <a class="logo" href="./"><img src="images/logo.png" alt="Ragi &amp; Moon"></a>
-    <a class="shop-btn" href="./">Shop</a>
-  </div>
-</header>
+<header><div class="wrap">
+  <a class="logo" href="./"><img src="images/logo.png" alt="Ragi &amp; Moon"></a>
+  <a class="back" href="./">Shop</a>
+</div></header>
 
 <main>
-  <section class="story">
-    <div class="wrap">
-      <h1>Our story</h1>
+  <div class="wrap">
+    <hr class="rule">
+    <section class="hero">
+      <p class="kicker">Our story</p>
+      <h1>It started in my kitchen, with my favourite ingredient.</h1>
+      <p class="stand">Homemade with love, using date-sweeteners and real, unprocessed ingredients.</p>
+    </section>
+    <figure class="plate"><img src="images/ragi-plate.jpg" alt="Illustration of ragi (finger millet) plants, from the Ragi &amp; Moon catalogue"></figure>
+  </div>
+
+  <div class="wrap">
+    <section class="body">
       <p>Ragi &amp; Moon started in my kitchen, at home, as I explored my favorite ingredient, you guessed it - ragi. My husband and Ragi &amp; Moon’s resident advisor, Nirmal, helped me put my food out there.</p>
       <p>Every snack at Ragi &amp; Moon is homemade with love, using date-sweeteners and real, unprocessed ingredients. These are recipes that I developed while trying to get my children to eat healthier. I hope you enjoy these dishes as much as I enjoyed creating them.</p>
-      <p class="sig">- Chandrika (moon)</p>
-      <p class="facts">Based in Pune <span aria-hidden="true">✦</span> Pan-India shipping</p>
-    <p class="ig-line">Follow us on Instagram <a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">@ragiandmoon</a></p>
-      <img class="plant" src="images/ragi-plant.png" alt="Illustration of ragi (finger millet) plants">
-    </div>
-  </section>
+      <p class="sig">Chandrika (moon)</p>
+    </section>
 
-  <section class="gifting">
-    <div class="wrap">
-      <h2>Bulk orders &amp; gifting</h2>
-      <p>For bulk orders, corporate gifting and festive gifting, contact Chandrika directly on +91 70663 27312.</p>
-      <div class="btns"><a class="wa" href="https://wa.me/917066327312?text=Hi%20Chandrika%2C%20I%27d%20like%20to%20ask%20about%20a%20bulk%20or%20gifting%20order." target="_blank" rel="noopener">WhatsApp Chandrika</a><a class="tel" href="tel:+917066327312">Call +91 70663 27312</a></div>
-    </div>
-  </section>
+    <section class="facts">
+      <p class="kicker">Good to know</p>
+      <dl>
+        <div><dt>Based in</dt><dd>Pune</dd></div>
+        <div><dt>Shipping</dt><dd>Across India</dd></div>
+        <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">@ragiandmoon</a></dd></div>
+      </dl>
+    </section>
+
+    <section class="gift">
+      <p class="kicker">Bulk orders &amp; gifting</p>
+      <h2>Gifting for teams, festivals and big occasions.</h2>
+      <p>For bulk orders, corporate gifting and festive gifting, contact Chandrika on <span class="nobr">+91 70663 27312</span>.</p>
+      <div class="btns">
+        <a class="primary" href="https://wa.me/917066327312?text=Hi%20Chandrika%2C%20I%27d%20like%20to%20ask%20about%20a%20bulk%20or%20gifting%20order." target="_blank" rel="noopener">WhatsApp Chandrika</a>
+        <a href="tel:+917066327312">Call Chandrika</a>
+      </div>
+    </section>
+  </div>
 </main>
 
-<footer><div class="wrap">
-  <span>Homemade by Chandrika (moon) in Pune. We ship across India.</span>
-  <div class="foot-links"><a href="./">Shop</a><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">Instagram @ragiandmoon</a></div>
-</div></footer>
+<footer><div class="wrap">Homemade in Pune · Shipped across India</div></footer>
 </body>
 </html>
