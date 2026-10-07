@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Ragi & Moon started in Chandrika's kitchen in Pune. Homemade snacks with date sweeteners and real, unprocessed ingredients. Pan-India shipping.">
 <meta property="og:title" content="About Ragi & Moon">
 <meta property="og:image" content="images/ragi-plate.jpg">
@@ -24,8 +25,13 @@
   --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
 *{box-sizing:border-box}
-/* Page stays at its natural size: no pinch or double-tap zoom */
-html{touch-action:pan-x pan-y;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+/* soft cross-fade when moving between the shop and About pages (browsers that support it) */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.35s}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
+
+/* Pinch zoom stays available; double-tap zoom is off so quick taps don't jump the page */
+html{touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{margin:0}
 body{background:var(--terracotta);color:var(--peach);font-family:var(--sans);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-underline-offset:3px}
@@ -105,7 +111,7 @@ footer .wrap{padding-block:22px 40px;font-size:12px;letter-spacing:.12em;text-tr
     <section class="gift">
       <p class="kicker">Bulk orders &amp; gifting</p>
       <h2>Gifting for teams, festivals and big occasions.</h2>
-      <p>For bulk orders, corporate gifting and festive gifting, contact Chandrika on <span class="nobr">+91 70663 27312</span>.</p>
+      <p>For bulk orders, corporate gifting and festive gifting, contact Chandrika on <a class="nobr" href="tel:+917066327312">+91 70663 27312</a>.</p>
       <div class="btns">
         <a class="primary" href="https://wa.me/917066327312?text=Hi%20Chandrika%2C%20I%27d%20like%20to%20ask%20about%20a%20bulk%20or%20gifting%20order." target="_blank" rel="noopener">WhatsApp Chandrika</a>
         <a href="tel:+917066327312">Call Chandrika</a>
@@ -115,6 +121,5 @@ footer .wrap{padding-block:22px 40px;font-size:12px;letter-spacing:.12em;text-tr
 </main>
 
 <footer><div class="wrap">Homemade in Pune · Shipped across India</div></footer>
-<script>["gesturestart","gesturechange","gestureend"].forEach(t=>document.addEventListener(t,e=>e.preventDefault(),{passive:false}));</script>
 </body>
 </html>

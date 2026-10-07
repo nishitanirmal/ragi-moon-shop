@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Homemade ragi and millet snacks from Chandrika's kitchen in Pune. Pan-India shipping. Order on WhatsApp.">
 <meta property="og:title" content="Ragi & Moon">
 <meta property="og:description" content="Homemade savoury snacks and sugarless sweets. Order on WhatsApp.">
@@ -32,18 +33,25 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* soft cross-fade when moving between the shop and About pages (browsers that support it) */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.35s}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
+
 .sheet{overscroll-behavior:contain}
 .scrim{touch-action:none}
-/* Page stays at its natural size: no pinch or double-tap zoom */
-html{touch-action:pan-x pan-y;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+/* Pinch zoom stays available; double-tap zoom is off so quick taps don't jump the page */
+html{touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{overflow-x:clip;max-width:100%}
 /* inputs stay at 16px so iPhones don't zoom in on tap, which is what lets the page slide sideways */
 .ext{display:inline-block;vertical-align:-.05em;margin-left:2px}
 body{background:var(--terracotta);color:var(--peach);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
 button{font:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--peach);outline-offset:2px}
+/* on light surfaces the focus ring switches to maroon so it stays visible */
+.sheet :focus-visible,.band.sweet :focus-visible,.card :focus-visible{outline-color:var(--maroon)}
+#sheetTitle:focus{outline:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .wrap{max-width:1080px;margin:0 auto;padding-inline:16px}
 
 /* Header */
@@ -133,6 +141,7 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 .gifting .kicker{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(253,220,192,.75);margin:0 0 16px}
 .gifting h2{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.2;margin:0 0 12px}
 .gifting p{margin:0;font-size:16px;line-height:1.7}
+.gifting p a{color:var(--peach);text-underline-offset:3px}
 .gifting .btns{display:grid;gap:10px;margin-top:24px}
 .gifting .btns a{display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:999px;font-size:15px;font-weight:500;text-decoration:none;color:var(--peach);border:1px solid var(--peach)}
 .gifting .btns a.primary{background:var(--peach);color:var(--terracotta)}
@@ -218,7 +227,7 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 <header class="top">
   <div class="wrap">
     <a class="logo" href="#top"><img id="logoImg" alt="Ragi &amp; Moon"></a>
-    <button class="cart-btn" id="openCart" type="button" aria-label="Open your order">Your order <span class="count" id="count">0</span></button>
+    <button class="cart-btn" id="openCart" type="button" >Your order <span class="count" id="count">0</span><span class="sr-only"> items, open</span></button>
   </div>
   <div class="wrap"><nav class="pages" aria-label="Pages"><a href="about.html">About us</a><a href="#gifting">Bulk &amp; gifting</a><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">Instagram <svg class="ext" viewBox="0 0 12 12" width="14" height="14" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div>
 </header>
@@ -248,7 +257,7 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
     <div class="wrap">
       <p class="kicker">Bulk orders &amp; gifting</p>
       <h2>Gifting for teams, festivals and big occasions.</h2>
-      <p>For bulk orders, corporate gifting and festive gifting, contact Chandrika on <span class="nobr">+91 70663 27312</span>.</p>
+      <p>For bulk orders, corporate gifting and festive gifting, contact Chandrika on <a class="nobr" href="tel:+917066327312">+91 70663 27312</a>.</p>
       <div class="btns">
         <a class="primary" href="https://wa.me/917066327312?text=Hi%20Chandrika%2C%20I%27d%20like%20to%20ask%20about%20a%20bulk%20or%20gifting%20order." target="_blank" rel="noopener">WhatsApp Chandrika</a>
         <a href="tel:+917066327312">Call Chandrika</a>
@@ -256,9 +265,9 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
     </div>
   </section>
 </main>
-<footer><div class="wrap"><img class="foot-logo" id="footLogo" alt="Ragi &amp; Moon"><span>Homemade by Chandrika (moon) in Pune. We ship across India. Prices in ₹, per pack.</span><span>Bulk, corporate and festive gifting: Chandrika, <a class="nobr" href="tel:+917066327312">+91 70663 27312</a></span><nav class="pages foot-pages" aria-label="Pages"><a href="about.html">About us</a><a href="#gifting">Bulk &amp; gifting</a><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">Instagram <svg class="ext" viewBox="0 0 12 12" width="14" height="14" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav><p class="credit">© 2026 Ragi &amp; Moon <span aria-hidden="true">·</span> Designed by <span class="nobr">Nishita Nirmal</span></p></div></footer>
+<footer><div class="wrap"><img class="foot-logo" id="footLogo" alt="Ragi &amp; Moon"><span>Homemade by Chandrika (moon) in Pune. We ship across India. Prices in ₹, per pack.</span><span>Bulk, corporate and festive gifting: Chandrika, <a class="nobr" href="tel:+917066327312">+91 70663 27312</a></span><nav class="pages foot-pages" aria-label="Footer pages"><a href="about.html">About us</a><a href="#gifting">Bulk &amp; gifting</a><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">Instagram <svg class="ext" viewBox="0 0 12 12" width="14" height="14" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav><p class="credit">© 2026 Ragi &amp; Moon <span aria-hidden="true">·</span> Designed by <span class="nobr">Nishita Nirmal</span></p></div></footer>
 
-<div class="bar" id="bar" hidden>
+<div class="bar" id="bar" role="region" aria-label="Order summary" hidden>
   <div class="inner">
     <div class="sum"><span id="barItems">0 items</span><strong id="barTotal">₹0</strong></div>
     <button type="button" id="barOpen">View order</button>
@@ -268,7 +277,7 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 <div class="scrim" id="scrim" hidden></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
   <div class="sheet-head">
-    <div><p class="step-count" id="stepCount">Step 1 of 4</p><h2 id="sheetTitle">Your order</h2></div>
+    <div><p class="step-count" id="stepCount">Step 1 of 4</p><h2 id="sheetTitle" tabindex="-1">Your order</h2></div>
     <button class="close" id="closeSheet" type="button" aria-label="Close">×</button>
   </div>
   <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
@@ -464,19 +473,28 @@ document.addEventListener("click", e => {
 let lockY = 0;
 function lockPage(){ lockY = scrollY; Object.assign(document.body.style, {position:"fixed", top:-lockY+"px", left:"0", right:"0", width:"100%"}); }
 function unlockPage(){ if (document.body.style.position !== "fixed") return; Object.assign(document.body.style, {position:"", top:"", left:"", right:"", width:""}); scrollTo({top: lockY, behavior: "instant"}); }
-function openSheet(){ showStep(0); lockPage(); document.getElementById("sheet").hidden=false; document.getElementById("scrim").hidden=false; document.getElementById("closeSheet").focus(); }
-function closeSheet(){ document.getElementById("sheet").hidden=true; document.getElementById("scrim").hidden=true; unlockPage(); }
+let opener = null;
+function openSheet(){ opener = document.activeElement; showStep(0); lockPage(); document.getElementById("sheet").hidden=false; document.getElementById("scrim").hidden=false; document.getElementById("closeSheet").focus(); }
+function closeSheet(){ document.getElementById("sheet").hidden=true; document.getElementById("scrim").hidden=true; unlockPage(); if (opener && opener.focus) opener.focus(); }
 document.getElementById("openCart").onclick = openSheet;
 document.getElementById("barOpen").onclick = openSheet;
 document.getElementById("closeSheet").onclick = closeSheet;
 document.getElementById("scrim").onclick = closeSheet;
-document.addEventListener("keydown", e => { if (e.key==="Escape") closeSheet(); });
+document.addEventListener("keydown", e => {
+  const sh = document.getElementById("sheet"); if (sh.hidden) return;
+  if (e.key==="Escape") return closeSheet();
+  if (e.key!=="Tab") return;
+  const f = [...sh.querySelectorAll('button,a[href],input,textarea,select,[tabindex]:not([tabindex="-1"])')].filter(el => !el.hidden && !el.disabled && el.offsetParent!==null);
+  if (!f.length) return;
+  if (e.shiftKey && (document.activeElement===f[0] || !sh.contains(document.activeElement))) { e.preventDefault(); f[f.length-1].focus(); }
+  else if (!e.shiftKey && document.activeElement===f[f.length-1]) { e.preventDefault(); f[0].focus(); }
+});
 
 /* ---- Checkout: four short steps ---- */
 const STEPS = [...document.querySelectorAll("#checkout .step")];
 const SAVED = ["custName","custPhone","recName","recPhone","pin","city","state","locality","line1","line2","landmark","custNote"];
 let step = 0;
-function showStep(n){
+function showStep(n, moveFocus){
   step = n;
   STEPS.forEach((s,i)=> s.hidden = i!==n);
   $("stepCount").textContent = `Step ${n+1} of ${STEPS.length}`;
@@ -489,6 +507,7 @@ function showStep(n){
   $("fieldErr").hidden = true;
   if (n===STEPS.length-1) updateMsg();
   $("sheet").scrollTop = 0;
+  if (moveFocus) $("sheetTitle").focus();
 }
 function fieldOk(el){
   if (el.hasAttribute("data-req-other") && !$("forOther").checked) return true;
@@ -501,7 +520,7 @@ function fieldOk(el){
 function stepOk(){
   const els = [...STEPS[step].querySelectorAll("input[required],input[data-req-other]")];
   const bad = els.filter(el => !fieldOk(el));
-  els.forEach(el => el.classList.toggle("bad", bad.includes(el)));
+  els.forEach(el => { el.classList.toggle("bad", bad.includes(el)); el.setAttribute("aria-invalid", bad.includes(el)); if (bad.includes(el)) el.setAttribute("aria-describedby","fieldErr"); else el.removeAttribute("aria-describedby"); });
   if (bad.length){
     const f = bad[0];
     $("fieldErr").textContent = !f.value.trim() ? "Please fill in the highlighted fields."
@@ -514,9 +533,9 @@ function stepOk(){
 $("checkout").addEventListener("submit", e => {
   e.preventDefault();
   if (step===0 && !lines().length) return;
-  if (stepOk() && step < STEPS.length-1) showStep(step+1);
+  if (stepOk() && step < STEPS.length-1) showStep(step+1, true);
 });
-$("backBtn").onclick = () => { if (step>0) showStep(step-1); };
+$("backBtn").onclick = () => { if (step>0) showStep(step-1, true); };
 $("forOther").addEventListener("change", e => {
   $("otherBox").hidden = !e.target.checked;
   fields.forOther = e.target.checked; persist();
@@ -527,7 +546,7 @@ SAVED.forEach(id => {
   const el = $(id); if (fields[id]) el.value = fields[id];
   el.addEventListener("input", () => {
     fields[id] = el.value; persist();
-    if (el.classList.contains("bad") && fieldOk(el)) el.classList.remove("bad");
+    if (el.classList.contains("bad") && fieldOk(el)) { el.classList.remove("bad"); el.setAttribute("aria-invalid","false"); el.removeAttribute("aria-describedby"); }
     if (!STEPS[step].querySelector(".bad")) $("fieldErr").hidden = true;
   });
 });
@@ -603,8 +622,22 @@ renderGrid(); renderCtls(); renderCart();
     chips.forEach((a, i) => a.setAttribute("aria-current", i === idx ? "true" : "false"));
   };
   addEventListener("scroll", update, {passive: true}); update();
+  /* Glide to a section: eased scroll of about 0.7s, so the movement is clearly visible */
+  const calm = matchMedia("(prefers-reduced-motion: reduce)");
+  document.addEventListener("click", e => {
+    const a = e.target.closest('a[href^="#"]'); if (!a || a.getAttribute("href").length < 2) return;
+    const target = document.querySelector(a.getAttribute("href")); if (!target) return;
+    e.preventDefault();
+    const offset = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+    const to = Math.max(0, target.getBoundingClientRect().top + scrollY - offset);
+    history.replaceState(null, "", a.getAttribute("href"));
+    if (calm.matches) return scrollTo({top: to, behavior: "instant"});
+    const from = scrollY, dist = to - from, dur = Math.min(900, 450 + Math.abs(dist) / 8), t0 = performance.now();
+    const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+    const step = now => { const t = Math.min(1, (now - t0) / dur); scrollTo({top: from + dist * ease(t), behavior: "instant"}); if (t < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
 })();
 </script>
-<script>["gesturestart","gesturechange","gestureend"].forEach(t=>document.addEventListener(t,e=>e.preventDefault(),{passive:false}));</script>
 </body>
 </html>
