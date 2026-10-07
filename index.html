@@ -617,7 +617,7 @@ renderGrid(); renderCtls(); renderCart();
   let current = null;
   const update = () => {
     if (document.body.style.position === "fixed") return; // order sheet open, page pinned
-    const stuck = bar.getBoundingClientRect().top <= head.getBoundingClientRect().bottom - 24;
+    const stuck = bar.getBoundingClientRect().top <= head.getBoundingClientRect().bottom - 23;
     bar.classList.toggle("stuck", stuck); head.classList.toggle("joined", stuck);
     const y = (stuck ? bar.getBoundingClientRect().bottom : head.getBoundingClientRect().bottom) + 8;
     let idx = -1;
