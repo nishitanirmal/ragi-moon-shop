@@ -32,6 +32,8 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 .sheet{overscroll-behavior:contain}
 .scrim{touch-action:none}
 /* Page stays at its natural size: no pinch or double-tap zoom */
@@ -120,18 +122,21 @@ section.band,section.gifting{scroll-margin-top:calc(var(--head-h,110px) + var(--
 .menu-bar{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--head-h,110px) - 25px);z-index:19;background:var(--terracotta);padding-block:24px 16px;border-bottom:1px solid transparent;transition:border-color .2s}
 .menu-bar.stuck{border-bottom-color:rgba(253,220,192,.35)}
 header.top.joined{border-bottom-color:transparent}
-section.gifting{background:var(--maroon);color:var(--peach);padding-block:32px}
-.gifting h2{font-family:var(--display);font-weight:600;font-size:clamp(22px,4.5vw,30px);margin:0 0 6px}
-.gifting p{margin:0 0 14px;color:var(--muted-on-terra);max-width:56ch}
 .intro p.facts{font-family:var(--display);font-style:italic;font-size:19px;color:var(--peach);margin:4px 0 0}
 .intro p.facts span{font-style:normal;font-size:12px;margin-inline:6px;vertical-align:2px;opacity:.8}
 .intro p.ig-line{font-size:13.5px}
 .intro p.ig-line a{color:var(--peach);font-weight:600}
 .nobr{white-space:nowrap}
-.gifting .btns{display:grid;gap:10px}
-.gifting .btns a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:999px;padding:10px 18px;font-weight:600;font-size:14px;text-decoration:none}
-.gifting .btns a.wa{background:var(--wa);color:#fff}
-.gifting .btns a.tel{background:var(--peach);color:var(--maroon)}
+/* Bulk & gifting: same treatment as the About page */
+section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48px 56px}
+.gifting .wrap{max-width:600px}
+.gifting .kicker{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(253,220,192,.75);margin:0 0 16px}
+.gifting h2{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.2;margin:0 0 12px}
+.gifting p{margin:0;font-size:16px;line-height:1.7}
+.gifting .btns{display:grid;gap:10px;margin-top:24px}
+.gifting .btns a{display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:999px;font-size:15px;font-weight:500;text-decoration:none;color:var(--peach);border:1px solid var(--peach)}
+.gifting .btns a.primary{background:var(--peach);color:var(--terracotta)}
+@media (min-width:520px){.gifting .btns{grid-template-columns:1fr 1fr}}
 
 /* Bottom cart bar */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--maroon);color:var(--peach);box-shadow:0 -6px 20px rgba(43,26,23,.25)}
@@ -202,7 +207,7 @@ section.gifting{background:var(--maroon);color:var(--peach);padding-block:32px}
   .sheet:not([hidden]){animation:up .22s ease-out}
   @keyframes up{from{transform:translateY(30px)}to{transform:none}}
 }
-@media (min-width:600px){.gifting .btns{grid-template-columns:repeat(2,max-content)}}
+
 @media (max-width:420px){
   .grid{grid-template-columns:1fr}
 }
@@ -241,9 +246,13 @@ section.gifting{background:var(--maroon);color:var(--peach);padding-block:32px}
   </section>
   <section class="gifting" id="gifting">
     <div class="wrap">
-      <h2>Bulk orders &amp; gifting</h2>
-      <p>For bulk orders, corporate gifting and festive gifting, contact Chandrika directly on <span class="nobr">+91 70663 27312</span>.</p>
-      <div class="btns"><a class="wa" href="https://wa.me/917066327312?text=Hi%20Chandrika%2C%20I%27d%20like%20to%20ask%20about%20a%20bulk%20or%20gifting%20order." target="_blank" rel="noopener">WhatsApp Chandrika</a><a class="tel" href="tel:+917066327312">Call +91 70663 27312</a></div>
+      <p class="kicker">Bulk orders &amp; gifting</p>
+      <h2>Gifting for teams, festivals and big occasions.</h2>
+      <p>For bulk orders, corporate gifting and festive gifting, contact Chandrika on <span class="nobr">+91 70663 27312</span>.</p>
+      <div class="btns">
+        <a class="primary" href="https://wa.me/917066327312?text=Hi%20Chandrika%2C%20I%27d%20like%20to%20ask%20about%20a%20bulk%20or%20gifting%20order." target="_blank" rel="noopener">WhatsApp Chandrika</a>
+        <a href="tel:+917066327312">Call Chandrika</a>
+      </div>
     </div>
   </section>
 </main>
@@ -454,7 +463,7 @@ document.addEventListener("click", e => {
 /* While the sheet is open the page behind it is pinned in place, then restored to the same spot */
 let lockY = 0;
 function lockPage(){ lockY = scrollY; Object.assign(document.body.style, {position:"fixed", top:-lockY+"px", left:"0", right:"0", width:"100%"}); }
-function unlockPage(){ if (document.body.style.position !== "fixed") return; Object.assign(document.body.style, {position:"", top:"", left:"", right:"", width:""}); scrollTo(0, lockY); }
+function unlockPage(){ if (document.body.style.position !== "fixed") return; Object.assign(document.body.style, {position:"", top:"", left:"", right:"", width:""}); scrollTo({top: lockY, behavior: "instant"}); }
 function openSheet(){ showStep(0); lockPage(); document.getElementById("sheet").hidden=false; document.getElementById("scrim").hidden=false; document.getElementById("closeSheet").focus(); }
 function closeSheet(){ document.getElementById("sheet").hidden=true; document.getElementById("scrim").hidden=true; unlockPage(); }
 document.getElementById("openCart").onclick = openSheet;
