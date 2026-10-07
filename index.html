@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="description" content="Homemade ragi and millet snacks from Chandrika's kitchen in Pune. Pan-India shipping. Order on WhatsApp.">
 <meta property="og:title" content="Ragi & Moon">
 <meta property="og:description" content="Homemade savoury snacks and sugarless sweets. Order on WhatsApp.">
@@ -32,6 +32,8 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
+/* Page stays at its natural size: no pinch or double-tap zoom */
+html{touch-action:pan-x pan-y;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{overflow-x:clip;max-width:100%}
 /* inputs stay at 16px so iPhones don't zoom in on tap, which is what lets the page slide sideways */
 .ext{display:inline-block;vertical-align:-.05em;margin-left:2px}
@@ -587,5 +589,6 @@ renderGrid(); renderCtls(); renderCart();
   addEventListener("scroll", update, {passive: true}); update();
 })();
 </script>
+<script>["gesturestart","gesturechange","gestureend"].forEach(t=>document.addEventListener(t,e=>e.preventDefault(),{passive:false}));</script>
 </body>
 </html>
