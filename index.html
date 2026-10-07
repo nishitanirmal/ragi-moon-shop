@@ -32,6 +32,8 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
+.sheet{overscroll-behavior:contain}
+.scrim{touch-action:none}
 /* Page stays at its natural size: no pinch or double-tap zoom */
 html{touch-action:pan-x pan-y;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{overflow-x:clip;max-width:100%}
@@ -449,8 +451,12 @@ document.addEventListener("click", e => {
   else if (t.dataset.dec) change(t.dataset.dec, -1);
   else if (t.dataset.flavour){ flavourPick[t.dataset.id]=t.dataset.flavour; renderCtls(); }
 });
-function openSheet(){ showStep(0); document.getElementById("sheet").hidden=false; document.getElementById("scrim").hidden=false; document.getElementById("closeSheet").focus(); }
-function closeSheet(){ document.getElementById("sheet").hidden=true; document.getElementById("scrim").hidden=true; }
+/* While the sheet is open the page behind it is pinned in place, then restored to the same spot */
+let lockY = 0;
+function lockPage(){ lockY = scrollY; Object.assign(document.body.style, {position:"fixed", top:-lockY+"px", left:"0", right:"0", width:"100%"}); }
+function unlockPage(){ if (document.body.style.position !== "fixed") return; Object.assign(document.body.style, {position:"", top:"", left:"", right:"", width:""}); scrollTo(0, lockY); }
+function openSheet(){ showStep(0); lockPage(); document.getElementById("sheet").hidden=false; document.getElementById("scrim").hidden=false; document.getElementById("closeSheet").focus(); }
+function closeSheet(){ document.getElementById("sheet").hidden=true; document.getElementById("scrim").hidden=true; unlockPage(); }
 document.getElementById("openCart").onclick = openSheet;
 document.getElementById("barOpen").onclick = openSheet;
 document.getElementById("closeSheet").onclick = closeSheet;
@@ -575,6 +581,7 @@ renderGrid(); renderCtls(); renderCart();
   const secs = chips.map(a => document.querySelector(a.getAttribute("href")));
   let current = null;
   const update = () => {
+    if (document.body.style.position === "fixed") return; // order sheet open, page pinned
     const stuck = bar.getBoundingClientRect().top <= head.getBoundingClientRect().bottom - 24;
     bar.classList.toggle("stuck", stuck); head.classList.toggle("joined", stuck);
     const y = (stuck ? bar.getBoundingClientRect().bottom : head.getBoundingClientRect().bottom) + 8;
