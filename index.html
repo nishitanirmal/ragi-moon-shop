@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Homemade ragi and millet snacks from Chandrika's kitchen. Order on WhatsApp.">
+<meta name="description" content="Homemade ragi and millet snacks from Chandrika's kitchen in Pune. Pan-India shipping. Order on WhatsApp.">
 <meta property="og:title" content="Ragi & Moon">
 <meta property="og:description" content="Homemade savoury snacks and sugarless sweets. Order on WhatsApp.">
 <meta property="og:image" content="images/thattai.jpg">
@@ -94,7 +94,19 @@ section.band.sweet{background:var(--blush);color:var(--ink)}
 .stepper output{min-width:24px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
 
 footer{background:var(--terracotta);border-top:1px solid rgba(253,220,192,.35);color:var(--peach);padding-block:28px 120px;font-size:13px}
-footer .wrap{display:grid;gap:6px}
+footer .wrap{display:grid;gap:8px}
+footer a{color:var(--peach)}
+.foot-links{display:flex;flex-wrap:wrap;gap:6px 16px}
+nav.sections a.ig,nav.sections a.about{border-style:dashed}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.facts li{font-size:13px;font-weight:500;color:var(--maroon);background:var(--peach);border-radius:999px;padding:4px 12px}
+section.gifting{background:var(--maroon);color:var(--peach);padding-block:32px}
+.gifting h2{font-family:var(--display);font-weight:600;font-size:clamp(22px,4.5vw,30px);margin:0 0 6px}
+.gifting p{margin:0 0 14px;color:var(--muted-on-terra);max-width:56ch}
+.gifting .btns{display:flex;flex-wrap:wrap;gap:10px}
+.gifting .btns a{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:10px 18px;font-weight:600;font-size:14px;text-decoration:none}
+.gifting .btns a.wa{background:var(--wa);color:#fff}
+.gifting .btns a.tel{background:var(--peach);color:var(--maroon)}
 
 /* Bottom cart bar */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--maroon);color:var(--peach);box-shadow:0 -6px 20px rgba(43,26,23,.25)}
@@ -150,13 +162,14 @@ footer .wrap{display:grid;gap:6px}
     <a class="logo" href="#top"><img id="logoImg" alt="Ragi &amp; Moon"></a>
     <button class="cart-btn" id="openCart" type="button" aria-label="Open your order">Your order <span class="count" id="count">0</span></button>
   </div>
-  <div class="wrap"><nav class="sections" aria-label="Sections"><a href="#savoury">Savoury Snacks</a><a href="#sweets">Sugarless Sweets</a></nav></div>
+  <div class="wrap"><nav class="sections" aria-label="Sections"><a href="#savoury">Savoury Snacks</a><a href="#sweets">Sugarless Sweets</a><a href="#gifting">Bulk &amp; gifting</a><a class="about" href="about.html">About us</a><a class="ig" href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">Instagram</a></nav></div>
 </header>
 
 <main id="top">
   <div class="wrap intro">
     <h1>Homemade snacks from Chandrika’s kitchen</h1>
     <p>Every snack is made with love, using date sweeteners and real, unprocessed ingredients. These are recipes developed while trying to get the kids to eat healthier.</p>
+    <ul class="facts"><li>Based in Pune</li><li>Pan-India shipping</li></ul>
     <p class="how">To order, add what you like, open your order, then copy the message and send it to us on WhatsApp.</p>
   </div>
   <section class="band" id="savoury">
@@ -171,8 +184,15 @@ footer .wrap{display:grid;gap:6px}
       <div class="grid" id="grid-sweet"></div>
     </div>
   </section>
+  <section class="gifting" id="gifting">
+    <div class="wrap">
+      <h2>Bulk orders &amp; gifting</h2>
+      <p>For bulk orders, corporate gifting and festive gifting, contact Chandrika directly on __CHANDRIKA_SHOWN__.</p>
+      <div class="btns"><a class="wa" href="https://wa.me/__CHANDRIKA__?text=Hi%20Chandrika%2C%20I%27d%20like%20to%20ask%20about%20a%20bulk%20or%20gifting%20order." target="_blank" rel="noopener">WhatsApp Chandrika</a><a class="tel" href="tel:+__CHANDRIKA__">Call __CHANDRIKA_SHOWN__</a></div>
+    </div>
+  </section>
 </main>
-<footer><div class="wrap"><img class="foot-logo" id="footLogo" alt="Ragi &amp; Moon"><span>Homemade by Chandrika (moon). Prices in ₹, per pack.</span></div></footer>
+<footer><div class="wrap"><img class="foot-logo" id="footLogo" alt="Ragi &amp; Moon"><span>Homemade by Chandrika (moon) in Pune. We ship across India. Prices in ₹, per pack.</span><span>Bulk, corporate and festive gifting: Chandrika, <a href="tel:+__CHANDRIKA__">__CHANDRIKA_SHOWN__</a></span><div class="foot-links"><a href="about.html">About us</a><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">Instagram @ragiandmoon</a></div></div></footer>
 
 <div class="bar" id="bar" hidden>
   <div class="inner">
