@@ -45,7 +45,7 @@ html{touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adjust:10
 html,body{overflow-x:clip;max-width:100%}
 /* inputs stay at 16px so iPhones don't zoom in on tap, which is what lets the page slide sideways */
 .ext{display:inline-block;vertical-align:-.05em;margin-left:2px}
-body{background:var(--terracotta);color:var(--peach);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{background:var(--terracotta);color:var(--peach);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
 button{font:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--peach);outline-offset:2px}
 /* on light surfaces the focus ring switches to maroon so it stays visible */
@@ -61,25 +61,32 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;g
 .logo img{height:30px;width:auto;display:block}
 .foot-logo{height:26px;width:auto;display:block;margin-left:-9px}
 .band-head h2 img{height:clamp(70px,16vw,104px);width:auto;display:block;max-width:100%}
-.cart-btn{display:flex;align-items:center;gap:8px;background:var(--peach);color:var(--maroon);border:0;border-radius:999px;padding:8px 14px;font-weight:600;font-size:15px}
-.cart-btn .count{background:var(--maroon);color:var(--peach);border-radius:999px;min-width:22px;height:22px;display:inline-grid;place-items:center;font-size:13px;padding-inline:6px;font-variant-numeric:tabular-nums}
+.cart-btn{display:flex;align-items:center;gap:8px;background:var(--peach);color:var(--maroon);border:0;border-radius:999px;padding:8px 14px;font-weight:600;font-size:14px}
+.cart-btn .count{background:var(--maroon);color:var(--peach);border-radius:999px;min-width:22px;height:22px;display:inline-grid;place-items:center;font-size:12px;padding-inline:6px;font-variant-numeric:tabular-nums}
 /* Header rows: logo + order, page links, menu. One left edge, equal gaps. */
-header.top{display:grid;row-gap:16px;padding-block:12px 16px}
+header.top{display:grid;row-gap:22px;padding-block:12px 18px}
 header.top .wrap{padding-block:0;width:100%}
 .logo img{margin-left:-10.5px} /* the logo file has 49px of ground before the R; this lines the R up with the text below */
 nav.pages{display:flex;flex-wrap:wrap;gap:8px clamp(14px,5vw,20px);margin-top:-1px;font-family:var(--display);font-style:italic;font-size:17px;line-height:1}
-nav.pages a{color:var(--peach);text-decoration:none;white-space:nowrap}
+nav.pages a{color:var(--peach);text-decoration:none;white-space:nowrap;padding-block:8px;margin-block:-8px}
 nav.pages a:hover,nav.pages a[aria-current="true"]{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
 /* Menu filters: one segmented control */
 nav.sections{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;margin:0;border-radius:999px;background:rgba(74,26,30,.28);border:1px solid rgba(253,220,192,.28)}
-nav.sections a{color:var(--peach);text-decoration:none;font-size:15px;font-weight:500;text-align:center;border-radius:999px;padding:7px 10px;white-space:nowrap;transition:background .2s,color .2s}
+nav.sections a{color:var(--peach);text-decoration:none;font-size:14px;font-weight:500;text-align:center;border-radius:999px;padding:7px 10px;white-space:nowrap;transition:background .2s,color .2s}
 
 /* Intro */
-.intro{padding-block:36px 8px;display:grid;gap:14px;max-width:62ch}
-.intro h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,6vw,42px);line-height:1.1;margin:0;text-wrap:balance}
-.intro p{margin:0;color:var(--muted-on-terra)}
-.intro .sig{font-style:italic}
-.intro p.how{font-size:15px;color:var(--peach);font-weight:500}
+/* Intro: editorial hierarchy, after the About page */
+.intro{padding-block:36px 4px;display:grid;max-width:600px}
+.intro .kicker{font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(253,220,192,.75);margin:0 0 14px}
+.intro h1{font-family:var(--display);font-weight:400;font-size:34px;line-height:1.15;margin:0 0 16px;text-wrap:balance}
+.intro .stand{font-family:var(--display);font-style:italic;font-size:21px;line-height:1.4;margin:0 0 12px;text-wrap:pretty}
+.intro .lede{font-size:16px;line-height:1.7;margin:0;color:var(--peach)}
+.intro dl.facts{margin:28px 0 0}
+.intro dl.facts div{display:flex;justify-content:space-between;gap:16px;padding-block:13px;border-top:1px solid rgba(253,220,192,.32);font-size:16px}
+.intro dl.facts div:last-child{border-bottom:1px solid rgba(253,220,192,.32)}
+.intro dl.facts dt{color:rgba(253,220,192,.75)}
+.intro dl.facts dd{margin:0;text-align:right}
+.intro dl.facts a{color:var(--peach);text-underline-offset:3px}
 
 /* Sections */
 section.band{padding-block:40px 56px}
@@ -87,7 +94,7 @@ section.band.sweet{background:var(--blush);color:var(--ink)}
 .band-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:22px}
 .band-head h2{font-family:var(--display);font-weight:400;font-style:italic;font-size:clamp(26px,5vw,36px);margin:0;letter-spacing:.02em}
 .sweet .band-head h2{color:var(--terracotta)}
-.band-head p{margin:0;font-size:15px;opacity:.85}
+.band-head p{margin:0;font-size:13px;opacity:.85}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
 
 .card{display:flex;flex-direction:column;background:var(--terracotta-deep);border-radius:14px;overflow:hidden;min-width:0}
@@ -98,47 +105,43 @@ section.band.sweet{background:var(--blush);color:var(--ink)}
 .card .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
 .card h3{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.2;margin:0;color:var(--peach)}
 .sweet .card h3{color:var(--maroon);font-size:19px}
-.alt{font-family:var(--indic);font-size:14px;color:var(--muted-on-terra);display:flex;flex-wrap:wrap;gap:2px 10px}
+.alt{font-family:var(--indic);font-size:13px;color:var(--muted-on-terra);display:flex;flex-wrap:wrap;gap:2px 10px}
 .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
-.tags span{font-size:13px;font-weight:600;letter-spacing:.02em;border:1px solid rgba(253,220,192,.45);border-radius:999px;padding:1px 8px}
+.tags span{font-size:11.5px;font-weight:600;letter-spacing:.02em;border:1px solid rgba(253,220,192,.45);border-radius:999px;padding:1px 8px}
 .sweet .tags span{border-color:#e9b6ad;color:var(--terracotta)}
-.desc{font-size:15px;color:var(--muted-on-terra);margin:2px 0 0}
+.desc{font-size:13.5px;color:var(--muted-on-terra);margin:2px 0 0}
 .sweet .desc{color:var(--muted-on-blush)}
 .buy{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .price{font-variant-numeric:tabular-nums;font-weight:600;font-size:16px}
-.price small{font-weight:400;opacity:.8;font-size:14px;margin-left:4px}
+.price small{font-weight:400;opacity:.8;font-size:13px;margin-left:4px}
 .flavours{display:flex;gap:6px;width:100%}
-.flavours button{flex:1;border:1px solid #e9b6ad;background:transparent;color:var(--terracotta);border-radius:8px;padding:5px 8px;font-size:14px}
+.flavours button{flex:1;border:1px solid #e9b6ad;background:transparent;color:var(--terracotta);border-radius:8px;padding:5px 8px;font-size:13px}
 .flavours button[aria-pressed="true"]{background:var(--terracotta);color:var(--blush);border-color:var(--terracotta)}
 
-.add{border:0;border-radius:999px;background:var(--peach);color:var(--maroon);font-weight:600;padding:9px 18px;font-size:15px}
+.add{border:0;border-radius:999px;background:var(--peach);color:var(--maroon);font-weight:600;padding:9px 18px;font-size:14px}
 .sweet .add{background:var(--terracotta);color:#fff}
 .stepper{display:inline-flex;align-items:center;border-radius:999px;background:var(--peach);color:var(--maroon);overflow:hidden}
 .sweet .stepper{background:var(--terracotta);color:#fff}
 .stepper button{border:0;background:transparent;color:inherit;width:36px;height:36px;font-size:18px;font-weight:600}
 .stepper output{min-width:24px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
 
-footer{background:var(--terracotta);border-top:1px solid rgba(253,220,192,.35);color:var(--peach);padding-block:28px 120px;font-size:15px}
+footer{background:var(--terracotta);border-top:1px solid rgba(253,220,192,.35);color:var(--peach);padding-block:28px 120px;font-size:13px}
 footer .wrap{display:grid;gap:8px}
 footer a{color:var(--peach)}
 footer nav.pages{margin:10px 0 0}
 footer nav.pages a{text-decoration:none}
-footer .credit{margin:14px 0 0;padding-top:14px;border-top:1px solid rgba(253,220,192,.25);font-size:13px;color:var(--muted-on-terra)}
+footer .credit{margin:14px 0 0;padding-top:14px;border-top:1px solid rgba(253,220,192,.25);font-size:12px;color:var(--muted-on-terra)}
 nav.sections a[aria-current="true"]{background:var(--peach);color:var(--maroon)}
 section.band,section.gifting{scroll-margin-top:calc(var(--head-h,110px) + var(--bar-h,62px))}
 /* Menu toggle: sits under the intro, then sticks under the header and reads as part of it */
-.menu-bar{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--head-h,110px) - 25px);z-index:19;background:var(--terracotta);padding-block:24px 16px;border-bottom:1px solid transparent;transition:border-color .2s}
+.menu-bar{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--head-h,110px) - 25px);z-index:19;background:var(--terracotta);padding-block:24px 18px;border-bottom:1px solid transparent;transition:border-color .2s}
 .menu-bar.stuck{border-bottom-color:rgba(253,220,192,.35)}
 header.top.joined{border-bottom-color:transparent}
-.intro p.facts{font-family:var(--display);font-style:italic;font-size:19px;color:var(--peach);margin:4px 0 0}
-.intro p.facts span{font-style:normal;font-size:12px;margin-inline:6px;vertical-align:2px;opacity:.8}
-.intro p.ig-line{font-size:15px}
-.intro p.ig-line a{color:var(--peach);font-weight:600}
 .nobr{white-space:nowrap}
 /* Bulk & gifting: same treatment as the About page */
 section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48px 56px}
 .gifting .wrap{max-width:600px}
-.gifting .kicker{font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(253,220,192,.75);margin:0 0 16px}
+.gifting .kicker{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(253,220,192,.75);margin:0 0 16px}
 .gifting h2{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.2;margin:0 0 12px}
 .gifting p{margin:0;font-size:16px;line-height:1.7}
 .gifting p a{color:var(--peach);text-underline-offset:3px}
@@ -150,24 +153,24 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 /* Bottom cart bar */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--maroon);color:var(--peach);box-shadow:0 -6px 20px rgba(43,26,23,.25)}
 .bar .inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.bar .sum{font-variant-numeric:tabular-nums;font-size:15px}
+.bar .sum{font-variant-numeric:tabular-nums;font-size:14px}
 .bar .sum strong{font-size:17px;display:block}
 .bar button{border:0;border-radius:999px;background:var(--peach);color:var(--maroon);font-weight:600;padding:11px 20px}
 
 /* Order sheet: a 4-step checkout (review, your details, address, send) */
-.step-count{margin:0;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-on-blush)}
+.step-count{margin:0;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-on-blush)}
 .progress{height:3px;background:#f1cfd2;border-radius:3px;margin:4px 0 16px;overflow:hidden}
 .progress span{display:block;height:100%;background:var(--terracotta);width:25%;transition:width .2s}
-.fields label.check{display:flex;align-items:center;gap:10px;font-weight:500;font-size:15px;padding:4px 0}
+.fields label.check{display:flex;align-items:center;gap:10px;font-weight:500;font-size:14px;padding:4px 0}
 .fields label.check input{width:20px;height:20px;accent-color:var(--terracotta);margin:0}
 .other{display:grid;gap:10px;padding:12px;border-radius:12px;background:#fff6f6;border:1px solid #f1cfd2}
-.other .sub{margin:0;font-size:14px;color:var(--muted-on-blush)}
+.other .sub{margin:0;font-size:13px;color:var(--muted-on-blush)}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .opt{font-weight:400;color:var(--muted-on-blush)}
-.pin-status{margin:-4px 0 0;font-size:14px;color:var(--muted-on-blush);min-height:0}
+.pin-status{margin:-4px 0 0;font-size:13px;color:var(--muted-on-blush);min-height:0}
 .pin-status:empty{display:none}
-.how-send{margin:0 0 14px;padding-left:20px;font-size:15px;color:var(--maroon);display:grid;gap:2px}
-.msg-label{display:block;font-size:14px;font-weight:600;color:var(--maroon);margin:0 0 6px}
+.how-send{margin:0 0 14px;padding-left:20px;font-size:14px;color:var(--maroon);display:grid;gap:2px}
+.msg-label{display:block;font-size:13px;font-weight:600;color:var(--maroon);margin:0 0 6px}
 .nav-btns{display:grid;grid-template-columns:1fr 2fr;gap:10px;margin-top:18px}
 .nav-btns button{border-radius:12px;min-height:50px;font-weight:600;font-size:15px;border:1px solid var(--maroon)}
 .nav-btns .back{background:transparent;color:var(--maroon)}
@@ -188,19 +191,19 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 .lines li{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #f1cfd2}
 .lines .nm{min-width:0}
 .lines .nm b{display:block;font-family:var(--display);font-weight:600;color:var(--maroon)}
-.lines .nm span{font-size:14px;color:var(--muted-on-blush)}
+.lines .nm span{font-size:12.5px;color:var(--muted-on-blush)}
 .lines .amt{font-variant-numeric:tabular-nums;font-weight:600;min-width:56px;text-align:right}
 .lines .stepper{background:var(--terracotta);color:#fff}
 .lines .stepper button{width:32px;height:32px}
 .total{display:flex;justify-content:space-between;padding:12px 0 4px;font-weight:600;font-size:17px;font-variant-numeric:tabular-nums;color:var(--maroon)}
 .fields{display:grid;gap:10px;margin:14px 0}
-.fields label{display:grid;gap:4px;font-size:15px;font-weight:500;color:var(--maroon)}
+.fields label{display:grid;gap:4px;font-size:13px;font-weight:500;color:var(--maroon)}
 .fields input,.fields textarea{font:inherit;font-size:16px;border:1px solid #e9b6ad;border-radius:10px;padding:9px 11px;background:#fff;color:var(--ink);width:100%}
 .fields textarea{resize:vertical;min-height:60px}
 .req{font-weight:400;color:var(--muted-on-blush)}
 .fields .bad{border-color:#c0392b;box-shadow:0 0 0 2px rgba(192,57,43,.18)}
-.field-err{margin:0;color:#b02a1c;font-size:14px;font-weight:500}
-.steps{margin:18px 0 8px;font-size:15px;color:var(--maroon)}
+.field-err{margin:0;color:#b02a1c;font-size:13px;font-weight:500}
+.steps{margin:18px 0 8px;font-size:13.5px;color:var(--maroon)}
 .steps ol{margin:6px 0 0;padding-left:20px;display:grid;gap:2px}
 .msg{width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:16px;line-height:1.45;background:#fff;border:1px dashed var(--terracotta);border-radius:10px;padding:10px 12px;color:var(--ink);min-height:180px;resize:vertical}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
@@ -208,10 +211,10 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 .actions .copy{background:var(--maroon);color:var(--peach)}
 .actions .copy.done{background:var(--terracotta);color:#fff}
 .actions .wa{background:var(--wa);color:#fff}
-.wa-num{font-size:14px;color:var(--muted-on-blush);margin-top:8px;text-align:center}
+.wa-num{font-size:12.5px;color:var(--muted-on-blush);margin-top:8px;text-align:center}
 .wa-num span{user-select:all;font-variant-numeric:tabular-nums}
 .empty{padding:20px 0;color:var(--muted-on-blush)}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--maroon);color:var(--peach);padding:8px 16px;border-radius:999px;font-size:15px;z-index:60;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--maroon);color:var(--peach);padding:8px 16px;border-radius:999px;font-size:13.5px;z-index:60;box-shadow:0 6px 18px rgba(0,0,0,.2)}
 @media (prefers-reduced-motion:no-preference){
   .sheet:not([hidden]){animation:up .22s ease-out}
   @keyframes up{from{transform:translateY(30px)}to{transform:none}}
@@ -234,11 +237,15 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 
 <main id="top">
   <div class="wrap intro">
+    <p class="kicker">Homemade in Pune</p>
     <h1>Homemade snacks from Chandrika’s kitchen</h1>
-    <p>Every snack is made with love, using date sweeteners and real, unprocessed ingredients. These are recipes developed while trying to get the kids to eat healthier.</p>
-    <p class="facts">Based in Pune <span aria-hidden="true">✦</span> Pan-India shipping</p>
-    <p class="ig-line">Follow us on Instagram <a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">@ragiandmoon</a></p>
-    <p class="how">To order, add what you like, open your order, then copy the message and send it to us on WhatsApp.</p>
+    <p class="stand">Made with love, using date sweeteners and real, unprocessed ingredients.</p>
+    <p class="lede">These are recipes developed while trying to get the kids to eat healthier.</p>
+    <dl class="facts">
+      <div><dt>Based in</dt><dd>Pune</dd></div>
+      <div><dt>Shipping</dt><dd>Across India</dd></div>
+      <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">@ragiandmoon</a></dd></div>
+    </dl>
   </div>
   <div class="menu-bar" id="menuBar"><div class="wrap"><nav class="sections" aria-label="Menu"><a href="#savoury">Savoury Snacks</a><a href="#sweets">Sugarless Sweets</a></nav></div></div>
   <section class="band" id="savoury">
