@@ -37,15 +37,16 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;g
 .story h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,6vw,40px);line-height:1.1;margin:0 0 18px;color:var(--terracotta)}
 .story p{margin:0 0 14px;max-width:60ch}
 .story .sig{font-family:var(--display);font-style:italic;color:var(--terracotta);font-size:17px}
-.story img.plant{display:block;width:100%;max-width:420px;height:auto;margin:18px auto 0}
-.facts{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none}
-.facts li{font-size:13px;font-weight:500;color:var(--blush);background:var(--terracotta);border-radius:999px;padding:4px 12px}
+.story img.plant{display:block;width:160px;max-width:45%;height:auto;margin:8px 0 0 auto}
 section.gifting{background:var(--maroon);color:var(--peach);padding-block:32px}
 .gifting h2{font-family:var(--display);font-weight:600;font-size:clamp(22px,4.5vw,30px);margin:0 0 6px}
 .gifting p{margin:0 0 14px;color:var(--muted-on-terra)}
+.story p.facts{font-family:var(--display);font-style:italic;font-size:19px;color:var(--terracotta);margin:18px 0 4px}
+.story p.facts span{font-style:normal;font-size:12px;margin-inline:6px;vertical-align:2px}
+.story p.ig-line{font-size:14px;color:var(--muted-on-blush)}
+.story p.ig-line a{color:var(--terracotta);font-weight:600}
 .btns{display:grid;gap:10px}
 @media (min-width:600px){.btns{grid-template-columns:repeat(2,max-content)}}
-.facts a{color:inherit;text-decoration:none}
 .btns a{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;padding:10px 18px;font-weight:600;font-size:14px;text-decoration:none}
 .btns a.wa{background:var(--wa);color:#fff}
 .btns a.tel{background:var(--peach);color:var(--maroon)}
@@ -67,11 +68,12 @@ footer a{color:var(--peach)}
 <main>
   <section class="story">
     <div class="wrap">
-      <h1>About Ragi &amp; Moon</h1>
+      <h1>Our story</h1>
       <p>Ragi &amp; Moon started in my kitchen, at home, as I explored my favorite ingredient, you guessed it - ragi. My husband and Ragi &amp; Moon’s resident advisor, Nirmal, helped me put my food out there.</p>
       <p>Every snack at Ragi &amp; Moon is homemade with love, using date-sweeteners and real, unprocessed ingredients. These are recipes that I developed while trying to get my children to eat healthier. I hope you enjoy these dishes as much as I enjoyed creating them.</p>
       <p class="sig">- Chandrika (moon)</p>
-      <ul class="facts"><li>Based in Pune</li><li>Pan-India shipping</li><li><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">Instagram @ragiandmoon</a></li></ul>
+      <p class="facts">Based in Pune <span aria-hidden="true">✦</span> Pan-India shipping</p>
+    <p class="ig-line">Follow us on Instagram <a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">@ragiandmoon</a></p>
       <img class="plant" src="images/ragi-plant.png" alt="Illustration of ragi (finger millet) plants">
     </div>
   </section>
