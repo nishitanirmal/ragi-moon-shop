@@ -104,7 +104,8 @@ section.band.sweet{background:var(--blush);color:var(--ink)}
 footer{background:var(--terracotta);border-top:1px solid rgba(253,220,192,.35);color:var(--peach);padding-block:28px 120px;font-size:13px}
 footer .wrap{display:grid;gap:8px}
 footer a{color:var(--peach)}
-.foot-links{display:flex;flex-wrap:wrap;gap:6px 16px}
+footer nav.pages{margin:10px 0 0}
+footer nav.pages a{text-decoration:none}
 footer .credit{margin:14px 0 0;padding-top:14px;border-top:1px solid rgba(253,220,192,.25);font-size:12px;color:var(--muted-on-terra)}
 nav.sections a[aria-current="true"]{background:var(--peach);color:var(--maroon)}
 section.band,section.gifting{scroll-margin-top:calc(var(--head-h,110px) + var(--bar-h,62px))}
@@ -239,7 +240,7 @@ section.gifting{background:var(--maroon);color:var(--peach);padding-block:32px}
     </div>
   </section>
 </main>
-<footer><div class="wrap"><img class="foot-logo" id="footLogo" alt="Ragi &amp; Moon"><span>Homemade by Chandrika (moon) in Pune. We ship across India. Prices in ₹, per pack.</span><span>Bulk, corporate and festive gifting: Chandrika, <a class="nobr" href="tel:+917066327312">+91 70663 27312</a></span><div class="foot-links"><a href="about.html">About us</a><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">Instagram @ragiandmoon</a></div><p class="credit">© 2026 Ragi &amp; Moon <span aria-hidden="true">·</span> Designed by <a class="nobr" id="designerLink" href="#" target="_blank" rel="noopener">Nishita Nirmal</a></p></div></footer>
+<footer><div class="wrap"><img class="foot-logo" id="footLogo" alt="Ragi &amp; Moon"><span>Homemade by Chandrika (moon) in Pune. We ship across India. Prices in ₹, per pack.</span><span>Bulk, corporate and festive gifting: Chandrika, <a class="nobr" href="tel:+917066327312">+91 70663 27312</a></span><nav class="pages foot-pages" aria-label="Pages"><a href="about.html">About us</a><a href="#gifting">Bulk &amp; gifting</a><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a></nav><p class="credit">© 2026 Ragi &amp; Moon <span aria-hidden="true">·</span> Designed by <span class="nobr">Nishita Nirmal</span></p></div></footer>
 
 <div class="bar" id="bar" hidden>
   <div class="inner">
@@ -564,7 +565,7 @@ renderGrid(); renderCtls(); renderCart();
   const head = document.querySelector("header.top"), bar = document.getElementById("menuBar");
   const setH = () => { const st = document.documentElement.style; st.setProperty("--head-h", head.offsetHeight + "px"); st.setProperty("--bar-h", (bar.offsetHeight - 24) + "px"); };
   setH(); addEventListener("resize", setH);
-  const chips = [...document.querySelectorAll('nav.pages a[href^="#"], nav.sections a')]
+  const chips = [...document.querySelectorAll('header nav.pages a[href^="#"], nav.sections a')]
     .sort((a, b) => document.querySelector(a.getAttribute("href")).offsetTop - document.querySelector(b.getAttribute("href")).offsetTop);
   const secs = chips.map(a => document.querySelector(a.getAttribute("href")));
   let current = null;
