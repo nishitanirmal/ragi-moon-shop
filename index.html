@@ -61,7 +61,7 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;g
 .logo img{height:30px;width:auto;display:block}
 .foot-logo{height:26px;width:auto;display:block;margin-left:-9px}
 .band-head h2 img{height:clamp(70px,16vw,104px);width:auto;display:block;max-width:100%}
-.cart-btn{display:flex;align-items:center;gap:8px;background:var(--peach);color:var(--maroon);border:0;border-radius:999px;padding:8px 14px;font-weight:600;font-size:14px}
+.cart-btn{display:flex;align-items:center;gap:8px;background:var(--peach);color:var(--maroon);border:0;border-radius:999px;padding:8px 14px;font-weight:500;font-size:14px}
 .cart-btn .count{background:var(--maroon);color:var(--peach);border-radius:999px;min-width:22px;height:22px;display:inline-grid;place-items:center;font-size:12px;padding-inline:6px;font-variant-numeric:tabular-nums}
 /* Header rows: logo + order, page links, menu. One left edge, equal gaps. */
 header.top{display:grid;row-gap:22px;padding-block:12px 18px}
@@ -76,17 +76,20 @@ nav.sections a{color:var(--peach);text-decoration:none;font-size:14px;font-weigh
 
 /* Intro */
 /* Intro: editorial hierarchy, after the About page */
-.intro{padding-block:36px 4px;display:grid;max-width:600px}
-.intro .kicker{font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(253,220,192,.75);margin:0 0 14px}
-.intro h1{font-family:var(--display);font-weight:400;font-size:34px;line-height:1.15;margin:0 0 16px;text-wrap:balance}
-.intro .stand{font-family:var(--display);font-style:italic;font-size:21px;line-height:1.4;margin:0 0 12px;text-wrap:pretty}
-.intro .lede{font-size:16px;line-height:1.7;margin:0;color:var(--peach)}
-.intro dl.facts{margin:28px 0 0}
-.intro dl.facts div{display:flex;justify-content:space-between;gap:16px;padding-block:13px;border-top:1px solid rgba(253,220,192,.32);font-size:16px}
-.intro dl.facts div:last-child{border-bottom:1px solid rgba(253,220,192,.32)}
-.intro dl.facts dt{color:rgba(253,220,192,.75)}
-.intro dl.facts dd{margin:0;text-align:right}
-.intro dl.facts a{color:var(--peach);text-underline-offset:3px}
+.intro{padding-block:28px 0;display:grid;max-width:600px}
+.intro .kicker{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(253,220,192,.75);margin:0 0 12px}
+.intro h1{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.2;margin:0 0 12px;text-wrap:balance}
+.intro .lede{font-size:16px;line-height:1.6;margin:0;color:var(--peach);text-wrap:pretty}
+/* Blue-grey ribbon under the header; it scrolls away before the menu joins the header */
+.ribbon{background:#cbcbd7;color:var(--maroon);display:flex;justify-content:center;align-items:center;gap:12px;padding:11px 16px;font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-align:center}
+.ribbon span[aria-hidden]{font-size:10px}
+/* Instagram card near the end of the page */
+.ig-card-wrap{padding-block:0 48px}
+.ig-card{max-width:600px;background:var(--peach);color:var(--maroon);border-radius:20px;padding:18px 20px;display:flex;align-items:center;gap:14px;text-decoration:none}
+.ig-card .t{display:flex;flex-direction:column;gap:4px;flex:1}
+.ig-card .k{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#8a3a2c}
+.ig-card .h{font-family:var(--display);font-style:italic;font-size:26px;line-height:1.2}
+.ig-card .go{width:44px;height:44px;border-radius:999px;background:var(--terracotta);display:grid;place-items:center;flex-shrink:0}
 
 /* Sections */
 section.band{padding-block:40px 56px}
@@ -157,7 +160,7 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 .bar .inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .bar .sum{font-variant-numeric:tabular-nums;font-size:14px}
 .bar .sum strong{font-size:17px;display:block}
-.bar button{border:0;border-radius:999px;background:var(--peach);color:var(--maroon);font-weight:600;padding:11px 20px}
+.bar button{border:0;border-radius:999px;background:var(--peach);color:var(--maroon);font-weight:500;padding:11px 20px}
 
 /* Order sheet: a 4-step checkout (review, your details, address, send) */
 .step-count{margin:0;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-on-blush)}
@@ -236,18 +239,13 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
   </div>
   <div class="wrap"><nav class="pages" aria-label="Pages"><a href="about.html">About us</a><a href="#gifting">Bulk &amp; gifting</a><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">Instagram <svg class="ext" viewBox="0 0 12 12" width="14" height="14" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div>
 </header>
+<div class="ribbon"><span>Based in Pune</span><span aria-hidden="true">✦</span><span>Pan-India shipping</span></div>
 
 <main id="top">
   <div class="wrap intro">
-    <p class="kicker">Homemade in Pune</p>
+    <p class="kicker">Snacks &amp; sweets</p>
     <h1>Homemade snacks from Chandrika’s kitchen</h1>
-    <p class="stand">Made with love, using date sweeteners and real, unprocessed ingredients.</p>
-    <p class="lede">These are recipes developed while trying to get the kids to eat healthier.</p>
-    <dl class="facts">
-      <div><dt>Based in</dt><dd>Pune</dd></div>
-      <div><dt>Shipping</dt><dd>Across India</dd></div>
-      <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">@ragiandmoon</a></dd></div>
-    </dl>
+    <p class="lede">Made with love, using date sweeteners and real, unprocessed ingredients. These are recipes developed while trying to get the kids to eat healthier.</p>
   </div>
   <div class="menu-bar" id="menuBar"><div class="wrap"><nav class="sections" aria-label="Menu"><a href="#savoury">Savoury Snacks</a><a href="#sweets">Sugarless Sweets</a></nav></div></div>
   <section class="band" id="savoury">
@@ -273,8 +271,9 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
       </div>
     </div>
   </section>
+  <div class="wrap ig-card-wrap"><a class="ig-card" href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener"><span class="t"><span class="k">Follow along on Instagram</span><span class="h">@ragiandmoon</span></span><span class="go" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 12 12" fill="none" stroke="#fddcc0" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 9 3M4 3h5v5"/></svg></span></a></div>
 </main>
-<footer><div class="wrap"><img class="foot-logo" id="footLogo" alt="Ragi &amp; Moon"><span>Homemade by Chandrika (moon) in Pune. We ship across India. Prices in ₹, per pack.</span><nav class="pages foot-pages" aria-label="Footer pages"><a href="about.html">About us</a><a href="#gifting">Bulk &amp; gifting</a><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">Instagram <svg class="ext" viewBox="0 0 12 12" width="14" height="14" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav><p class="credit">© 2026 Ragi &amp; Moon <span aria-hidden="true">·</span> Designed by <span class="nobr">Nishita Nirmal</span></p></div></footer>
+<footer><div class="wrap"><img class="foot-logo" id="footLogo" alt="Ragi &amp; Moon"><span>Homemade by Chandrika (moon) in Pune. We ship across India. Prices in ₹, per pack.</span><p class="credit">© 2026 Ragi &amp; Moon <span aria-hidden="true">·</span> Designed by <span class="nobr">Nishita Nirmal</span></p></div></footer>
 
 <div class="bar" id="bar" role="region" aria-label="Order summary" hidden>
   <div class="inner">
