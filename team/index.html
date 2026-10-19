@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#B35642">
+<title>Ragi &amp; Moon · Team tracker</title>
+<link rel="icon" href="../images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --terracotta:#B35642; --terracotta-deep:#9c4639; --blush:#FFEBEC; --peach:#fddcc0;
+  --maroon:#4a1a1e; --ink:#2b1a17; --muted:#7a5a54; --line:#efcfc9; --card:#fff8f6;
+  --ok:#2e7d4f; --ok-bg:#e6f3ea; --block:#a32020; --block-bg:#fde3e3;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --sat:env(safe-area-inset-top); --sab:env(safe-area-inset-bottom);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--blush);color:var(--ink);font:16px/1.5 var(--body);min-height:100dvh}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:var(--terracotta-deep)}
+.nobr{white-space:nowrap}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* header */
+header{position:sticky;top:0;z-index:5;background:var(--terracotta);color:var(--peach);padding:calc(10px + var(--sat)) 16px 0}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:720px;margin:0 auto}
+.brand{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:.01em;color:#fff}
+.brand small{display:block;font-family:var(--body);font-weight:500;font-size:12px;color:var(--peach);letter-spacing:.06em;text-transform:uppercase}
+.who{display:flex;align-items:center;gap:8px}
+.who button{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:8px 12px;min-height:40px;font-weight:500;font-size:14px}
+.tabs{display:flex;gap:2px;max-width:720px;margin:10px auto 0;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 1 0;background:none;border:0;border-bottom:3px solid transparent;color:var(--peach);padding:10px 4px 11px;font-weight:500;font-size:14px;white-space:nowrap;min-height:44px;display:flex;align-items:center;gap:6px;justify-content:center}
+.tab[aria-selected="true"]{color:#fff;border-bottom-color:#fff}
+.badge{background:#fff;color:var(--terracotta-deep);font-size:12px;font-weight:600;border-radius:999px;min-width:20px;height:20px;padding:0 6px;display:inline-flex;align-items:center;justify-content:center}
+.badge:empty{display:none}
+
+/* main */
+main{max-width:720px;margin:0 auto;padding:14px 16px calc(96px + var(--sab))}
+.note{background:var(--peach);color:var(--maroon);border-radius:10px;padding:10px 12px;font-size:14px;margin-bottom:12px}
+.note b{font-weight:600}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;min-height:36px;font-size:14px;color:var(--maroon)}
+.chip[aria-pressed="true"]{background:var(--maroon);border-color:var(--maroon);color:#fff}
+h2{font-family:var(--display);font-weight:600;font-size:22px;margin:4px 0 10px}
+.empty{color:var(--muted);text-align:center;padding:36px 12px;font-size:15px}
+.list{display:grid;gap:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.card.done{opacity:.72}
+.card.done .title{text-decoration:line-through}
+.card.blocked{border-color:#f0b4b4;background:#fff4f4}
+.top{display:flex;gap:10px;align-items:flex-start}
+.check{flex:0 0 auto;width:26px;height:26px;margin-top:2px;border-radius:8px;border:2px solid var(--terracotta);background:#fff;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
+.check[aria-checked="true"]{background:var(--ok);border-color:var(--ok)}
+.body{flex:1;min-width:0}
+.title{font-weight:600;font-size:16px;overflow-wrap:anywhere}
+.title a{color:var(--terracotta-deep)}
+.details{color:var(--maroon);font-size:14px;margin-top:3px;white-space:pre-wrap;overflow-wrap:anywhere}
+.meta{color:var(--muted);font-size:13px;margin-top:6px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{font-size:12px;font-weight:600;border-radius:6px;padding:3px 8px;background:var(--peach);color:var(--maroon)}
+.tag.me{background:var(--maroon);color:#fff}
+.tag.blk{background:var(--block-bg);color:var(--block)}
+.tag.ok{background:var(--ok-bg);color:var(--ok)}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{border:1px solid var(--terracotta);background:#fff;color:var(--terracotta-deep);border-radius:9px;padding:7px 12px;min-height:38px;font-size:14px;font-weight:500}
+.btn.primary{background:var(--terracotta);color:#fff}
+.btn.quiet{border-color:var(--line);color:var(--muted)}
+.btn:disabled{opacity:.5;cursor:default}
+.pw{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;background:#fff;border:1px dashed var(--line);border-radius:8px;padding:6px 8px;display:inline-flex;align-items:center;gap:8px;margin-top:6px;max-width:100%;overflow-wrap:anywhere}
+.fab{position:fixed;right:16px;bottom:calc(16px + var(--sab));z-index:4;background:var(--terracotta);color:#fff;border:0;border-radius:999px;height:56px;padding:0 20px 0 16px;font-weight:600;font-size:16px;box-shadow:0 6px 18px rgba(74,26,30,.28);display:flex;align-items:center;gap:8px}
+.fab span{font-size:24px;line-height:1}
+
+/* sheets */
+dialog{border:0;border-radius:18px 18px 0 0;padding:0;width:100%;max-width:720px;margin:auto auto 0;background:#fff;color:var(--ink);box-shadow:0 -10px 40px rgba(74,26,30,.25)}
+dialog::backdrop{background:rgba(43,26,23,.45)}
+@media (min-width:600px){dialog{border-radius:18px;margin:auto}.tab{font-size:15px;padding:10px 10px 11px}}
+@media (max-width:360px){.tab{font-size:13px}}
+.sheet{padding:18px 18px calc(18px + var(--sab));max-height:92dvh;overflow:auto}
+.sheet h3{font-family:var(--display);font-weight:600;font-size:22px;margin:0 0 6px}
+.sheet p{margin:0 0 12px;color:var(--muted);font-size:14px}
+label{display:block;font-weight:500;font-size:14px;margin:12px 0 4px}
+input[type=text],input[type=url],input[type=password],input[type=date],textarea,select{width:100%;border:1px solid #d9b8b1;border-radius:10px;padding:11px 12px;background:#fff;min-height:44px}
+textarea{min-height:80px;resize:vertical}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:3px solid #f0a07c;outline-offset:1px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;border:1px solid #d9b8b1;background:#fff;border-radius:10px;padding:10px;min-height:44px;font-size:15px}
+.seg button[aria-pressed="true"]{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.row{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.row .btn{min-height:44px;padding:9px 16px}
+.pick{display:grid;gap:10px;margin-top:14px}
+.pick button{border:2px solid var(--terracotta);background:#fff;border-radius:14px;padding:16px;font-size:18px;font-family:var(--display);font-weight:600;color:var(--maroon);min-height:60px}
+.pick button:hover{background:var(--blush)}
+.err{color:var(--block);font-size:14px;margin-top:8px}
+.status{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + var(--sab));background:var(--maroon);color:#fff;border-radius:999px;padding:8px 14px;font-size:14px;z-index:6;opacity:0;transition:opacity .2s;pointer-events:none}
+.status.on{opacity:1}
+.small{font-size:13px;color:var(--muted)}
+details.adv summary{cursor:pointer;color:var(--muted);font-size:14px;margin-top:12px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hrow">
+    <div class="brand">Ragi &amp; Moon<small>Nish &amp; Rajeev</small></div>
+    <div class="who">
+      <button id="whoBtn" type="button" title="Switch who you are">You: <strong id="whoName">…</strong></button>
+      <button id="syncBtn" type="button" title="Sync settings">⚙︎<span class="sr">Sync settings</span></button>
+    </div>
+  </div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+</header>
+
+<main>
+  <div id="modeNote" class="note" hidden></div>
+  <div id="toolbar" class="toolbar" hidden></div>
+  <div id="list" class="list" aria-live="polite"></div>
+</main>
+
+<button class="fab" id="addBtn" type="button"><span aria-hidden="true">+</span> Add</button>
+<div class="status" id="status" role="status"></div>
+
+<!-- who are you -->
+<dialog id="whoDlg" aria-labelledby="whoTitle">
+  <div class="sheet">
+    <h3 id="whoTitle">Who's this?</h3>
+    <p>Pick once on each device. You can switch from the top-right button later.</p>
+    <div class="pick">
+      <button type="button" data-role="nish">I'm Nish</button>
+      <button type="button" data-role="team">I'm Rajeev</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- add / edit -->
+<dialog id="addDlg" aria-labelledby="addTitle">
+  <form class="sheet" id="addForm" method="dialog">
+    <h3 id="addTitle">Add</h3>
+    <div id="fields"></div>
+    <div class="err" id="addErr"></div>
+    <div class="row">
+      <button type="button" class="btn quiet" id="addCancel">Cancel</button>
+      <button type="submit" class="btn primary">Add</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- blocked note -->
+<dialog id="blkDlg" aria-labelledby="blkTitle">
+  <form class="sheet" id="blkForm" method="dialog">
+    <h3 id="blkTitle">Mark as blocked</h3>
+    <label>Blocked on</label>
+    <div class="seg" id="blkOn">
+      <button type="button" data-v="nish" aria-pressed="false">Nish</button>
+      <button type="button" data-v="team" aria-pressed="false">Rajeev</button>
+    </div>
+    <label for="blkNote">What do you need from them?</label>
+    <textarea id="blkNote" placeholder="e.g. need the final photos before I can post"></textarea>
+    <div class="row">
+      <button type="button" class="btn quiet" id="blkCancel">Cancel</button>
+      <button type="submit" class="btn primary">Mark blocked</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- passphrase for logins -->
+<dialog id="keyDlg" aria-labelledby="keyTitle">
+  <form class="sheet" id="keyForm" method="dialog">
+    <h3 id="keyTitle">Logins passphrase</h3>
+    <p>Passwords are scrambled with a passphrase before they're saved, so the repo only ever holds the scrambled version. Nish and Rajeev share the same passphrase (send it on WhatsApp, not here).</p>
+    <label for="keyIn">Passphrase</label>
+    <input type="password" id="keyIn" autocomplete="off" required>
+    <div class="err" id="keyErr"></div>
+    <div class="row">
+      <button type="button" class="btn quiet" id="keyCancel">Not now</button>
+      <button type="submit" class="btn primary">Unlock</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- sync settings -->
+<dialog id="syncDlg" aria-labelledby="syncTitle">
+  <form class="sheet" id="syncForm" method="dialog">
+    <h3 id="syncTitle">Sync settings</h3>
+    <p>Everything is saved as one file in a private GitHub repo, so both of you see the same list. Paste a GitHub token that can read and write that repo. It stays on this device only.</p>
+    <label for="tokIn">GitHub token</label>
+    <input type="password" id="tokIn" autocomplete="off" placeholder="github_pat_…">
+    <details class="adv">
+      <summary>Repo details</summary>
+      <label for="repoIn">Repo (owner/name)</label>
+      <input type="text" id="repoIn">
+      <label for="pathIn">File path</label>
+      <input type="text" id="pathIn">
+    </details>
+    <div class="err" id="syncErr"></div>
+    <div class="row">
+      <button type="button" class="btn quiet" id="syncOff">Work offline</button>
+      <button type="submit" class="btn primary">Connect</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+/* ---------- constants ---------- */
+const ROLES = { nish: 'Nish', team: 'Rajeev' };
+const SHORT = { nish: 'Nish', team: 'Rajeev' };
+const DEFAULTS = { repo: 'nishitanirmal/ragi-moon-tracker', path: 'data/tracker.json' };
+const TABS = [
+  { id: 'todos', label: 'To-do', title: 'To-do list' },
+  { id: 'links', label: 'Links & docs', title: 'Links & documents' },
+  { id: 'refs',  label: 'References', title: 'References' },
+  { id: 'logins', label: 'Logins', title: 'Logins' },
+];
+const FIELDS = {
+  logins: [
+    { k: 'title', l: 'Account', t: 'text', req: true, ph: 'Instagram, Meta Business, Canva…' },
+    { k: 'user', l: 'Username or email', t: 'text', req: true },
+    { k: 'secret', l: 'Password', t: 'password', ph: 'Scrambled before saving' },
+    { k: 'note', l: 'Notes', t: 'textarea', ph: 'Who owns it, 2FA on whose phone…' },
+  ],
+  todos: [
+    { k: 'title', l: 'Task', t: 'text', req: true },
+    { k: 'note', l: 'Details', t: 'textarea' },
+    { k: 'for', l: 'For', t: 'who' },
+    { k: 'due', l: 'Due (optional)', t: 'date' },
+  ],
+  refs: [
+    { k: 'title', l: 'What is it', t: 'text', req: true, ph: 'e.g. Manam caption style' },
+    { k: 'url', l: 'Link (optional)', t: 'url' },
+    { k: 'note', l: 'Why it matters', t: 'textarea' },
+  ],
+  links: [
+    { k: 'title', l: 'Name', t: 'text', req: true, ph: 'e.g. Reel 1 raw footage' },
+    { k: 'url', l: 'Link', t: 'url', req: true },
+    { k: 'note', l: 'Notes', t: 'textarea' },
+  ],
+};
+
+/* ---------- state ---------- */
+const $ = (s, el = document) => el.querySelector(s);
+const LS = {
+  get: (k, d) => { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set: (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+  del: (k) => { try { localStorage.removeItem(k); } catch {} },
+};
+let role = LS.get('rm.role', null);
+let tab = LS.get('rm.tab', 'todos');
+let filter = 'open';
+let data = { items: [] };
+let cryptoKey = null;         // CryptoKey for logins, per session
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const fmt = (ts) => new Date(ts).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+
+/* ---------- storage: GitHub contents API, with local fallback ---------- */
+const store = {
+  cfg: LS.get('rm.sync', { token: '', ...DEFAULTS }),
+  sha: null, timer: null, busy: false,
+  get online() { return !!this.cfg.token; },
+  api(path, opt = {}) {
+    return fetch('https://api.github.com' + path, {
+      ...opt,
+      headers: { Authorization: 'Bearer ' + this.cfg.token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', ...(opt.headers || {}) },
+    });
+  },
+  url() { return `/repos/${this.cfg.repo}/contents/${this.cfg.path}`; },
+  async load() {
+    if (!this.online) { data = LS.get('rm.local', { items: [] }); return; }
+    const r = await this.api(this.url() + '?t=' + Date.now(), { cache: 'no-store' });
+    if (r.status === 404) { this.sha = null; data = { items: [] }; return; }
+    if (!r.ok) throw new Error('GitHub said ' + r.status + (r.status === 401 ? ' (bad token)' : r.status === 403 ? ' (token has no access to this repo)' : ''));
+    const j = await r.json();
+    this.sha = j.sha;
+    const txt = decodeURIComponent(escape(atob(j.content.replace(/\n/g, ''))));
+    data = JSON.parse(txt || '{"items":[]}');
+    data.items ||= [];
+  },
+  // apply a mutation function against the freshest copy, then save; retry on conflict
+  async mutate(fn, msg) {
+    if (!this.online) { fn(data); LS.set('rm.local', data); render(); return; }
+    this.busy = true; toast('Saving…', true);
+    try {
+      for (let i = 0; i < 4; i++) {
+        if (i) await this.load();
+        fn(data);
+        const body = JSON.stringify({
+          message: `${SHORT[role]}: ${msg}`,
+          content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 1)))),
+          ...(this.sha ? { sha: this.sha } : {}),
+        });
+        const r = await this.api(this.url(), { method: 'PUT', body });
+        if (r.ok) { this.sha = (await r.json()).content.sha; render(); toast('Saved'); return; }
+        if (r.status !== 409 && r.status !== 422) throw new Error('GitHub said ' + r.status);
+      }
+      throw new Error('Could not save after retries');
+    } catch (e) { toast(e.message); render(); }
+    finally { this.busy = false; }
+  },
+  async refresh() {
+    if (!this.online || this.busy) return;
+    try { const before = JSON.stringify(data); await this.load(); if (JSON.stringify(data) !== before) render(); }
+    catch (e) { toast(e.message); }
+  },
+  start() {
+    clearInterval(this.timer);
+    if (this.online) this.timer = setInterval(() => this.refresh(), 30000);
+  },
+};
+
+/* ---------- crypto for logins (AES-GCM, PBKDF2) ---------- */
+const enc = new TextEncoder(), dec = new TextDecoder();
+const b64 = (u8) => btoa(String.fromCharCode(...u8));
+const unb64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function deriveKey(pass, saltB64) {
+  const base = await crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: unb64(saltB64), iterations: 200000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+}
+async function encryptText(txt) {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, cryptoKey, enc.encode(txt));
+  return b64(iv) + '.' + b64(new Uint8Array(ct));
+}
+async function decryptText(s) {
+  const [iv, ct] = s.split('.').map(unb64);
+  return dec.decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, cryptoKey, ct));
+}
+async function ensureKey() {
+  if (cryptoKey) return true;
+  const dlg = $('#keyDlg'); $('#keyErr').textContent = ''; $('#keyIn').value = '';
+  dlg.showModal();
+  return new Promise(res => {
+    $('#keyForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const pass = $('#keyIn').value;
+      data.meta ||= {};
+      if (!data.meta.salt) {
+        // first ever passphrase: create salt + a check value so a wrong passphrase is caught later
+        const salt = b64(crypto.getRandomValues(new Uint8Array(16)));
+        cryptoKey = await deriveKey(pass, salt);
+        const check = await encryptText('ragi&moon');
+        await store.mutate(d => { d.meta = { ...(d.meta || {}), salt, check }; }, 'set logins passphrase');
+      } else {
+        cryptoKey = await deriveKey(pass, data.meta.salt);
+        try { if (await decryptText(data.meta.check) !== 'ragi&moon') throw 0; }
+        catch { cryptoKey = null; $('#keyErr').textContent = "That's not the passphrase that was set."; return; }
+      }
+      dlg.close(); res(true);
+    };
+    $('#keyCancel').onclick = () => { dlg.close(); res(false); };
+  });
+}
+
+/* ---------- rendering ---------- */
+function toast(msg, sticky) {
+  const s = $('#status'); s.textContent = msg; s.classList.add('on');
+  clearTimeout(s._t); if (!sticky) s._t = setTimeout(() => s.classList.remove('on'), 2200);
+}
+function needsAck(it) { return role && it.by !== role && !(it.acks || {})[role]; }
+function renderTabs() {
+  $('#tabs').innerHTML = TABS.map(t => {
+    const n = data.items.filter(i => i.tab === t.id && needsAck(i) && !i.done).length;
+    return `<button class="tab" role="tab" aria-selected="${t.id === tab}" data-tab="${t.id}">${t.label}<span class="badge" title="${n} new for you">${n || ''}</span></button>`;
+  }).join('');
+}
+function renderToolbar() {
+  const tb = $('#toolbar');
+  if (tab !== 'todos') { tb.hidden = true; return; }
+  tb.hidden = false;
+  const opts = [['open', 'Open'], ['mine', 'For me'], ['blocked', 'Blocked'], ['done', 'Done'], ['all', 'All']];
+  tb.innerHTML = opts.map(([v, l]) => `<button class="chip" type="button" data-f="${v}" aria-pressed="${filter === v}">${l}</button>`).join('');
+}
+function who(it) { return it.by === role ? 'you' : ROLES[it.by] || '?'; }
+function acksLine(it) {
+  const a = it.acks || {};
+  const parts = ['nish', 'team'].filter(r => r !== it.by).map(r => a[r] ? `${SHORT[r]} ✓ ${fmt(a[r])}` : `${SHORT[r]} not yet`);
+  return parts.length ? 'Seen: ' + parts.join(' · ') : '';
+}
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function linkify(url, text) { return url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(text)}</a>` : esc(text); }
+
+function render() {
+  renderTabs(); renderToolbar();
+  $('#whoName').textContent = role ? SHORT[role] : '…';
+  const note = $('#modeNote');
+  if (!store.online) { note.hidden = false; note.innerHTML = '<b>Offline mode.</b> Things you add stay on this device only. Tap ⚙︎ to connect the shared repo.'; }
+  else note.hidden = true;
+
+  let items = data.items.filter(i => i.tab === tab);
+  if (tab === 'todos') {
+    items = items.filter(i => filter === 'all' ? true : filter === 'done' ? i.done : filter === 'blocked' ? (i.blockedOn && !i.done) : filter === 'mine' ? (!i.done && (i.for === role || i.for === 'both')) : !i.done);
+  }
+  items.sort((a, b) => (b.at || 0) - (a.at || 0));
+  const list = $('#list');
+  const t = TABS.find(x => x.id === tab);
+  if (!items.length) { list.innerHTML = `<h2>${t.title}</h2><div class="empty">Nothing here yet. Tap <b>+ Add</b> to put in the first one.</div>`; return; }
+  list.innerHTML = `<h2>${t.title}</h2>` + items.map(it => {
+    const cls = ['card', it.done ? 'done' : '', it.blockedOn && !it.done ? 'blocked' : ''].join(' ');
+    let head = '', tags = '', extra = '';
+    if (tab === 'todos') {
+      head = `<button class="check" role="checkbox" aria-checked="${!!it.done}" data-act="done" data-id="${it.id}" aria-label="Mark done">${it.done ? '✓' : ''}</button>`;
+      const f = it.for || 'both';
+      tags += f === 'both' ? `<span class="tag ${role ? 'me' : ''}">Nish</span><span class="tag ${role ? 'me' : ''}">Rajeev</span>` : `<span class="tag ${f === role ? 'me' : ''}">${SHORT[f]}</span>`;
+      if (it.due) tags += `<span class="tag">Due ${fmt(it.due)}</span>`;
+      if (it.blockedOn && !it.done) tags += `<span class="tag blk">Blocked on ${SHORT[it.blockedOn]}${it.blockedNote ? ': ' + esc(it.blockedNote) : ''}</span>`;
+      if (it.done) tags += `<span class="tag ok">Done by ${SHORT[it.doneBy] || '?'} · ${fmt(it.doneAt)}</span>`;
+    }
+    if (tab === 'logins') {
+      extra = `<div class="details">${esc(it.user)}</div>` + (it.secret ? `<div class="pw"><span data-pw="${esc(it.id)}">••••••••</span><button class="btn quiet" type="button" data-act="reveal" data-id="${it.id}">Show</button><button class="btn quiet" type="button" data-act="copy" data-id="${it.id}">Copy</button></div>` : `<div class="small">No password stored.</div>`);
+    }
+    const title = (tab === 'links' || tab === 'refs') ? linkify(it.url, it.title) : esc(it.title);
+    const acts = [];
+    if (needsAck(it)) acts.push(`<button class="btn primary" type="button" data-act="ack" data-id="${it.id}">Acknowledge</button>`);
+    if (tab === 'todos' && !it.done) acts.push(it.blockedOn ? `<button class="btn" type="button" data-act="unblock" data-id="${it.id}">Unblock</button>` : `<button class="btn" type="button" data-act="block" data-id="${it.id}">Blocked on…</button>`);
+    acts.push(`<button class="btn quiet" type="button" data-act="del" data-id="${it.id}">Delete</button>`);
+    return `<article class="${cls}" data-id="${it.id}">
+      <div class="top">${head}<div class="body">
+        <div class="title">${title}</div>
+        ${extra}${it.note ? `<div class="details">${esc(it.note)}</div>` : ''}
+        <div class="tags">${tags}</div>
+        <div class="meta">Added by ${who(it)} · ${fmt(it.at)}${acksLine(it) ? ' · ' + acksLine(it) : ''}</div>
+        <div class="acts">${acts.join('')}</div>
+      </div></div></article>`;
+  }).join('');
+}
+
+/* ---------- actions ---------- */
+async function act(a, id, el) {
+  const it = data.items.find(i => i.id === id); if (!it) return;
+  const now = Date.now();
+  if (a === 'ack') return store.mutate(d => { const x = d.items.find(i => i.id === id); if (x) (x.acks ||= {})[role] = now; }, `acknowledge "${it.title}"`);
+  if (a === 'done') return store.mutate(d => { const x = d.items.find(i => i.id === id); if (!x) return; x.done = !x.done; x.doneBy = x.done ? role : null; x.doneAt = x.done ? now : null; if (x.done) x.blockedOn = null; }, `${it.done ? 'reopen' : 'done'} "${it.title}"`);
+  if (a === 'unblock') return store.mutate(d => { const x = d.items.find(i => i.id === id); if (x) { x.blockedOn = null; x.blockedNote = ''; } }, `unblock "${it.title}"`);
+  if (a === 'del') { if (!confirm(`Delete "${it.title}"?`)) return; return store.mutate(d => { d.items = d.items.filter(i => i.id !== id); }, `delete "${it.title}"`); }
+  if (a === 'block') {
+    const dlg = $('#blkDlg'); let on = it.by === role ? (role === 'nish' ? 'team' : 'nish') : it.by;
+    $('#blkOn').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === on));
+    $('#blkOn').onclick = (e) => { const b = e.target.closest('button'); if (!b) return; on = b.dataset.v; $('#blkOn').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); };
+    $('#blkNote').value = '';
+    $('#blkForm').onsubmit = (e) => { e.preventDefault(); const note = $('#blkNote').value.trim(); dlg.close(); store.mutate(d => { const x = d.items.find(i => i.id === id); if (x) { x.blockedOn = on; x.blockedNote = note; } }, `blocked "${it.title}" on ${SHORT[on]}`); };
+    $('#blkCancel').onclick = () => dlg.close();
+    dlg.showModal(); return;
+  }
+  if (a === 'reveal' || a === 'copy') {
+    if (!(await ensureKey())) return;
+    let txt; try { txt = await decryptText(it.secret); } catch { toast('Could not unscramble this one'); return; }
+    if (a === 'copy') { try { await navigator.clipboard.writeText(txt); toast('Password copied'); } catch { toast('Copy blocked by the browser'); } return; }
+    const span = el.closest('.pw').querySelector('[data-pw]');
+    const shown = el.textContent === 'Hide';
+    span.textContent = shown ? '••••••••' : txt; el.textContent = shown ? 'Show' : 'Hide';
+  }
+}
+
+function openAdd() {
+  const f = FIELDS[tab]; const dlg = $('#addDlg');
+  $('#addTitle').textContent = 'Add to ' + TABS.find(t => t.id === tab).label.toLowerCase();
+  $('#addErr').textContent = '';
+  $('#fields').innerHTML = f.map(x => {
+    const id = 'f_' + x.k;
+    if (x.t === 'textarea') return `<label for="${id}">${x.l}</label><textarea id="${id}" name="${x.k}" placeholder="${esc(x.ph || '')}"></textarea>`;
+    if (x.t === 'who') return `<label>${x.l}</label><div class="seg" data-who><button type="button" data-v="nish" aria-pressed="${role === 'nish'}">Nish</button><button type="button" data-v="team" aria-pressed="${role === 'team'}">Rajeev</button><button type="button" data-v="both" aria-pressed="false">Both</button></div>`;
+    return `<label for="${id}">${x.l}</label><input id="${id}" name="${x.k}" type="${x.t}" ${x.req ? 'required' : ''} placeholder="${esc(x.ph || '')}" autocomplete="off" ${x.t === 'url' ? 'inputmode="url"' : ''}>`;
+  }).join('');
+  const seg = $('[data-who]', dlg);
+  if (seg) seg.onclick = (e) => { const b = e.target.closest('button'); if (!b) return; seg.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); };
+  dlg.showModal();
+  setTimeout(() => $('#fields input, #fields textarea')?.focus(), 50);
+}
+$('#addForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const fd = new FormData(e.target); const it = { id: uid(), tab, by: role, at: Date.now(), acks: {} };
+  for (const x of FIELDS[tab]) {
+    if (x.t === 'who') it.for = $('[data-who] [aria-pressed="true"]')?.dataset.v || 'both';
+    else it[x.k] = (fd.get(x.k) || '').toString().trim();
+  }
+  if (it.url && !/^https?:\/\//i.test(it.url)) it.url = 'https://' + it.url;
+  if (it.due) it.due = new Date(it.due + 'T12:00:00').getTime();
+  if (tab === 'logins' && it.secret) {
+    if (!(await ensureKey())) { $('#addErr').textContent = 'Passphrase needed to save a password.'; return; }
+    it.secret = await encryptText(it.secret);
+  }
+  $('#addDlg').close();
+  store.mutate(d => { d.items.push(it); }, `add ${tab} "${it.title}"`);
+};
+$('#addCancel').onclick = () => $('#addDlg').close();
+$('#addBtn').onclick = openAdd;
+
+/* tabs, filters, cards */
+$('#tabs').onclick = (e) => { const b = e.target.closest('[data-tab]'); if (!b) return; tab = b.dataset.tab; LS.set('rm.tab', tab); render(); window.scrollTo({ top: 0 }); };
+$('#toolbar').onclick = (e) => { const b = e.target.closest('[data-f]'); if (!b) return; filter = b.dataset.f; render(); };
+$('#list').onclick = (e) => { const b = e.target.closest('[data-act]'); if (b) act(b.dataset.act, b.dataset.id, b); };
+
+/* who */
+function askWho() { $('#whoDlg').showModal(); }
+$('#whoDlg').onclick = (e) => { const b = e.target.closest('[data-role]'); if (!b) return; role = b.dataset.role; LS.set('rm.role', role); $('#whoDlg').close(); render(); };
+$('#whoDlg').addEventListener('cancel', (e) => { if (!role) e.preventDefault(); });
+$('#whoBtn').onclick = askWho;
+
+/* sync settings */
+function openSync() {
+  $('#tokIn').value = store.cfg.token || ''; $('#repoIn').value = store.cfg.repo; $('#pathIn').value = store.cfg.path; $('#syncErr').textContent = '';
+  $('#syncDlg').showModal();
+}
+$('#syncBtn').onclick = openSync;
+$('#syncOff').onclick = () => { store.cfg.token = ''; LS.set('rm.sync', store.cfg); $('#syncDlg').close(); boot(); };
+$('#syncForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const cfg = { token: $('#tokIn').value.trim(), repo: $('#repoIn').value.trim() || DEFAULTS.repo, path: $('#pathIn').value.trim() || DEFAULTS.path };
+  const old = store.cfg; store.cfg = cfg;
+  try { await store.load(); } catch (err) { store.cfg = old; $('#syncErr').textContent = err.message; return; }
+  LS.set('rm.sync', cfg); $('#syncDlg').close(); store.start(); render(); toast('Connected');
+};
+
+/* boot */
+async function boot() {
+  try { await store.load(); } catch (e) { toast(e.message); data = { items: [] }; }
+  store.start(); render();
+  if (!role) askWho();
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden) store.refresh(); });
+boot();
+</script>
+</body>
+</html>
