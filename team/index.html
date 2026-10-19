@@ -4,17 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#B35642">
+<meta name="theme-color" content="#FBF7F4">
 <title>Ragi &amp; Moon Project Tracker</title>
 <link rel="icon" href="../images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap">
 <style>
 :root{
-  --terracotta:#B35642; --terracotta-deep:#9c4639; --blush:#FFEBEC; --peach:#fddcc0;
-  --maroon:#4a1a1e; --ink:#2b1a17; --muted:#7a5a54; --line:#efcfc9; --card:#fff8f6;
-  --ok:#2e7d4f; --ok-bg:#e6f3ea; --block:#a32020; --block-bg:#fde3e3;
+  --ground:#FBF7F4; --surface:#FFFFFF; --ink:#2B1A17; --muted:#6F5B56; --line:#E9DDD8; --faint:#B8A9A4;
+  --accent:#B35642; --accent-soft:#F6E7E1;
   --display:"Fraunces",Georgia,"Times New Roman",serif;
   --body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --sat:env(safe-area-inset-top); --sab:env(safe-area-inset-bottom);
@@ -22,141 +21,141 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--blush);color:var(--ink);font:16px/1.5 var(--body);min-height:100dvh}
+body{margin:0;background:var(--ground);color:var(--ink);font:15px/1.5 var(--body);min-height:100dvh}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
-a{color:var(--terracotta-deep)}
-.nobr{white-space:nowrap}
+a{color:var(--ink);text-decoration:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid #E7A98F;outline-offset:2px;border-radius:6px}
 
 /* header */
-header{position:sticky;top:0;z-index:5;background:var(--terracotta);color:var(--peach);padding:calc(10px + var(--sat)) 16px 0}
-.hrow{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:720px;margin:0 auto}
-.brand{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:.01em;color:#fff}
-.brand small{display:block;font-family:var(--body);font-weight:500;font-size:12px;color:var(--peach);letter-spacing:.06em;text-transform:uppercase}
-.who{display:flex;align-items:center;gap:8px}
-.who button{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:8px 12px;min-height:40px;font-weight:500;font-size:14px}
-.tabs{display:flex;gap:2px;max-width:720px;margin:10px auto 0;overflow-x:auto;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-.tab{flex:1 1 0;background:none;border:0;border-bottom:3px solid transparent;color:var(--peach);padding:10px 4px 11px;font-weight:500;font-size:14px;white-space:nowrap;min-height:44px;display:flex;align-items:center;gap:6px;justify-content:center}
-.tab[aria-selected="true"]{color:#fff;border-bottom-color:#fff}
-.badge{background:#fff;color:var(--terracotta-deep);font-size:12px;font-weight:600;border-radius:999px;min-width:20px;height:20px;padding:0 6px;display:inline-flex;align-items:center;justify-content:center}
+header{padding-top:calc(14px + var(--sat));background:var(--ground)}
+.hrow{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.kicker{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.brand{font-family:var(--display);font-weight:600;font-size:26px;line-height:1.1}
+.hbtns{display:flex;align-items:flex-end;gap:2px}
+.hbtns button{background:none;border:0;color:var(--muted);font-size:13px;font-weight:500;padding:10px 6px 2px;min-height:44px}
+.tabs{display:flex;gap:22px;border-bottom:1px solid var(--line);margin-top:14px}
+.tab{background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:10px 0 11px;font-size:15px;font-weight:500;color:var(--muted);min-height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);font-weight:600;border-bottom-color:var(--ink)}
+.badge{font-size:12px;font-weight:600;color:#fff;background:var(--accent);border-radius:999px;padding:1px 7px;min-width:20px;text-align:center}
 .badge:empty{display:none}
+@media (max-width:360px){.tabs{gap:14px}.tab{font-size:14px}}
 
-/* main */
-main{max-width:720px;margin:0 auto;padding:14px 16px calc(96px + var(--sab))}
-.note{background:var(--peach);color:var(--maroon);border-radius:10px;padding:10px 12px;font-size:14px;margin-bottom:12px}
-.note b{font-weight:600}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;min-height:36px;font-size:14px;color:var(--maroon)}
-.chip[aria-pressed="true"]{background:var(--maroon);border-color:var(--maroon);color:#fff}
-h2{font-family:var(--display);font-weight:600;font-size:22px;margin:4px 0 10px}
+/* lists */
+main{padding:18px 0 120px}
+.note{background:var(--accent-soft);color:var(--ink);border-radius:10px;padding:10px 12px;font-size:14px;margin-bottom:16px}
+section{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+.h2{display:flex;justify-content:space-between;align-items:baseline}
+h2{margin:0;font-family:var(--display);font-weight:600;font-size:20px}
+.h2 .n,.sub{font-size:13px;color:var(--muted)}
+h3{margin:0;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.card{display:flex;flex-direction:column;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;width:100%;text-align:left;font:inherit;color:inherit}
+.card.hot{border-left:3px solid var(--accent)}
+.why{font-size:12px;font-weight:500;color:var(--accent)}
+.title{font-size:16px;font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.meta{font-size:13px;color:var(--muted)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 16px;min-height:56px;width:100%;text-align:left;font:inherit;color:inherit}
+.row .t{font-size:15px;font-weight:500;line-height:1.3;overflow-wrap:anywhere}
+.row .b{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.row svg{flex:0 0 auto}
+.group{background:var(--surface);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column}
+.group .row{border:0;border-bottom:1px solid var(--line);border-radius:0;background:none}
+.group .row:last-child{border-bottom:0}
+.linkrow{display:flex;align-items:stretch}
+.linkrow a.row{flex:1}
+.linkrow .more{border:0;background:none;color:var(--muted);padding:0 12px;min-width:44px;font-size:20px;line-height:1}
+.fold{display:flex;justify-content:space-between;align-items:center;background:none;border:0;border-top:1px solid var(--line);padding:14px 0;font-size:14px;font-weight:500;color:var(--muted);min-height:44px;width:100%;text-align:left}
 .empty{color:var(--muted);text-align:center;padding:36px 12px;font-size:15px}
-.list{display:grid;gap:10px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
-.card.done{opacity:.72}
-.card.done .title{text-decoration:line-through}
-.card.blocked{border-color:#f0b4b4;background:#fff4f4}
-.top{display:flex;gap:10px;align-items:flex-start}
-.check{flex:0 0 auto;width:26px;height:26px;margin-top:2px;border-radius:8px;border:2px solid var(--terracotta);background:#fff;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
-.check[aria-checked="true"]{background:var(--ok);border-color:var(--ok)}
-.body{flex:1;min-width:0}
-.title{font-weight:600;font-size:16px;overflow-wrap:anywhere}
-.title a{color:var(--terracotta-deep)}
-.details{color:var(--maroon);font-size:14px;margin-top:3px;white-space:pre-wrap;overflow-wrap:anywhere}
-.meta{color:var(--muted);font-size:13px;margin-top:6px}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.tag{font-size:12px;font-weight:600;border-radius:6px;padding:3px 8px;background:var(--peach);color:var(--maroon)}
-.tag.me{background:var(--maroon);color:#fff}
-.tag.blk{background:var(--block-bg);color:var(--block)}
-.tag.ok{background:var(--ok-bg);color:var(--ok)}
-.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.btn{border:1px solid var(--terracotta);background:#fff;color:var(--terracotta-deep);border-radius:9px;padding:7px 12px;min-height:38px;font-size:14px;font-weight:500}
-.btn.primary{background:var(--terracotta);color:#fff}
-.btn.quiet{border-color:var(--line);color:var(--muted)}
-.btn:disabled{opacity:.5;cursor:default}
-.fab{position:fixed;right:16px;bottom:calc(16px + var(--sab));z-index:4;background:var(--terracotta);color:#fff;border:0;border-radius:999px;height:56px;padding:0 20px 0 16px;font-weight:600;font-size:16px;box-shadow:0 6px 18px rgba(74,26,30,.28);display:flex;align-items:center;gap:8px}
-.fab span{font-size:24px;line-height:1}
+.done .t,.done .title{text-decoration:line-through;color:var(--muted);font-weight:500}
+
+/* reactions */
+.emo{display:flex;gap:6px;flex-wrap:wrap}
+.emo button{width:44px;height:44px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:20px;padding:0;display:inline-flex;align-items:center;justify-content:center}
+.emo button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.card .emo{margin-top:8px}.card .emo button{width:40px;height:40px;font-size:18px}
+
+/* fab */
+.fab{position:fixed;left:0;right:0;bottom:0;padding:12px 20px calc(24px + var(--sab));background:linear-gradient(to top,var(--ground) 70%,rgba(251,247,244,0));display:flex;justify-content:flex-end;pointer-events:none;z-index:3}
+.fab button{pointer-events:auto;display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;border:0;border-radius:999px;height:52px;padding:0 22px 0 18px;font-size:16px;font-weight:600;box-shadow:0 4px 14px rgba(43,26,23,.18)}
+@media (min-width:760px){.fab{left:50%;right:auto;transform:translateX(calc(360px - 100%));padding-right:20px}}
+
+/* task detail */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding-top:calc(14px + var(--sat))}
+.back{display:inline-flex;align-items:center;gap:6px;background:none;border:0;font-size:15px;font-weight:500;color:var(--muted);min-height:44px;padding:0 8px 0 0}
+.textbtn{background:none;border:0;font-size:15px;font-weight:500;color:var(--muted);padding:10px 12px;min-height:44px}
+.textbtn.accent{color:var(--accent);font-weight:600}
+.detail{display:flex;flex-direction:column;gap:24px;padding:8px 0 60px}
+h1{margin:0;font-family:var(--display);font-weight:600;font-size:26px;line-height:1.15;overflow-wrap:anywhere}
+.desc{margin:0;font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
+.block{display:flex;flex-direction:column;gap:8px}
+.seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.seg button{flex:1;background:transparent;color:var(--muted);border:0;border-radius:8px;padding:10px 4px;min-height:42px;font-size:13px;font-weight:500}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.list{background:var(--surface);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column}
+.list>*{border-bottom:1px solid var(--line)}
+.list>*:last-child{border-bottom:0}
+.sub{display:flex;align-items:center;gap:12px;padding:10px 6px 10px 14px;min-height:48px;font-size:15px}
+.sub input{width:20px;height:20px;margin:0;accent-color:var(--accent);flex:0 0 auto}
+.sub .t{flex:1;overflow-wrap:anywhere}
+.sub.done .t{text-decoration:line-through;color:var(--muted)}
+.x{border:0;background:none;color:var(--faint);font-size:20px;line-height:1;min-width:40px;min-height:40px}
+.addline{display:flex;align-items:center;gap:10px;padding:4px 8px 4px 14px}
+.addline input[type=text]{flex:1;min-width:0;border:0;background:none;font-size:15px;min-height:40px;padding:0}
+.addline button{background:none;border:0;font-size:14px;font-weight:600;color:var(--accent);padding:10px 8px;min-height:44px}
+.noteitem{padding:12px 14px;display:flex;gap:8px;align-items:flex-start}
+.noteitem .t{flex:1;font-size:15px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
+.noteitem .m{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+.blk{display:flex;justify-content:space-between;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-height:48px;width:100%;text-align:left;font:inherit;color:inherit}
+.blk.on{border-color:#E0B9B0;background:#FBF0ED}
+.blk .b{flex:1;min-width:0}
+.blk .b strong{font-weight:600;color:var(--accent)}
+.blk .b span{display:block;font-size:13px;color:var(--muted)}
+.reactrow{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
+.danger{background:none;border:0;color:var(--muted);font-size:14px;padding:10px 0;min-height:44px;text-align:left;text-decoration:underline;text-underline-offset:3px}
 
 /* sheets */
-dialog{border:0;border-radius:18px 18px 0 0;padding:0;width:100%;max-width:720px;margin:auto auto 0;background:#fff;color:var(--ink);box-shadow:0 -10px 40px rgba(74,26,30,.25)}
+dialog{border:0;border-radius:18px 18px 0 0;padding:0;width:100%;max-width:720px;margin:auto auto 0;background:var(--ground);color:var(--ink);box-shadow:0 -10px 40px rgba(43,26,23,.25)}
 dialog::backdrop{background:rgba(43,26,23,.45)}
-@media (min-width:600px){dialog{border-radius:18px;margin:auto}.tab{font-size:15px;padding:10px 10px 11px}}
-@media (max-width:360px){.tab{font-size:13px}}
-.sheet{padding:18px 18px calc(18px + var(--sab));max-height:92dvh;overflow:auto}
-.sheet h3{font-family:var(--display);font-weight:600;font-size:22px;margin:0 0 6px}
-.sheet p{margin:0 0 12px;color:var(--muted);font-size:14px}
-label{display:block;font-weight:500;font-size:14px;margin:12px 0 4px}
-input[type=text],input[type=url],input[type=password],input[type=date],textarea,select{width:100%;border:1px solid #d9b8b1;border-radius:10px;padding:11px 12px;background:#fff;min-height:44px}
-textarea{min-height:80px;resize:vertical}
-input:focus,textarea:focus,select:focus,button:focus-visible{outline:3px solid #f0a07c;outline-offset:1px}
-.seg{display:flex;gap:6px;flex-wrap:wrap}
-.seg button{flex:1;border:1px solid #d9b8b1;background:#fff;border-radius:10px;padding:10px;min-height:44px;font-size:15px}
-.seg button[aria-pressed="true"]{background:var(--maroon);border-color:var(--maroon);color:#fff}
-.row{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
-.row .btn{min-height:44px;padding:9px 16px}
-.pick{display:grid;gap:10px;margin-top:14px}
-.pick button{border:2px solid var(--terracotta);background:#fff;border-radius:14px;padding:16px;font-size:18px;font-family:var(--display);font-weight:600;color:var(--maroon);min-height:60px}
-.pick button:hover{background:var(--blush)}
-.err{color:var(--block);font-size:14px;margin-top:8px}
-.status{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + var(--sab));background:var(--maroon);color:#fff;border-radius:999px;padding:8px 14px;font-size:14px;z-index:6;opacity:0;transition:opacity .2s;pointer-events:none}
+@media (min-width:600px){dialog{border-radius:18px;margin:auto}}
+.sheet{padding:16px 20px calc(20px + var(--sab));max-height:92dvh;overflow:auto;display:flex;flex-direction:column;gap:18px}
+.sheet .bar{display:flex;justify-content:space-between;align-items:center}
+.sheet .bar .mid{font-size:15px;font-weight:600}
+.sheet h3{margin:0}
+.sheet p{margin:0;font-size:14px;color:var(--muted);line-height:1.5}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.field .lab{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.field label small{font-weight:400;text-transform:none;letter-spacing:0}
+.field input[type=text],.field input[type=url],.field input[type=password],.field input[type=date],.field textarea{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-height:48px;outline:none}
+.field input:focus,.field textarea:focus{border-color:var(--accent)}
+.field .big{font-family:var(--display);font-size:20px;font-weight:500;min-height:52px}
+.field textarea{min-height:84px;resize:vertical}
+.pick{display:grid;gap:12px}
+.pick button{display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;min-height:64px;font-size:18px;font-weight:600;text-align:left}
+.err{color:#9C2F2F;font-size:14px}
+.err:empty{display:none}
+details.adv summary{cursor:pointer;color:var(--muted);font-size:14px}
+.status{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(92px + var(--sab));background:var(--ink);color:#fff;border-radius:999px;padding:8px 14px;font-size:14px;z-index:6;opacity:0;transition:opacity .2s;pointer-events:none}
 .status.on{opacity:1}
-.small{font-size:13px;color:var(--muted)}
-.stat{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.stat button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 10px;min-height:34px;font-size:13px;color:var(--maroon)}
-.stat button[aria-pressed="true"]{background:var(--maroon);border-color:var(--maroon);color:#fff}
-.stat button[aria-pressed="true"][data-v="done"]{background:var(--ok);border-color:var(--ok)}
-.stat button[aria-pressed="true"][data-v="doing"]{background:var(--terracotta);border-color:var(--terracotta)}
-.subs{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
-.subs li{display:flex;align-items:center;gap:8px;font-size:14px}
-.subs .check{width:22px;height:22px;border-radius:6px;margin:0;font-size:13px}
-.subs .t{flex:1;overflow-wrap:anywhere}
-.subs .done .t{text-decoration:line-through;color:var(--muted)}
-.x{border:0;background:none;color:var(--muted);font-size:18px;line-height:1;padding:4px 6px;min-width:32px;min-height:32px}
-.notes{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:6px}
-.notes li{background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:14px;display:flex;gap:8px;align-items:flex-start}
-.notes .t{flex:1;white-space:pre-wrap;overflow-wrap:anywhere}
-.notes .m{display:block;color:var(--muted);font-size:12px;margin-top:2px}
-.inline{display:flex;gap:6px;margin-top:8px}
-.inline input{flex:1;min-height:40px;padding:8px 10px}
-.inline .btn{min-height:40px;padding:6px 12px}
-.emo{display:flex;gap:4px;flex-wrap:wrap;margin-top:10px}
-.emo button{border:1px solid var(--line);background:#fff;border-radius:999px;width:40px;height:40px;font-size:20px;padding:0;display:inline-flex;align-items:center;justify-content:center}
-.emo button[aria-pressed="true"]{border-color:var(--terracotta);background:var(--peach);box-shadow:0 0 0 2px var(--peach)}
-.sec{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:10px}
-details.adv summary{cursor:pointer;color:var(--muted);font-size:14px;margin-top:12px}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="hrow">
-    <div class="brand">Ragi &amp; Moon<small>Project Tracker</small></div>
-    <div class="who">
-      <button id="whoBtn" type="button" title="Switch who you are">You: <strong id="whoName">…</strong></button>
-      <button id="syncBtn" type="button" title="Sync settings">⚙︎<span class="sr">Sync settings</span></button>
-    </div>
-  </div>
-  <div class="tabs" role="tablist" id="tabs"></div>
-</header>
-
-<main>
-  <div id="modeNote" class="note" hidden></div>
-  <div id="toolbar" class="toolbar" hidden></div>
-  <div id="list" class="list" aria-live="polite"></div>
-</main>
-
-<button class="fab" id="addBtn" type="button"><span aria-hidden="true">+</span> Add</button>
+<div id="app"></div>
 <div class="status" id="status" role="status"></div>
 
-<!-- who are you -->
+<!-- who -->
 <dialog id="whoDlg" aria-labelledby="whoTitle">
   <div class="sheet">
-    <h3 id="whoTitle">Who's this?</h3>
-    <p>Pick once on each device. You can switch from the top-right button later.</p>
+    <div>
+      <div class="kicker">Ragi &amp; Moon</div>
+      <h3 id="whoTitle" style="font-family:var(--display);font-size:28px;font-weight:600">Project Tracker</h3>
+      <p style="margin-top:6px">Who's using this phone? Pick once. You can change it from the top of the list later.</p>
+    </div>
     <div class="pick">
-      <button type="button" data-role="nish">I'm Nish</button>
-      <button type="button" data-role="team">I'm Rajeev</button>
+      <button type="button" data-role="nish">I'm Nish <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B35642" stroke-width="2.2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      <button type="button" data-role="team">I'm Rajeev <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B35642" stroke-width="2.2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
   </div>
 </dialog>
@@ -164,86 +163,97 @@ details.adv summary{cursor:pointer;color:var(--muted);font-size:14px;margin-top:
 <!-- add / edit -->
 <dialog id="addDlg" aria-labelledby="addTitle">
   <form class="sheet" id="addForm" method="dialog">
-    <h3 id="addTitle">Add</h3>
-    <div id="fields"></div>
-    <div class="err" id="addErr"></div>
-    <div class="row">
-      <button type="button" class="btn quiet" id="addCancel">Cancel</button>
-      <button type="submit" class="btn primary">Add</button>
+    <div class="bar">
+      <button type="button" class="textbtn" id="addCancel" style="margin-left:-12px">Cancel</button>
+      <div class="mid" id="addTitle">New task</div>
+      <button type="submit" class="textbtn accent" style="margin-right:-12px">Save</button>
     </div>
+    <div id="fields" style="display:flex;flex-direction:column;gap:18px"></div>
+    <div class="err" id="addErr"></div>
+    <p id="addHint"></p>
+    <button type="button" class="danger" id="addDel" hidden>Delete this</button>
   </form>
 </dialog>
 
-<!-- blocked note -->
+<!-- blocked -->
 <dialog id="blkDlg" aria-labelledby="blkTitle">
   <form class="sheet" id="blkForm" method="dialog">
-    <h3 id="blkTitle">Mark as blocked</h3>
-    <label>Blocked on</label>
-    <div class="seg" id="blkOn">
-      <button type="button" data-v="nish" aria-pressed="false">Nish</button>
-      <button type="button" data-v="team" aria-pressed="false">Rajeev</button>
+    <div class="bar">
+      <button type="button" class="textbtn" id="blkCancel" style="margin-left:-12px">Cancel</button>
+      <div class="mid" id="blkTitle">Blocked on</div>
+      <button type="submit" class="textbtn accent" style="margin-right:-12px">Save</button>
     </div>
-    <label for="blkNote">What do you need from them?</label>
-    <textarea id="blkNote" placeholder="e.g. need the final photos before I can post"></textarea>
-    <div class="row">
-      <button type="button" class="btn quiet" id="blkCancel">Cancel</button>
-      <button type="submit" class="btn primary">Mark blocked</button>
+    <div class="field">
+      <div class="lab">Who needs to act</div>
+      <div class="seg" id="blkOn">
+        <button type="button" data-v="nish" aria-pressed="false">@Nish</button>
+        <button type="button" data-v="team" aria-pressed="false">@Rajeev</button>
+      </div>
     </div>
+    <div class="field">
+      <label for="blkNote">What do you need from them? <small>· optional</small></label>
+      <textarea id="blkNote" placeholder="e.g. the final photos before the carousel can go up"></textarea>
+    </div>
+    <p>This task will show up under <strong>Needs you</strong> on their phone.</p>
   </form>
 </dialog>
 
-</dialog>
-
-<!-- sync settings -->
+<!-- sync -->
 <dialog id="syncDlg" aria-labelledby="syncTitle">
   <form class="sheet" id="syncForm" method="dialog">
-    <h3 id="syncTitle">Sync settings</h3>
-    <p>Everything is saved as one file in a private GitHub repo, so both of you see the same list. Paste a GitHub token that can read and write that repo. It stays on this device only.</p>
-    <label for="tokIn">GitHub token</label>
-    <input type="password" id="tokIn" autocomplete="off" placeholder="github_pat_…">
-    <details class="adv">
-      <summary>Repo details</summary>
-      <label for="repoIn">Repo (owner/name)</label>
-      <input type="text" id="repoIn">
-      <label for="pathIn">File path</label>
-      <input type="text" id="pathIn">
+    <div class="bar">
+      <button type="button" class="textbtn" id="syncOff" style="margin-left:-12px">Work offline</button>
+      <div class="mid" id="syncTitle">Sync</div>
+      <button type="submit" class="textbtn accent" style="margin-right:-12px">Connect</button>
+    </div>
+    <p>Everything is saved as one file in a private GitHub repo, so you both see the same list. Paste a GitHub token that can read and write that repo. It stays on this device only.</p>
+    <div class="field"><label for="tokIn">GitHub token</label><input type="password" id="tokIn" autocomplete="off" placeholder="github_pat_…"></div>
+    <details class="adv"><summary>Repo details</summary>
+      <div class="field" style="margin-top:10px"><label for="repoIn">Repo (owner/name)</label><input type="text" id="repoIn"></div>
+      <div class="field" style="margin-top:10px"><label for="pathIn">File path</label><input type="text" id="pathIn"></div>
     </details>
     <div class="err" id="syncErr"></div>
-    <div class="row">
-      <button type="button" class="btn quiet" id="syncOff">Work offline</button>
-      <button type="submit" class="btn primary">Connect</button>
-    </div>
   </form>
 </dialog>
 
 <script>
 /* ---------- constants ---------- */
 const ROLES = { nish: 'Nish', team: 'Rajeev' };
-const SHORT = { nish: 'Nish', team: 'Rajeev' };
+const OTHER = { nish: 'team', team: 'nish' };
 const DEFAULTS = { repo: 'nishitanirmal/ragi-moon-tracker', path: 'data/tracker.json' };
 const TABS = [
-  { id: 'todos', label: 'To-do', title: 'To-do list' },
-  { id: 'links', label: 'Links & docs', title: 'Links & documents' },
-  { id: 'refs',  label: 'References', title: 'References' },
+  { id: 'todos', label: 'To-do', title: 'To-do', add: 'New task' },
+  { id: 'links', label: 'Links & docs', title: 'Links & documents', add: 'Add link' },
+  { id: 'refs',  label: 'References', title: 'References', add: 'Add reference' },
 ];
 const FIELDS = {
   todos: [
-    { k: 'title', l: 'Task', t: 'text', req: true },
-    { k: 'note', l: 'Details', t: 'textarea' },
-    { k: 'for', l: 'For', t: 'who' },
-    { k: 'status', l: 'Status', t: 'status' },
-    { k: 'due', l: 'Due (optional)', t: 'date' },
-  ],
-  refs: [
-    { k: 'title', l: 'What is it', t: 'text', req: true, ph: 'e.g. Manam caption style' },
-    { k: 'url', l: 'Link (optional)', t: 'url' },
-    { k: 'note', l: 'Why it matters', t: 'textarea' },
+    { k: 'title', l: 'Task', t: 'text', req: true, ph: 'What needs doing?', big: true },
+    { k: 'note', l: 'Details', t: 'textarea', opt: true, ph: 'Anything the other person needs to know' },
+    { k: 'for', l: 'Who does it', t: 'who' },
+    { k: 'status', l: 'Status', t: 'status', editOnly: true },
+    { k: 'due', l: 'Due', t: 'date', opt: true },
   ],
   links: [
-    { k: 'title', l: 'Name', t: 'text', req: true, ph: 'e.g. Reel 1 raw footage' },
-    { k: 'url', l: 'Link', t: 'url', req: true },
-    { k: 'note', l: 'Notes', t: 'textarea' },
+    { k: 'title', l: 'Name', t: 'text', req: true, ph: 'e.g. Reel 1 raw footage', big: true },
+    { k: 'url', l: 'Link', t: 'url', req: true, ph: 'https://…' },
+    { k: 'note', l: 'Notes', t: 'textarea', opt: true },
   ],
+  refs: [
+    { k: 'title', l: 'What is it', t: 'text', req: true, ph: 'e.g. Manam caption style', big: true },
+    { k: 'url', l: 'Link', t: 'url', opt: true, ph: 'https://…' },
+    { k: 'note', l: 'Why it matters', t: 'textarea', opt: true },
+  ],
+};
+const STATUS = { todo: 'Not started', doing: 'In progress', done: 'Done' };
+const EMOJI = ['👍', '👏', '❤️', '👀', '🙏', '👎'];
+const ICON = {
+  chev: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8A9A4" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>',
+  back: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6F5B56" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>',
+  ext: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8A9A4" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>',
+  plus: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+  down: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6F5B56" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>',
+  up: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6F5B56" stroke-width="2" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>',
 };
 
 /* ---------- state ---------- */
@@ -251,20 +261,29 @@ const $ = (s, el = document) => el.querySelector(s);
 const LS = {
   get: (k, d) => { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
   set: (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
-  del: (k) => { try { localStorage.removeItem(k); } catch {} },
 };
 let role = LS.get('rm.role', null);
 let tab = LS.get('rm.tab', 'todos');
-let filter = 'open';
-let data = { items: [] };
-const STATUS = { todo: 'Not started', doing: 'In progress', done: 'Done' };
-const EMOJI = ['👍', '👏', '❤️', '👀', '🙏', '👎'];
-const ackOf = (it, r) => { const a = (it.acks || {})[r]; return !a ? null : typeof a === 'object' ? a : { e: '👍', at: a }; };
-const isDone = (it) => it.status === 'done';
+let openId = null;            // task detail open
+let showDone = false;
 let editId = null;
-const openForms = new Set();   // `${id}:sub` / `${id}:note` inline inputs left open
+let data = { items: [] };
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const DAY = 864e5;
+const startOfDay = (t) => { const d = new Date(t); d.setHours(0, 0, 0, 0); return d.getTime(); };
 const fmt = (ts) => new Date(ts).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+const fmtDue = (ts) => {
+  const d = Math.round((startOfDay(ts) - startOfDay(Date.now())) / DAY);
+  return d === 0 ? 'Due today' : d === 1 ? 'Due tomorrow' : d === -1 ? 'Due yesterday' : d < 0 ? `Overdue by ${-d} days` : `Due ${new Date(ts).toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })}`;
+};
+const ago = (ts) => { const d = Math.round((startOfDay(Date.now()) - startOfDay(ts)) / DAY); return d === 0 ? 'today' : d === 1 ? 'yesterday' : fmt(ts); };
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const isDone = (it) => it.status === 'done';
+const ackOf = (it, r) => { const a = (it.acks || {})[r]; return !a ? null : typeof a === 'object' ? a : { e: '👍', at: a }; };
+const needsReact = (it) => role && it.by !== role && !ackOf(it, role);
+const who = (r) => r === role ? 'you' : ROLES[r] || '?';
+const Who = (r) => r === role ? 'You' : ROLES[r] || '?';
+function migrate() { for (const it of data.items) { if (it.tab === 'todos' && !it.status) it.status = it.done ? 'done' : 'todo'; } data.items = data.items.filter(i => i.tab !== 'logins'); }
 
 /* ---------- storage: GitHub contents API, with local fallback ---------- */
 const store = {
@@ -272,10 +291,7 @@ const store = {
   sha: null, timer: null, busy: false,
   get online() { return !!this.cfg.token; },
   api(path, opt = {}) {
-    return fetch('https://api.github.com' + path, {
-      ...opt,
-      headers: { Authorization: 'Bearer ' + this.cfg.token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', ...(opt.headers || {}) },
-    });
+    return fetch('https://api.github.com' + path, { ...opt, headers: { Authorization: 'Bearer ' + this.cfg.token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', ...(opt.headers || {}) } });
   },
   url() { return `/repos/${this.cfg.repo}/contents/${this.cfg.path}`; },
   async load() {
@@ -285,12 +301,9 @@ const store = {
     if (!r.ok) throw new Error('GitHub said ' + r.status + (r.status === 401 ? ' (bad token)' : r.status === 403 ? ' (token has no access to this repo)' : ''));
     const j = await r.json();
     this.sha = j.sha;
-    const txt = decodeURIComponent(escape(atob(j.content.replace(/\n/g, ''))));
-    data = JSON.parse(txt || '{"items":[]}');
-    data.items ||= [];
-    migrate();
+    data = JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g, '')))) || '{"items":[]}');
+    data.items ||= []; migrate();
   },
-  // apply a mutation function against the freshest copy, then save; retry on conflict
   async mutate(fn, msg) {
     if (!this.online) { fn(data); LS.set('rm.local', data); render(); return; }
     this.busy = true; toast('Saving…', true);
@@ -298,11 +311,7 @@ const store = {
       for (let i = 0; i < 4; i++) {
         if (i) await this.load();
         fn(data);
-        const body = JSON.stringify({
-          message: `${SHORT[role]}: ${msg}`,
-          content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 1)))),
-          ...(this.sha ? { sha: this.sha } : {}),
-        });
+        const body = JSON.stringify({ message: `${ROLES[role]}: ${msg}`, content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 1)))), ...(this.sha ? { sha: this.sha } : {}) });
         const r = await this.api(this.url(), { method: 'PUT', body });
         if (r.ok) { this.sha = (await r.json()).content.sha; render(); toast('Saved'); return; }
         if (r.status !== 409 && r.status !== 422) throw new Error('GitHub said ' + r.status);
@@ -313,183 +322,207 @@ const store = {
   },
   async refresh() {
     if (!this.online || this.busy) return;
-    try { const before = JSON.stringify(data); await this.load(); if (JSON.stringify(data) !== before) render(); }
-    catch (e) { toast(e.message); }
+    try { const before = JSON.stringify(data); await this.load(); if (JSON.stringify(data) !== before) render(); } catch (e) { toast(e.message); }
   },
-  start() {
-    clearInterval(this.timer);
-    if (this.online) this.timer = setInterval(() => this.refresh(), 30000);
-  },
+  start() { clearInterval(this.timer); if (this.online) this.timer = setInterval(() => this.refresh(), 30000); },
 };
 
-function migrate() { for (const it of data.items) if (it.tab === 'todos' && !it.status) it.status = it.done ? 'done' : 'todo'; }
-
-/* ---------- rendering ---------- */
-function toast(msg, sticky) {
-  const s = $('#status'); s.textContent = msg; s.classList.add('on');
-  clearTimeout(s._t); if (!sticky) s._t = setTimeout(() => s.classList.remove('on'), 2200);
+/* ---------- helpers ---------- */
+function toast(msg, sticky) { const s = $('#status'); s.textContent = msg; s.classList.add('on'); clearTimeout(s._t); if (!sticky) s._t = setTimeout(() => s.classList.remove('on'), 2200); }
+const item = (id) => data.items.find(i => i.id === id);
+function patch(id, fn, msg) { return store.mutate(d => { const x = d.items.find(i => i.id === id); if (x) fn(x); }, msg); }
+function whyNeedsYou(it) {
+  if (it.tab !== 'todos' || isDone(it)) return null;
+  if (it.blockedOn === role) return 'Blocked on you' + (it.blockedNote ? ' · ' + it.blockedNote : '');
+  if (needsReact(it)) return `New from ${ROLES[it.by]} · react or reply`;
+  if (it.due && (it.for === role || it.for === 'both') && startOfDay(it.due) <= startOfDay(Date.now())) return fmtDue(it.due);
+  return null;
 }
-function needsAck(it) { return role && it.by !== role && !ackOf(it, role); }
-function renderTabs() {
-  $('#tabs').innerHTML = TABS.map(t => {
-    const n = data.items.filter(i => i.tab === t.id && needsAck(i) && !isDone(i)).length;
-    return `<button class="tab" role="tab" aria-selected="${t.id === tab}" data-tab="${t.id}">${t.label}<span class="badge" title="${n} new for you">${n || ''}</span></button>`;
-  }).join('');
-}
-function renderToolbar() {
-  const tb = $('#toolbar');
-  if (tab !== 'todos') { tb.hidden = true; return; }
-  tb.hidden = false;
-  const opts = [['open', 'Open'], ['mine', 'For me'], ['doing', 'In progress'], ['blocked', 'Blocked'], ['done', 'Done'], ['all', 'All']];
-  tb.innerHTML = opts.map(([v, l]) => `<button class="chip" type="button" data-f="${v}" aria-pressed="${filter === v}">${l}</button>`).join('');
-}
-function who(it) { return it.by === role ? 'you' : ROLES[it.by] || '?'; }
-function acksLine(it) {
-  const parts = ['nish', 'team'].map(r => { const a = ackOf(it, r); return a ? `${SHORT[r]} ${a.e}` : r === it.by ? '' : `${SHORT[r]} not yet`; }).filter(Boolean);
+function taskMeta(it) {
+  const parts = [];
+  if (it.due && !isDone(it) && !(whyNeedsYou(it) || '').startsWith(fmtDue(it.due))) parts.push(fmtDue(it.due));
+  parts.push(it.for === 'both' ? 'Both' : `For ${ROLES[it.for] || '?'}`);
+  if (it.status === 'doing' && (it.subs || []).length) parts.push(`${it.subs.filter(s => s.done).length} of ${it.subs.length} subtasks`);
+  else if (isDone(it)) parts.push(`Done by ${ROLES[it.doneBy] || '?'}`);
+  else parts.push(STATUS[it.status || 'todo']);
+  if (it.blockedOn && !isDone(it) && it.blockedOn !== role) parts.push(`Blocked on ${ROLES[it.blockedOn]}`);
   return parts.join(' · ');
 }
-function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
-function linkify(url, text) { return url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(text)}</a>` : esc(text); }
+const countBadge = (t) => data.items.filter(i => i.tab === t && (needsReact(i) || (t === 'todos' && i.blockedOn === role)) && !isDone(i)).length;
 
+/* ---------- render ---------- */
 function render() {
-  renderTabs(); renderToolbar();
-  $('#whoName').textContent = role ? SHORT[role] : '…';
-  const note = $('#modeNote');
-  if (!store.online) { note.hidden = false; note.innerHTML = '<b>Offline mode.</b> Things you add stay on this device only. Tap ⚙︎ to connect the shared repo.'; }
-  else note.hidden = true;
-
-  let items = data.items.filter(i => i.tab === tab);
-  if (tab === 'todos') {
-    items = items.filter(i => filter === 'all' ? true : filter === 'done' ? isDone(i) : filter === 'doing' ? i.status === 'doing' : filter === 'blocked' ? (i.blockedOn && !isDone(i)) : filter === 'mine' ? (!isDone(i) && (i.for === role || i.for === 'both')) : !isDone(i));
-  }
-  items.sort((a, b) => (b.at || 0) - (a.at || 0));
-  const list = $('#list');
+  const app = $('#app');
+  if (openId && !item(openId)) openId = null;
+  app.innerHTML = openId ? renderTask(item(openId)) : renderList();
+}
+function renderHeader() {
+  return `<header><div class="wrap">
+    <div class="hrow">
+      <div><div class="kicker">Ragi &amp; Moon</div><div class="brand">Project Tracker</div></div>
+      <div class="hbtns"><button type="button" data-act="who">You: ${role ? esc(ROLES[role]) : '…'}</button><button type="button" data-act="sync" aria-label="Sync settings">⚙︎</button></div>
+    </div>
+    <div class="tabs" role="tablist">${TABS.map(t => `<button class="tab" role="tab" aria-selected="${t.id === tab}" data-tab="${t.id}">${t.label}<span class="badge">${countBadge(t.id) || ''}</span></button>`).join('')}</div>
+  </div></header>`;
+}
+function emoRow(it, small) {
+  const mine = ackOf(it, role);
+  return `<div class="emo" role="group" aria-label="React">${EMOJI.map(e => `<button type="button" data-act="ack" data-e="${e}" data-id="${it.id}" aria-pressed="${mine?.e === e}" aria-label="React ${e}">${e}</button>`).join('')}</div>`;
+}
+function renderList() {
   const t = TABS.find(x => x.id === tab);
-  if (!items.length) { list.innerHTML = `<h2>${t.title}</h2><div class="empty">Nothing here yet. Tap <b>+ Add</b> to put in the first one.</div>`; return; }
-  list.innerHTML = `<h2>${t.title}</h2>` + items.map(it => {
-    const dn = isDone(it);
-    const cls = ['card', dn ? 'done' : '', it.blockedOn && !dn ? 'blocked' : ''].join(' ');
-    let head = '', tags = '', extra = '', below = '';
-    if (tab === 'todos') {
-      const f = it.for || 'both';
-      tags += f === 'both' ? `<span class="tag ${role ? 'me' : ''}">Nish</span><span class="tag ${role ? 'me' : ''}">Rajeev</span>` : `<span class="tag ${f === role ? 'me' : ''}">${SHORT[f]}</span>`;
-      if (it.due) tags += `<span class="tag">Due ${fmt(it.due)}</span>`;
-      if (it.blockedOn && !dn) tags += `<span class="tag blk">Blocked on ${SHORT[it.blockedOn]}${it.blockedNote ? ': ' + esc(it.blockedNote) : ''}</span>`;
-      if (dn) tags += `<span class="tag ok">Done by ${SHORT[it.doneBy] || '?'} · ${fmt(it.doneAt)}</span>`;
-      const subs = it.subs || [], notes = it.notes || [];
-      const nd = subs.filter(x => x.done).length;
-      below = `<div class="stat" role="group" aria-label="Status">${Object.entries(STATUS).map(([v, l]) => `<button type="button" data-act="status" data-v="${v}" data-id="${it.id}" aria-pressed="${(it.status || 'todo') === v}">${l}</button>`).join('')}</div>`
-        + (subs.length ? `<div class="sec">Subtasks ${nd}/${subs.length}</div><ul class="subs">${subs.map(x => `<li class="${x.done ? 'done' : ''}"><button class="check" role="checkbox" aria-checked="${!!x.done}" data-act="sub" data-id="${it.id}" data-sid="${x.id}" aria-label="Toggle subtask">${x.done ? '✓' : ''}</button><span class="t">${esc(x.t)}</span><button class="x" type="button" data-act="subdel" data-id="${it.id}" data-sid="${x.id}" aria-label="Remove subtask">×</button></li>`).join('')}</ul>` : '')
-        + `<form class="inline" data-form="sub" data-id="${it.id}" ${openForms.has(it.id + ':sub') ? '' : 'hidden'}><input type="text" name="t" placeholder="Add a subtask" aria-label="New subtask" required><button class="btn quiet" type="submit">Add</button></form>`
-        + (notes.length ? `<div class="sec">Notes</div><ul class="notes">${notes.map(n => `<li><span class="t">${esc(n.t)}<span class="m">${n.by === role ? 'you' : SHORT[n.by] || '?'} · ${fmt(n.at)}</span></span><button class="x" type="button" data-act="notedel" data-id="${it.id}" data-nid="${n.id}" aria-label="Remove note">×</button></li>`).join('')}</ul>` : '')
-        + `<form class="inline" data-form="note" data-id="${it.id}" ${openForms.has(it.id + ':note') ? '' : 'hidden'}><input type="text" name="t" placeholder="Add a note" aria-label="New note" required><button class="btn quiet" type="submit">Add</button></form>`;
-    }
-    const title = (tab === 'links' || tab === 'refs') ? linkify(it.url, it.title) : esc(it.title);
-    const acts = [];
-    const mine = ackOf(it, role);
-    const emo = `<div class="emo" role="group" aria-label="React">${EMOJI.map(e => `<button type="button" data-act="ack" data-e="${e}" data-id="${it.id}" aria-pressed="${mine?.e === e}" aria-label="React ${e}">${e}</button>`).join('')}</div>`;
-    if (tab === 'todos') acts.push(`<button class="btn quiet" type="button" data-act="show" data-f="sub" data-id="${it.id}">+ Subtask</button><button class="btn quiet" type="button" data-act="show" data-f="note" data-id="${it.id}">+ Note</button>`);
-    acts.push(`<button class="btn" type="button" data-act="edit" data-id="${it.id}">Edit</button>`);
-    if (tab === 'todos' && !dn) acts.push(it.blockedOn ? `<button class="btn" type="button" data-act="unblock" data-id="${it.id}">Unblock</button>` : `<button class="btn" type="button" data-act="block" data-id="${it.id}">Blocked on…</button>`);
-    acts.push(`<button class="btn quiet" type="button" data-act="del" data-id="${it.id}">Delete</button>`);
-    return `<article class="${cls}" data-id="${it.id}">
-      <div class="top">${head}<div class="body">
-        <div class="title">${title}</div>
-        ${extra}${it.note ? `<div class="details">${esc(it.note)}</div>` : ''}
-        <div class="tags">${tags}</div>${below}
-        <div class="meta">Added by ${who(it)} · ${fmt(it.at)}${acksLine(it) ? ' · ' + acksLine(it) : ''}</div>
-        ${emo}
-        <div class="acts">${acts.join('')}</div>
-      </div></div></article>`;
-  }).join('');
+  const items = data.items.filter(i => i.tab === tab).sort((a, b) => (b.at || 0) - (a.at || 0));
+  let body = '';
+  if (!store.online) body += `<div class="note"><strong>Offline mode.</strong> Things you add stay on this device only. Tap ⚙︎ to connect the shared repo.</div>`;
+  if (!items.length) body += `<div class="empty">Nothing here yet. Tap <strong>${t.add}</strong> to put in the first one.</div>`;
+  else if (tab === 'todos') {
+    const hot = items.filter(whyNeedsYou);
+    const rest = items.filter(i => !whyNeedsYou(i) && !isDone(i));
+    const doing = rest.filter(i => i.status === 'doing'), todo = rest.filter(i => i.status !== 'doing');
+    const done = items.filter(isDone);
+    if (hot.length) body += `<section><div class="h2"><h2>Needs you</h2><span class="n">${hot.length} ${hot.length === 1 ? 'thing' : 'things'}</span></div>${hot.map(it => `<button type="button" class="card hot" data-open="${it.id}"><span class="why">${esc(whyNeedsYou(it))}</span><span class="title">${esc(it.title)}</span><span class="meta">${esc(taskMeta(it))}</span></button>`).join('')}</section>`;
+    else body += `<section><div class="h2"><h2>Needs you</h2></div><div class="meta">Nothing waiting on you right now.</div></section>`;
+    const sec = (label, arr) => arr.length ? `<section><h3>${label}</h3>${arr.map(it => `<button type="button" class="row" data-open="${it.id}"><span class="b"><span class="t">${esc(it.title)}</span><span class="meta">${esc(taskMeta(it))}</span></span>${ICON.chev}</button>`).join('')}</section>` : '';
+    body += sec('In progress', doing) + sec('Not started', todo);
+    if (done.length) body += `<button type="button" class="fold" data-act="fold"><span>Done · ${done.length}</span>${showDone ? ICON.up : ICON.down}</button>` + (showDone ? `<section class="done" style="margin-top:8px">${done.map(it => `<button type="button" class="row" data-open="${it.id}"><span class="b"><span class="t">${esc(it.title)}</span><span class="meta">${esc(taskMeta(it))}</span></span>${ICON.chev}</button>`).join('')}</section>` : '');
+  } else {
+    const fresh = items.filter(needsReact), rest = items.filter(i => !needsReact(i));
+    const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return ''; } };
+    const metaOf = (it) => [host(it.url), ROLES[it.by], ...['nish', 'team'].filter(r => r !== it.by).map(r => { const a = ackOf(it, r); return a ? `${Who(r)} ${a.e}` : null; })].filter(Boolean).join(' · ');
+    if (fresh.length) body += `<section><div class="h2"><h2>New for you</h2></div>${fresh.map(it => `<div class="card hot"><span class="why">${ROLES[it.by]} added this ${ago(it.at)}</span>${it.url ? `<a class="title" href="${esc(it.url)}" target="_blank" rel="noopener" style="text-decoration:underline;text-decoration-color:#D9C4BC;text-underline-offset:3px">${esc(it.title)}</a>` : `<span class="title">${esc(it.title)}</span>`}${it.note ? `<span style="font-size:14px">${esc(it.note)}</span>` : ''}${emoRow(it)}</div>`).join('')}</section>`;
+    if (rest.length) body += `<section><h3>${fresh.length ? 'Everything' : t.title}</h3><div class="group">${rest.map(it => `<div class="linkrow">${it.url ? `<a class="row" href="${esc(it.url)}" target="_blank" rel="noopener">` : `<button type="button" class="row" data-edit="${it.id}">`}<span class="b"><span class="t">${esc(it.title)}</span><span class="meta">${esc(metaOf(it))}${it.note ? ' · ' + esc(it.note) : ''}</span></span>${it.url ? ICON.ext : ''}${it.url ? '</a>' : '</button>'}<button type="button" class="more" data-edit="${it.id}" aria-label="Edit ${esc(it.title)}">⋯</button></div>`).join('')}</div></section>`;
+  }
+  return renderHeader() + `<main class="wrap">${body}</main><div class="fab"><button type="button" data-act="add">${ICON.plus}${t.add}</button></div>`;
+}
+function renderTask(it) {
+  const subs = it.subs || [], notes = it.notes || [];
+  const other = OTHER[role], oa = ackOf(it, other);
+  const blocked = it.blockedOn && !isDone(it);
+  return `<div class="wrap">
+    <div class="topbar"><button type="button" class="back" data-act="back">${ICON.back}To-do</button><button type="button" class="textbtn" data-edit="${it.id}" style="margin-right:-12px">Edit</button></div>
+    <div class="detail">
+      <div class="block">
+        <h1>${esc(it.title)}</h1>
+        ${it.note ? `<p class="desc">${esc(it.note)}</p>` : ''}
+        <div class="meta">${esc([it.for === 'both' ? 'For both' : `For ${ROLES[it.for] || '?'}`, it.due ? fmtDue(it.due) : null, `Added by ${ROLES[it.by] || '?'}, ${fmt(it.at)}`].filter(Boolean).join(' · '))}</div>
+      </div>
+      <div class="block"><div class="field"><div class="lab">Status</div></div>
+        <div class="seg" role="group" aria-label="Status">${Object.entries(STATUS).map(([v, l]) => `<button type="button" data-act="status" data-v="${v}" data-id="${it.id}" aria-pressed="${(it.status || 'todo') === v}">${l}</button>`).join('')}</div>
+      </div>
+      <div class="block">
+        <div class="h2"><h3>Subtasks</h3>${subs.length ? `<span class="n">${subs.filter(s => s.done).length} of ${subs.length}</span>` : ''}</div>
+        <div class="list">
+          ${subs.map(s => `<label class="sub ${s.done ? 'done' : ''}"><input type="checkbox" ${s.done ? 'checked' : ''} data-act="sub" data-id="${it.id}" data-sid="${s.id}"><span class="t">${esc(s.t)}</span><button type="button" class="x" data-act="subdel" data-id="${it.id}" data-sid="${s.id}" aria-label="Remove subtask">×</button></label>`).join('')}
+          <form class="addline" data-form="sub" data-id="${it.id}"><input type="text" name="t" placeholder="Add a subtask" aria-label="New subtask" required><button type="submit">Add</button></form>
+        </div>
+      </div>
+      <div class="block">
+        <h3>Notes</h3>
+        <div class="list">
+          ${notes.map(n => `<div class="noteitem"><span class="t">${esc(n.t)}<span class="m">${Who(n.by)} · ${ago(n.at)}</span></span><button type="button" class="x" data-act="notedel" data-id="${it.id}" data-nid="${n.id}" aria-label="Remove note">×</button></div>`).join('')}
+          <form class="addline" data-form="note" data-id="${it.id}"><input type="text" name="t" placeholder="Add a note" aria-label="New note" required><button type="submit">Post</button></form>
+        </div>
+      </div>
+      <div class="block">
+        <h3>Blocked?</h3>
+        ${blocked
+          ? `<div class="blk on"><span class="b"><strong>Blocked on @${esc(ROLES[it.blockedOn])}</strong>${it.blockedNote ? `<span>${esc(it.blockedNote)}</span>` : ''}</span><button type="button" class="textbtn" data-act="unblock" data-id="${it.id}" style="margin:-10px -12px -10px 0">Unblock</button></div>
+             <button type="button" class="textbtn" data-act="block" data-id="${it.id}" style="align-self:flex-start;padding-left:0">Change who it's blocked on</button>`
+          : `<button type="button" class="blk" data-act="block" data-id="${it.id}"><span class="b">Not blocked<span>Tap to add a blocker on @Nish or @Rajeev</span></span>${ICON.chev}</button>`}
+      </div>
+      <div class="block" style="border-top:1px solid var(--line);padding-top:16px">
+        <div class="reactrow"><span>Your reaction</span><span>${oa ? `${ROLES[other]} reacted ${oa.e}` : `${ROLES[other]} hasn't reacted yet`}</span></div>
+        ${emoRow(it)}
+      </div>
+      <button type="button" class="danger" data-act="del" data-id="${it.id}">Delete this task</button>
+    </div>
+  </div>`;
 }
 
 /* ---------- actions ---------- */
-async function act(a, id, el) {
-  const it = data.items.find(i => i.id === id); if (!it) return;
-  const now = Date.now();
-  if (a === 'ack') { const e = el.dataset.e; return store.mutate(d => { const x = d.items.find(i => i.id === id); if (x) (x.acks ||= {})[role] = { e, at: now }; }, `${e} on "${it.title}"`); }
-  if (a === 'status') { const v = el.dataset.v; if (v === it.status) return; return store.mutate(d => { const x = d.items.find(i => i.id === id); if (!x) return; x.status = v; x.done = v === 'done'; x.doneBy = x.done ? role : null; x.doneAt = x.done ? now : null; if (x.done) x.blockedOn = null; }, `${STATUS[v].toLowerCase()}: "${it.title}"`); }
-  if (a === 'sub') return store.mutate(d => { const x = d.items.find(i => i.id === id); const sx = (x?.subs || []).find(y => y.id === el.dataset.sid); if (sx) sx.done = !sx.done; }, `subtask toggled on "${it.title}"`);
-  if (a === 'subdel') return store.mutate(d => { const x = d.items.find(i => i.id === id); if (x) x.subs = (x.subs || []).filter(y => y.id !== el.dataset.sid); }, `subtask removed from "${it.title}"`);
-  if (a === 'notedel') return store.mutate(d => { const x = d.items.find(i => i.id === id); if (x) x.notes = (x.notes || []).filter(y => y.id !== el.dataset.nid); }, `note removed from "${it.title}"`);
-  if (a === 'edit') return openAdd(id);
-  if (a === 'show') { openForms.add(id + ':' + el.dataset.f); const f = el.closest('article').querySelector(`[data-form="${el.dataset.f}"]`); f.hidden = false; f.t.focus(); return; }
-  if (a === 'unblock') return store.mutate(d => { const x = d.items.find(i => i.id === id); if (x) { x.blockedOn = null; x.blockedNote = ''; } }, `unblock "${it.title}"`);
-  if (a === 'del') { if (!confirm(`Delete "${it.title}"?`)) return; return store.mutate(d => { d.items = d.items.filter(i => i.id !== id); }, `delete "${it.title}"`); }
+async function act(a, el) {
+  const id = el.dataset.id, it = id ? item(id) : null, now = Date.now();
+  if (a === 'who') return askWho();
+  if (a === 'sync') return openSync();
+  if (a === 'add') return openAdd();
+  if (a === 'fold') { showDone = !showDone; return render(); }
+  if (a === 'back') { openId = null; history.replaceState(null, '', '#'); return render(); }
+  if (!it) return;
+  if (a === 'ack') { const e = el.dataset.e; return patch(id, x => { (x.acks ||= {})[role] = { e, at: now }; }, `${e} on "${it.title}"`); }
+  if (a === 'status') { const v = el.dataset.v; if (v === it.status) return; return patch(id, x => { x.status = v; x.done = v === 'done'; x.doneBy = x.done ? role : null; x.doneAt = x.done ? now : null; if (x.done) { x.blockedOn = null; x.blockedNote = ''; } }, `${STATUS[v].toLowerCase()}: "${it.title}"`); }
+  if (a === 'sub') return patch(id, x => { const s = (x.subs || []).find(y => y.id === el.dataset.sid); if (s) s.done = !s.done; }, `subtask toggled on "${it.title}"`);
+  if (a === 'subdel') return patch(id, x => { x.subs = (x.subs || []).filter(y => y.id !== el.dataset.sid); }, `subtask removed from "${it.title}"`);
+  if (a === 'notedel') return patch(id, x => { x.notes = (x.notes || []).filter(y => y.id !== el.dataset.nid); }, `note removed from "${it.title}"`);
+  if (a === 'unblock') return patch(id, x => { x.blockedOn = null; x.blockedNote = ''; }, `unblocked "${it.title}"`);
+  if (a === 'del') { if (!confirm(`Delete "${it.title}"?`)) return; openId = null; return store.mutate(d => { d.items = d.items.filter(i => i.id !== id); }, `delete "${it.title}"`); }
   if (a === 'block') {
-    const dlg = $('#blkDlg'); let on = it.by === role ? (role === 'nish' ? 'team' : 'nish') : it.by;
-    $('#blkOn').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === on));
-    $('#blkOn').onclick = (e) => { const b = e.target.closest('button'); if (!b) return; on = b.dataset.v; $('#blkOn').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); };
-    $('#blkNote').value = '';
-    $('#blkForm').onsubmit = (e) => { e.preventDefault(); const note = $('#blkNote').value.trim(); dlg.close(); store.mutate(d => { const x = d.items.find(i => i.id === id); if (x) { x.blockedOn = on; x.blockedNote = note; } }, `blocked "${it.title}" on ${SHORT[on]}`); };
+    const dlg = $('#blkDlg'); let on = it.blockedOn || (it.by === role ? OTHER[role] : it.by);
+    const seg = $('#blkOn'); const paint = () => seg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === on));
+    paint(); seg.onclick = (e) => { const b = e.target.closest('button'); if (b) { on = b.dataset.v; paint(); } };
+    $('#blkNote').value = it.blockedNote || '';
+    $('#blkForm').onsubmit = (e) => { e.preventDefault(); const note = $('#blkNote').value.trim(); dlg.close(); patch(id, x => { x.blockedOn = on; x.blockedNote = note; }, `blocked "${it.title}" on @${ROLES[on]}`); };
     $('#blkCancel').onclick = () => dlg.close();
-    dlg.showModal(); return;
+    dlg.showModal();
   }
-
 }
+document.addEventListener('click', (e) => {
+  const open = e.target.closest('[data-open]'); if (open) { openId = open.dataset.open; history.replaceState(null, '', '#task/' + openId); render(); window.scrollTo({ top: 0 }); return; }
+  const ed = e.target.closest('[data-edit]'); if (ed) { e.preventDefault(); return openAdd(ed.dataset.edit); }
+  const t = e.target.closest('[data-tab]'); if (t) { tab = t.dataset.tab; LS.set('rm.tab', tab); render(); window.scrollTo({ top: 0 }); return; }
+  const b = e.target.closest('[data-act]'); if (b && !b.closest('dialog')) act(b.dataset.act, b);
+});
+document.addEventListener('change', (e) => { const b = e.target.closest('input[data-act="sub"]'); if (b) act('sub', b); });
+document.addEventListener('submit', (e) => {
+  const f = e.target.closest('[data-form]'); if (!f) return; e.preventDefault();
+  const t = f.t.value.trim(); if (!t) return; const id = f.dataset.id, it = item(id); if (!it) return;
+  if (f.dataset.form === 'sub') patch(id, x => { (x.subs ||= []).push({ id: uid(), t, done: false }); }, `subtask "${t}" on "${it.title}"`);
+  else patch(id, x => { (x.notes ||= []).push({ id: uid(), t, by: role, at: Date.now() }); }, `note on "${it.title}"`);
+});
 
+/* ---------- add / edit ---------- */
 function openAdd(id) {
-  const f = FIELDS[tab]; const dlg = $('#addDlg');
-  editId = id || null; const cur = editId ? data.items.find(i => i.id === editId) : null;
-  $('#addTitle').textContent = cur ? 'Edit' : 'Add to ' + TABS.find(t => t.id === tab).label.toLowerCase();
-  $('#addForm button[type=submit]').textContent = cur ? 'Save' : 'Add';
-  $('#addErr').textContent = '';
+  const cur = id ? item(id) : null; editId = cur ? cur.id : null;
+  const kind = cur ? cur.tab : tab, f = FIELDS[kind], dlg = $('#addDlg');
+  $('#addTitle').textContent = cur ? 'Edit' : TABS.find(t => t.id === kind).add;
+  $('#addErr').textContent = ''; $('#addDel').hidden = !cur;
+  $('#addHint').textContent = kind === 'todos' && !cur ? 'New tasks start as Not started. Subtasks, notes and blocking live inside the task once it\'s saved.' : '';
   const val = (k) => cur ? esc(k === 'due' && cur.due ? new Date(cur.due).toISOString().slice(0, 10) : cur[k] || '') : '';
-  $('#fields').innerHTML = f.map(x => {
-    const id = 'f_' + x.k;
-    if (x.t === 'textarea') return `<label for="${id}">${x.l}</label><textarea id="${id}" name="${x.k}" placeholder="${esc(x.ph || '')}">${val(x.k)}</textarea>`;
-    if (x.t === 'who') { const v = cur ? cur.for || 'both' : role; return `<label>${x.l}</label><div class="seg" data-seg="for"><button type="button" data-v="nish" aria-pressed="${v === 'nish'}">Nish</button><button type="button" data-v="team" aria-pressed="${v === 'team'}">Rajeev</button><button type="button" data-v="both" aria-pressed="${v === 'both'}">Both</button></div>`; }
-    if (x.t === 'status') { const v = cur ? cur.status || 'todo' : 'todo'; return `<label>${x.l}</label><div class="seg" data-seg="status">${Object.entries(STATUS).map(([k, l]) => `<button type="button" data-v="${k}" aria-pressed="${v === k}">${l}</button>`).join('')}</div>`; }
-    const ph = x.ph || '';
-    return `<label for="${id}">${x.l}</label><input id="${id}" name="${x.k}" type="${x.t}" ${x.req ? 'required' : ''} placeholder="${esc(ph)}" autocomplete="off" ${x.t === 'url' ? 'inputmode="url"' : ''} value="${val(x.k)}">`;
+  $('#fields').innerHTML = f.filter(x => !(x.editOnly && !cur)).map(x => {
+    const fid = 'f_' + x.k, lab = `<label for="${fid}">${x.l}${x.opt ? ' <small>· optional</small>' : ''}</label>`;
+    if (x.t === 'textarea') return `<div class="field">${lab}<textarea id="${fid}" name="${x.k}" placeholder="${esc(x.ph || '')}">${val(x.k)}</textarea></div>`;
+    if (x.t === 'who') { const v = cur ? cur.for || 'both' : role; return `<div class="field"><div class="lab">${x.l}</div><div class="seg" data-seg="for">${['nish', 'team', 'both'].map(r => `<button type="button" data-v="${r}" aria-pressed="${v === r}">${r === 'both' ? 'Both' : ROLES[r]}</button>`).join('')}</div></div>`; }
+    if (x.t === 'status') { const v = cur.status || 'todo'; return `<div class="field"><div class="lab">${x.l}</div><div class="seg" data-seg="status">${Object.entries(STATUS).map(([k, l]) => `<button type="button" data-v="${k}" aria-pressed="${v === k}">${l}</button>`).join('')}</div></div>`; }
+    return `<div class="field">${lab}<input id="${fid}" class="${x.big ? 'big' : ''}" name="${x.k}" type="${x.t}" ${x.req ? 'required' : ''} placeholder="${esc(x.ph || '')}" autocomplete="off" ${x.t === 'url' ? 'inputmode="url"' : ''} value="${val(x.k)}"></div>`;
   }).join('');
   dlg.querySelectorAll('[data-seg]').forEach(seg => seg.onclick = (e) => { const b = e.target.closest('button'); if (!b) return; seg.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+  $('#addForm').dataset.kind = kind;
   dlg.showModal();
   setTimeout(() => $('#fields input, #fields textarea')?.focus(), 50);
 }
-$('#addForm').onsubmit = async (e) => {
+$('#addForm').onsubmit = (e) => {
   e.preventDefault();
-  const fd = new FormData(e.target); const cur = editId ? data.items.find(i => i.id === editId) : null;
-  const it = cur ? { ...cur } : { id: uid(), tab, by: role, at: Date.now(), acks: {}, ...(tab === 'todos' ? { status: 'todo', subs: [], notes: [] } : {}) };
-  for (const x of FIELDS[tab]) {
+  const kind = e.target.dataset.kind, fd = new FormData(e.target), cur = editId ? item(editId) : null;
+  const it = cur ? { ...cur } : { id: uid(), tab: kind, by: role, at: Date.now(), acks: {}, ...(kind === 'todos' ? { status: 'todo', subs: [], notes: [] } : {}) };
+  for (const x of FIELDS[kind]) {
     if (x.t === 'who') it.for = $('[data-seg="for"] [aria-pressed="true"]')?.dataset.v || 'both';
-    else if (x.t === 'status') it.status = $('[data-seg="status"] [aria-pressed="true"]')?.dataset.v || 'todo';
+    else if (x.t === 'status') { if (cur) it.status = $('[data-seg="status"] [aria-pressed="true"]')?.dataset.v || 'todo'; }
     else it[x.k] = (fd.get(x.k) || '').toString().trim();
   }
-  if (tab === 'todos' && cur && it.status !== cur.status) { it.done = it.status === 'done'; it.doneBy = it.done ? role : null; it.doneAt = it.done ? Date.now() : null; if (it.done) it.blockedOn = null; }
   if (it.url && !/^https?:\/\//i.test(it.url)) it.url = 'https://' + it.url;
-  if (it.due) it.due = new Date(it.due + 'T12:00:00').getTime();
+  it.due = it.due ? new Date(it.due + 'T12:00:00').getTime() : null;
+  if (kind === 'todos' && cur && it.status !== cur.status) { it.done = it.status === 'done'; it.doneBy = it.done ? role : null; it.doneAt = it.done ? Date.now() : null; if (it.done) { it.blockedOn = null; it.blockedNote = ''; } }
   $('#addDlg').close();
-  if (cur) store.mutate(d => { const i = d.items.findIndex(x => x.id === cur.id); if (i >= 0) d.items[i] = { ...d.items[i], ...it }; }, `edit ${tab} "${it.title}"`);
-  else store.mutate(d => { d.items.push(it); }, `add ${tab} "${it.title}"`);
+  if (cur) store.mutate(d => { const i = d.items.findIndex(x => x.id === cur.id); if (i >= 0) d.items[i] = { ...d.items[i], ...it }; }, `edit "${it.title}"`);
+  else store.mutate(d => { d.items.push(it); }, `add ${kind === 'todos' ? 'task' : kind === 'links' ? 'link' : 'reference'} "${it.title}"`);
 };
 $('#addCancel').onclick = () => $('#addDlg').close();
-$('#addBtn').onclick = () => openAdd();
+$('#addDel').onclick = () => { const it = item(editId); if (!it || !confirm(`Delete "${it.title}"?`)) return; $('#addDlg').close(); if (openId === it.id) openId = null; store.mutate(d => { d.items = d.items.filter(i => i.id !== it.id); }, `delete "${it.title}"`); };
 
-/* tabs, filters, cards */
-$('#tabs').onclick = (e) => { const b = e.target.closest('[data-tab]'); if (!b) return; tab = b.dataset.tab; LS.set('rm.tab', tab); render(); window.scrollTo({ top: 0 }); };
-$('#toolbar').onclick = (e) => { const b = e.target.closest('[data-f]'); if (!b) return; filter = b.dataset.f; render(); };
-$('#list').onclick = (e) => { const b = e.target.closest('[data-act]'); if (b) act(b.dataset.act, b.dataset.id, b); };
-$('#list').addEventListener('submit', (e) => {
-  const f = e.target.closest('[data-form]'); if (!f) return; e.preventDefault();
-  const t = f.t.value.trim(); if (!t) return; const id = f.dataset.id; const it = data.items.find(i => i.id === id); if (!it) return;
-  if (f.dataset.form === 'sub') store.mutate(d => { const x = d.items.find(i => i.id === id); if (x) (x.subs ||= []).push({ id: uid(), t, done: false }); }, `subtask "${t}" on "${it.title}"`);
-  else store.mutate(d => { const x = d.items.find(i => i.id === id); if (x) (x.notes ||= []).push({ id: uid(), t, by: role, at: Date.now() }); }, `note on "${it.title}"`);
-});
-
-/* who */
+/* ---------- who / sync ---------- */
 function askWho() { $('#whoDlg').showModal(); }
 $('#whoDlg').onclick = (e) => { const b = e.target.closest('[data-role]'); if (!b) return; role = b.dataset.role; LS.set('rm.role', role); $('#whoDlg').close(); render(); };
 $('#whoDlg').addEventListener('cancel', (e) => { if (!role) e.preventDefault(); });
-$('#whoBtn').onclick = askWho;
-
-/* sync settings */
-function openSync() {
-  $('#tokIn').value = store.cfg.token || ''; $('#repoIn').value = store.cfg.repo; $('#pathIn').value = store.cfg.path; $('#syncErr').textContent = '';
-  $('#syncDlg').showModal();
-}
-$('#syncBtn').onclick = openSync;
+function openSync() { $('#tokIn').value = store.cfg.token || ''; $('#repoIn').value = store.cfg.repo; $('#pathIn').value = store.cfg.path; $('#syncErr').textContent = ''; $('#syncDlg').showModal(); }
 $('#syncOff').onclick = () => { store.cfg.token = ''; LS.set('rm.sync', store.cfg); $('#syncDlg').close(); boot(); };
 $('#syncForm').onsubmit = async (e) => {
   e.preventDefault();
@@ -499,9 +532,10 @@ $('#syncForm').onsubmit = async (e) => {
   LS.set('rm.sync', cfg); $('#syncDlg').close(); store.start(); render(); toast('Connected');
 };
 
-/* boot */
+/* ---------- boot ---------- */
 async function boot() {
   try { await store.load(); } catch (e) { toast(e.message); data = { items: [] }; }
+  const m = location.hash.match(/^#task\/(\w+)/); if (m && item(m[1])) { openId = m[1]; tab = 'todos'; }
   store.start(); render();
   if (!role) askWho();
 }
