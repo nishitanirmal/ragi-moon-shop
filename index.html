@@ -124,6 +124,8 @@ section.band.sweet{background:var(--blush);color:var(--ink)}
 .flavours button{flex:1;border:1px solid #e9b6ad;background:transparent;color:var(--terracotta);border-radius:8px;padding:5px 8px;font-size:13px}
 .flavours button[aria-pressed="true"]{background:var(--terracotta);color:var(--blush);border-color:var(--terracotta)}
 
+.sold-out{display:inline-block;border:1px solid var(--peach);color:var(--peach);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600}
+.sweet .sold-out{border-color:var(--terracotta);color:var(--muted-on-blush)}
 .add{border:0;border-radius:999px;background:var(--peach);color:var(--maroon);font-weight:600;padding:9px 18px;font-size:14px}
 .sweet .add{background:var(--terracotta);color:#fff}
 .stepper{display:inline-flex;align-items:center;border-radius:999px;background:var(--peach);color:var(--maroon);overflow:hidden}
@@ -229,6 +231,47 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 @media (max-width:420px){
   .grid{grid-template-columns:1fr}
 }
+/* Mobile: each range plays like a story. Progress bars on top, tap the right of the picture for the next product,
+   the left for the one before, or swipe. Nothing advances on its own. Desktop keeps the grid. */
+.story-bars,.tap,.story-arrow{display:none}
+@media (max-width:640px){
+  .story-bars{display:flex;gap:4px;margin:0 0 12px}
+  .story-bars span{flex:1;height:4px;border-radius:4px;background:rgba(253,220,192,.35);overflow:hidden}
+  .story-bars span i{display:block;height:100%;width:0;background:var(--peach);transition:width .25s ease}
+  .story-bars span.on i{width:100%}
+  .sweet .story-bars span{background:#f1cfd2}
+  .sweet .story-bars span i{background:var(--terracotta)}
+  .story-count{margin:0 0 10px;font-size:13px;font-variant-numeric:tabular-nums;opacity:.85}
+  .sweet .story-count{color:var(--muted-on-blush);opacity:1}
+  .grid{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .grid::-webkit-scrollbar{display:none}
+  .grid .card{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always}
+  .grid.dragging{scroll-snap-type:none;cursor:grabbing}
+  .tap{display:flex;align-items:center;position:absolute;top:0;bottom:0;z-index:2;border:0;background:transparent;padding:0 8px;-webkit-tap-highlight-color:transparent}
+  .tap.prev{left:0;width:34%;justify-content:flex-start}
+  .tap.next{right:0;width:66%;justify-content:flex-end}
+  .tap:focus-visible{outline-offset:-4px}
+  .tap[disabled]{cursor:default}
+  /* one pair of arrows per story; they stay put while the products slide under them */
+  .story-stage{position:relative}
+  .story-arrow{position:absolute;z-index:3;top:calc(min(34vh,260px) / 2 - 22px);width:44px;height:44px;border:0;padding:0;background:transparent;display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
+  .story-arrow.prev{left:6px}
+  .story-arrow.next{right:6px}
+  .story-arrow span{width:32px;height:32px;border-radius:999px;display:grid;place-items:center;background:var(--arw-bg,var(--peach));color:var(--maroon);border:1px solid rgba(74,26,30,.18);transition:background-color .25s}
+  .story-arrow:focus-visible{outline:none}
+  .story-arrow:focus-visible span{outline:2px solid var(--peach);outline-offset:2px}
+  .sweet .story-arrow:focus-visible span{outline-color:var(--maroon)}
+  .story-arrow[disabled]{visibility:hidden}
+  /* the page settles on each story range as you scroll */
+  html{scroll-snap-type:y proximity}
+  main#top>.intro,section.band,section.gifting{scroll-snap-align:start}
+  section.band{padding-block:20px 28px}
+  .band-head{margin-bottom:12px}
+  .band-head h2 img{height:64px}
+  .card .pic{aspect-ratio:auto;height:min(34vh,260px)}
+  .card .body{padding:12px 16px 14px}
+}
+@media (max-width:640px) and (prefers-reduced-motion:reduce){.story-bars span i{transition:none}}
 </style>
 </head>
 <body>
@@ -364,7 +407,7 @@ const PRODUCTS = [
   {id:"ragi-theinkuzhal",cat:"savoury",name:"Ragi Theinkuzhal",ta:"ராகி தேன்குழல்",hi:"रागी थेंकुळल",size:"200g",price:200,tags:["Salty","Crunchy","Buttery","Hard"],desc:"Ragi, rice flour and urad dal, shaped into a hollow coil. Sesame comes through, with more crispness from the ragi and a deeper, earthier flavour. Good source of iron and calcium."},
   {id:"uppu-seedai",cat:"savoury",name:"Uppu Seedai",ta:"உப்புச் சீடை",hi:"उप्पु सीडई",size:"200g",price:200,tags:["Salty","Crunchy","Buttery","Hard"],desc:"Rice, chana dal and urad dal, shaped small and fried till hard. Coconut pieces and a little chilli, with hints of saunf."},
   {id:"thattai",cat:"savoury",name:"Thattai",ta:"தட்டை",hi:"तट्टई",size:"200g",price:200,tags:["Spiced","Crispy","Buttery","Crumbly"],desc:"Rice and dal, hand patted into shape. Curry leaf, groundnut and hing, with a little heat. The hing and curry leaf make it good for digestion."},
-  {id:"oma-pudi",cat:"savoury",name:"Oma Pudi",ta:"ஓமப்பொடி",hi:"ओमप्पोडी",size:"200g",price:200,tags:["Spiced","Crunchy","Buttery","Crispy"],desc:"Ajwain and chana dal, shaped into thin sev-like strands. Hing and a little spice."},
+  {id:"oma-pudi",cat:"savoury",soldOut:true,name:"Oma Pudi",ta:"ஓமப்பொடி",hi:"ओमप्पोडी",size:"200g",price:200,tags:["Spiced","Crunchy","Buttery","Crispy"],desc:"Ajwain and chana dal, shaped into thin sev-like strands. Hing and a little spice."},
   {id:"rice-crispies",cat:"savoury",name:"Rice Crispies",size:"200g",price:200,tags:["Salty","Crunchy","Buttery","Crispy"],desc:"Rice flour, cheesy with a bit of chaat masala. No heat, just crisp all the way through."},
   {id:"choco-chunk-cookies",cat:"sweet",name:"Ragi Choco Chunk Cookies",size:"200g",price:250,tags:["Sweet","Crumbly","Chewy"],desc:"Ragi and oats with chocolate chunks through them. Crisp outside, a little soft in the middle. Good source of iron, calcium, magnesium, zinc and dietary fibre."},
   {id:"jowar-oats-cookies",cat:"sweet",name:"Jowar Oats Cookies",size:"200g",price:200,tags:["Sweet","Chewy","Crunchy","Crumbly"],desc:"Jowar and oats, with cinnamon, cashew and a bit of jaggery. Crisp and crunchy, nothing fussy about it. Rich in dietary fibre and plant protein, with beta-glucan from the oats."},
@@ -395,7 +438,7 @@ function cardHTML(p){
   const alt = (p.ta||p.hi) ? `<div class="alt">${p.ta?`<span lang="ta">${p.ta}</span>`:""}${p.hi?`<span lang="hi">${p.hi}</span>`:""}</div>` : "";
   const fl = p.flavours ? `<div class="flavours" role="group" aria-label="Flavour">${p.flavours.map(f=>`<button type="button" data-flavour="${f}" data-id="${p.id}" aria-pressed="${(flavourPick[p.id]||p.flavours[0])===f}">${f}</button>`).join("")}</div>` : "";
   return `<article class="card" id="p-${p.id}">
-    <div class="pic"><img src="${IMG[p.id]}" loading="lazy" alt="Illustration of ${esc(p.name)}"></div>
+    <div class="pic"><button type="button" class="tap prev" data-story="-1" aria-label="Previous product"></button><button type="button" class="tap next" data-story="1" aria-label="Next product"></button><img src="images/circle/${p.id}.webp" loading="lazy" alt="Illustration of ${esc(p.name)}"></div>
     <div class="body">
       <h3>${esc(p.name)}</h3>${alt}
       <div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join("")}</div>
@@ -404,6 +447,7 @@ function cardHTML(p){
     </div></article>`;
 }
 function ctlHTML(p){
+  if (p.soldOut) return `<span class="sold-out">Out of stock</span>`;
   const q = cart[keyFor(p)] || 0;
   const label = p.flavours ? `${flavourPick[p.id]||p.flavours[0]} ` : "";
   if (!q) return `<button class="add" type="button" data-add="${p.id}">Add${label?" "+label.trim():""}</button>`;
@@ -607,6 +651,76 @@ document.getElementById("hSavoury").src = IMG["h-savoury"];
 document.getElementById("hSweets").src = IMG["h-sweets"];
 
 renderGrid(); renderCtls(); renderCart();
+
+/* ---- Mobile story view: bars, tap left/right, swipe ---- */
+const MIST = "#cacbd6", PINK = "#f2b9c6";
+const CIRCLE = {"choco-chunk-cookies":MIST,"jowar-oats-cookies":PINK,"dryfruit-brittles":PINK,"dryfruit-delight":PINK,"protein-bites":MIST,"ragi-bites":MIST,"wholewheat-bites":PINK,"ragi-choc-fudge":MIST};
+(function(){
+  const mobile = matchMedia("(max-width:640px)");
+  const calm = matchMedia("(prefers-reduced-motion: reduce)");
+  const stories = [...document.querySelectorAll(".grid")].map(grid => {
+    const cards = [...grid.children];
+    const bars = document.createElement("div");
+    bars.className = "story-bars"; bars.setAttribute("aria-hidden", "true");
+    bars.innerHTML = cards.map(() => "<span><i></i></span>").join("");
+    const count = document.createElement("p");
+    count.className = "story-count sr-only"; count.setAttribute("aria-live", "polite");
+    grid.before(bars, count);
+    const stage = document.createElement("div"); stage.className = "story-stage";
+    grid.before(stage); stage.append(grid);
+    const arrow = (dir, label, d) => { const b = document.createElement("button"); b.type = "button"; b.className = "story-arrow " + dir; b.dataset.story = d; b.setAttribute("aria-label", label);
+      b.innerHTML = `<span><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d < 0 ? "M12 4 6 10l6 6" : "M8 4l6 6-6 6"}"/></svg></span>`; stage.append(b); return b; };
+    const prev = arrow("prev", "Previous product", -1), next = arrow("next", "Next product", 1);
+    return {grid, cards, bars: [...bars.children], count, idx: 0, stage, prev, next};
+  });
+  const step = st => st.cards[0].getBoundingClientRect().width + parseFloat(getComputedStyle(st.grid).columnGap || 0);
+  function paint(st){
+    st.bars.forEach((b, i) => b.classList.toggle("on", i <= st.idx));
+    st.cards.forEach((c, i) => {
+      c.querySelector(".tap.prev").disabled = i === 0 && st === stories[0];
+      c.querySelector(".tap.next").disabled = i === st.cards.length - 1 && st === stories[stories.length - 1];
+      c.toggleAttribute("inert", mobile.matches && i !== st.idx);
+    });
+    // the arrows take the colour of the circle between them
+    st.stage.style.setProperty("--arw-bg", CIRCLE[st.cards[st.idx].id.slice(2)] || "var(--peach)");
+    st.prev.disabled = st.idx === 0 && st === stories[0];
+    st.next.disabled = st.idx === st.cards.length - 1 && st === stories[stories.length - 1];
+    st.count.textContent = mobile.matches ? `${st.idx + 1} of ${st.cards.length}: ${st.cards[st.idx].querySelector("h3").textContent}` : "";
+  }
+  function go(st, i){
+    const si = stories.indexOf(st);
+    if (i >= st.cards.length && stories[si + 1]) { const nx = stories[si + 1]; show(nx, 0, true); nx.grid.closest("section").scrollIntoView({behavior: calm.matches ? "instant" : "smooth"}); return; }
+    if (i < 0 && stories[si - 1]) { const pv = stories[si - 1]; show(pv, pv.cards.length - 1, true); pv.grid.closest("section").scrollIntoView({behavior: calm.matches ? "instant" : "smooth"}); return; }
+    show(st, Math.max(0, Math.min(st.cards.length - 1, i)));
+  }
+  function show(st, i, instant){
+    st.idx = i; paint(st);
+    st.grid.scrollTo({left: i * step(st), behavior: instant || calm.matches ? "instant" : "smooth"});
+  }
+  stories.forEach(st => {
+    let t;
+    st.grid.addEventListener("scroll", () => {
+      clearTimeout(t);
+      t = setTimeout(() => { const i = Math.round(st.grid.scrollLeft / step(st)); if (i !== st.idx) { st.idx = i; paint(st); } }, 60);
+    }, {passive: true});
+    st.stage.addEventListener("click", e => {
+      const b = e.target.closest("[data-story]"); if (!b || !mobile.matches) return;
+      if (st.dragged) { st.dragged = false; return; }
+      go(st, st.idx + Number(b.dataset.story));
+    });
+    // a mouse can drag between products too (touch already swipes natively)
+    let x0 = null;
+    st.grid.addEventListener("pointerdown", e => { if (e.pointerType === "mouse" && mobile.matches) { x0 = e.clientX; st.dragged = false; } });
+    addEventListener("pointerup", e => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) { st.dragged = true; go(st, st.idx + (dx < 0 ? 1 : -1)); }
+    });
+    paint(st);
+  });
+  mobile.addEventListener("change", () => stories.forEach(st => { st.idx = 0; st.grid.scrollLeft = 0; paint(st); }));
+  addEventListener("resize", () => stories.forEach(st => { st.grid.scrollLeft = st.idx * step(st); }));
+})();
 
 // Section chips: offset jumps below the sticky header, and highlight the section being viewed.
 (function(){
