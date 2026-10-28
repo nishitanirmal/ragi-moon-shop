@@ -264,7 +264,9 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
   .story-arrow[disabled]{visibility:hidden}
   /* the page settles on each story range as you scroll */
   html{scroll-snap-type:y proximity}
-  main#top>.intro,section.band,section.gifting{scroll-snap-align:start}
+  /* the top of the page is a snap point too (the ribbon sits right under the sticky header), so the page never jumps on load */
+  .ribbon{scroll-snap-align:start;scroll-margin-top:var(--head-h,110px)}
+  section.band,section.gifting{scroll-snap-align:start}
   section.band{padding-block:20px 28px}
   .band-head{margin-bottom:12px}
   .band-head h2 img{height:64px}
