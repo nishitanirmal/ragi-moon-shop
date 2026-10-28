@@ -39,9 +39,16 @@ a{color:inherit;text-underline-offset:3px}
 .nobr{white-space:nowrap}
 .wrap{max-width:600px;margin:0 auto;padding-inline:24px}
 
-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:18px}
-header .logo img{height:28px;width:auto;display:block}
-header .back{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--soft)}
+/* Header: the same two rows as the shop (logo + pill, then the page links), on the shop's wider frame */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--terracotta);border-bottom:1px solid rgba(253,220,192,.35);display:grid;row-gap:22px;padding-block:12px 18px}
+header.top .hwrap{max-width:1096px;width:100%;margin:0 auto;padding-inline:24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+header .logo{display:block;line-height:0}
+header .logo img{height:30px;width:auto;display:block;margin-left:-10.5px}
+.shop-btn{display:flex;align-items:center;min-height:38px;line-height:1.5;background:var(--peach);color:#4a1a1e;border-radius:999px;padding:8px 16px;font-weight:500;font-size:14px;text-decoration:none}
+nav.pages{display:flex;flex-wrap:wrap;gap:8px clamp(14px,5vw,20px);margin-top:-1px;font-family:var(--serif);font-style:italic;font-size:17px;line-height:1}
+nav.pages a{color:var(--peach);text-decoration:none;white-space:nowrap;padding-block:8px;margin-block:-8px}
+nav.pages a:hover,nav.pages a[aria-current="page"]{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
+.ext{display:inline-block;vertical-align:-.05em;margin-left:2px}
 
 .kicker{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin:0 0 16px}
 .rule{border:0;border-top:1px solid var(--line);margin:0}
@@ -76,14 +83,16 @@ footer .wrap{padding-block:22px 40px;font-size:12px;letter-spacing:.12em;text-tr
 </style>
 </head>
 <body>
-<header><div class="wrap">
-  <a class="logo" href="./"><img src="images/logo.png" alt="Ragi &amp; Moon"></a>
-  <a class="back" href="./">Shop</a>
-</div></header>
+<header class="top">
+  <div class="hwrap">
+    <a class="logo" href="./"><img src="images/logo.png" alt="Ragi &amp; Moon"></a>
+    <a class="shop-btn" href="./">Shop</a>
+  </div>
+  <div class="hwrap"><nav class="pages" aria-label="Pages"><a href="about.html" aria-current="page">About us</a><a href="./#gifting">Bulk &amp; gifting</a><a href="https://www.instagram.com/ragiandmoon/" target="_blank" rel="noopener">Instagram <svg class="ext" viewBox="0 0 12 12" width="14" height="14" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div>
+</header>
 
 <main>
   <div class="wrap">
-    <hr class="rule">
     <section class="hero">
       <p class="kicker">Our story</p>
       <h1>It started in my kitchen, with my favourite ingredient.</h1>
