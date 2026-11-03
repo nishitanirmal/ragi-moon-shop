@@ -254,7 +254,7 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
   .tap[disabled]{cursor:default}
   /* one pair of arrows per story; they stay put while the products slide under them */
   .story-stage{position:relative}
-  .story-arrow{position:absolute;z-index:3;top:calc(min(34vh,260px) / 2 - 22px);width:44px;height:44px;border:0;padding:0;background:transparent;display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
+  .story-arrow{position:absolute;z-index:3;top:calc(var(--pic-h,min(34vh,260px)) / 2 - 22px);width:44px;height:44px;border:0;padding:0;background:transparent;display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
   .story-arrow.prev{left:6px}
   .story-arrow.next{right:6px}
   .story-arrow span{width:32px;height:32px;border-radius:999px;display:grid;place-items:center;background:var(--arw-bg,var(--peach));color:var(--maroon);border:1px solid rgba(74,26,30,.18);transition:background-color .25s}
@@ -266,11 +266,13 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
   html{scroll-snap-type:y proximity}
   /* the top of the page is a snap point too (the ribbon sits right under the sticky header), so the page never jumps on load */
   .ribbon{scroll-snap-align:start;scroll-margin-top:var(--head-h,110px)}
-  section.band,section.gifting{scroll-snap-align:start}
+  /* products snap at their progress bars, so the bars and the Add button are both on screen (the menu toggle already names the range) */
+  .story-bars{scroll-snap-align:start;scroll-margin-top:calc(var(--head-h,110px) + var(--bar-h,62px) + 10px)}
+  section.gifting{scroll-snap-align:start}
   section.band{padding-block:20px 28px}
-  .band-head{margin-bottom:12px}
+  .band-head{margin-bottom:18px}
   .band-head h2 img{height:64px}
-  .card .pic{aspect-ratio:auto;height:min(34vh,260px)}
+  .card .pic{aspect-ratio:auto;height:var(--pic-h,min(34vh,260px))}
   .card .body{padding:12px 16px 14px}
 }
 @media (max-width:640px) and (prefers-reduced-motion:reduce){.story-bars span i{transition:none}}
@@ -677,6 +679,21 @@ const CIRCLE = {"choco-chunk-cookies":MIST,"jowar-oats-cookies":PINK,"dryfruit-b
     const prev = arrow("prev", "Previous product", -1), next = arrow("next", "Next product", 1);
     return {grid, cards, bars: [...bars.children], count, idx: 0, stage, prev, next};
   });
+  /* picture height on phones: whatever is left once the header, bars, card text, Add button and order bar fit on one screen */
+  function fit(){
+    stories.forEach(st => {
+      if (!mobile.matches) { st.stage.style.removeProperty("--pic-h"); return; }
+      st.grid.style.alignItems = "flex-start";
+      const body = Math.max(...st.cards.map(c => c.querySelector(".body").offsetHeight));
+      st.grid.style.alignItems = "";
+      const root = getComputedStyle(document.documentElement);
+      const top = parseFloat(root.getPropertyValue("--head-h")) + parseFloat(root.getPropertyValue("--bar-h")) + 10 + st.bars[0].parentNode.offsetHeight + 12;
+      const orderBar = 76; // room for the order bar, so Add is never hidden under it
+      st.stage.style.setProperty("--pic-h", Math.round(Math.max(110, Math.min(260, innerHeight - top - body - orderBar - 8))) + "px");
+    });
+  }
+  addEventListener("load", fit); addEventListener("resize", fit); mobile.addEventListener("change", fit);
+  if (document.fonts) document.fonts.ready.then(fit);
   const step = st => st.cards[0].getBoundingClientRect().width + parseFloat(getComputedStyle(st.grid).columnGap || 0);
   function paint(st){
     st.bars.forEach((b, i) => b.classList.toggle("on", i <= st.idx));
@@ -693,8 +710,8 @@ const CIRCLE = {"choco-chunk-cookies":MIST,"jowar-oats-cookies":PINK,"dryfruit-b
   }
   function go(st, i){
     const si = stories.indexOf(st);
-    if (i >= st.cards.length && stories[si + 1]) { const nx = stories[si + 1]; show(nx, 0, true); nx.grid.closest("section").scrollIntoView({behavior: calm.matches ? "instant" : "smooth"}); return; }
-    if (i < 0 && stories[si - 1]) { const pv = stories[si - 1]; show(pv, pv.cards.length - 1, true); pv.grid.closest("section").scrollIntoView({behavior: calm.matches ? "instant" : "smooth"}); return; }
+    if (i >= st.cards.length && stories[si + 1]) { const nx = stories[si + 1]; show(nx, 0, true); nx.bars[0].parentNode.scrollIntoView({behavior: calm.matches ? "instant" : "smooth"}); return; }
+    if (i < 0 && stories[si - 1]) { const pv = stories[si - 1]; show(pv, pv.cards.length - 1, true); pv.bars[0].parentNode.scrollIntoView({behavior: calm.matches ? "instant" : "smooth"}); return; }
     show(st, Math.max(0, Math.min(st.cards.length - 1, i)));
   }
   function show(st, i, instant){
@@ -753,7 +770,8 @@ const CIRCLE = {"choco-chunk-cookies":MIST,"jowar-oats-cookies":PINK,"dryfruit-b
   const calm = matchMedia("(prefers-reduced-motion: reduce)");
   document.addEventListener("click", e => {
     const a = e.target.closest('a[href^="#"]'); if (!a || a.getAttribute("href").length < 2) return;
-    const target = document.querySelector(a.getAttribute("href")); if (!target) return;
+    let target = document.querySelector(a.getAttribute("href")); if (!target) return;
+    if (matchMedia("(max-width:640px)").matches) target = target.querySelector(".story-bars") || target;
     e.preventDefault();
     const offset = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
     const to = Math.max(0, target.getBoundingClientRect().top + scrollY - offset);
