@@ -713,7 +713,9 @@ document.querySelectorAll(".card").forEach(card => {
     const now = Date.now(), paused = document.hidden || document.body.style.position === "fixed"; // tab hidden or order sheet open
     slideCards.forEach(sc => {
       if (now < sc.next) return;
-      sc.next += SLIDE_EVERY;
+      const late = now - sc.next;
+      sc.next += SLIDE_EVERY * (Math.floor(late / SLIDE_EVERY) + 1); // catch up in one step after the tab slept (timers pause), so cards don't flip rapidly on return
+      if (late > 1000) return;
       if (!paused && sc.seen && !sc.held) sc.go((sc.idx + 1) % sc.dots.length, true);
     });
   }, 200);
