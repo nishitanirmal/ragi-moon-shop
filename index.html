@@ -11,10 +11,12 @@
 <meta name="theme-color" content="#B35642">
 <link rel="icon" href="images/logo.png">
 <title>Ragi &amp; Moon</title>
-<script>try{if(sessionStorage.getItem("rm-splash"))document.documentElement.classList.add("no-splash")}catch(e){}</script>
+<link rel="preload" href="images/motif.webp" as="image" fetchpriority="high">
+<link rel="preload" href="images/logo.png" as="image" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&family=Noto+Sans+Tamil:wght@400&family=Noto+Sans+Devanagari:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&family=Noto+Sans+Tamil:wght@400&family=Noto+Sans+Devanagari:wght@400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&family=Noto+Sans+Tamil:wght@400&family=Noto+Sans+Devanagari:wght@400&display=swap"></noscript>
 <style>
 /* Layout: two catalogue "pages" (savoury on terracotta, sweets on blush) as stacked bands; sticky header, bottom cart bar, slide-up order sheet. Single brand look, taken from the printed catalogue. */
 :root{
@@ -82,7 +84,9 @@ nav.sections a{color:var(--peach);text-decoration:none;font-size:14px;font-weigh
 .intro .kicker{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(253,220,192,.75);margin:0 0 12px}
 .intro h1{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.2;margin:0 0 12px;text-wrap:balance}
 /* Silent reel under the title: edge to edge, phone cut on narrow or upright screens, wide cut elsewhere */
-.reel{margin-top:8px;background:#2b1a17}
+.reel{margin-top:8px;background:#2b1a17;position:relative}
+.reel-btn{position:absolute;right:12px;bottom:12px;width:44px;height:44px;border-radius:999px;border:0;background:rgba(43,26,23,.55);color:#fddcc0;display:grid;place-items:center;cursor:pointer}
+.reel-btn .i-play{display:none}.reel-btn[aria-pressed="true"] .i-play{display:block}.reel-btn[aria-pressed="true"] .i-pause{display:none}
 .reel video{display:block;width:100%;height:auto;aspect-ratio:9/16}
 @media (min-width:768px) and (orientation:landscape){.reel video{aspect-ratio:16/9}}
 .intro.after-reel{padding-top:20px}
@@ -254,9 +258,8 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 .sweet .dots button i{background:#e9b6ad}
 .sweet .dots button[aria-current="true"] i{background:var(--terracotta)}
 @media (prefers-reduced-motion:reduce){.dots button i{transition:none}}
-/* Splash on entering: the circle pattern with the wordmark on a terracotta band across the middle, for 3 seconds, then a circle closes it into the centre to reveal the page. Once per visit. Tap to skip. */
-#splash{position:fixed;inset:0;z-index:100;background:var(--terracotta) url(images/motif.webp) center/240px repeat;display:grid;place-items:center;clip-path:circle(150% at 50% 50%);transition:clip-path .9s cubic-bezier(.65,0,.35,1);cursor:pointer}
-.no-splash #splash{display:none}
+/* Splash on entering: the circle pattern with the wordmark on a terracotta band across the middle, for 3 seconds, then a circle closes it into the centre (slow in, slow out) to reveal the page. Every page load. Tap to skip. */
+#splash{position:fixed;inset:0;z-index:100;background:var(--terracotta) url(images/motif.webp) center/240px repeat;display:grid;place-items:center;clip-path:circle(72% at 50% 50%);transition:clip-path 1.4s cubic-bezier(.65,0,.35,1);cursor:pointer}
 /* band is exactly two pattern rows tall and centred like the pattern, so its edges fall between rows and no circle is cut */
 #splash .band{width:100%;height:120px;box-sizing:border-box;background:var(--terracotta);padding:0 16px;display:flex;align-items:center;justify-content:center}
 #splash img{width:min(72vw,380px);height:auto;display:block}
@@ -268,8 +271,13 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 </head>
 <body>
 <div id="splash" aria-hidden="true"><div class="band"><img src="images/logo.png" alt=""></div></div>
-<script>(function(){var sp=document.getElementById("splash");if(!sp||document.documentElement.classList.contains("no-splash"))return;try{sessionStorage.setItem("rm-splash","1")}catch(e){}
-var done=function(){sp.classList.add("out");setTimeout(function(){sp.remove()},1000)};var t=setTimeout(done,2200);sp.addEventListener("click",function(){clearTimeout(t);done()})})();</script>
+<script>(function(){var sp=document.getElementById("splash");if(!sp)return;
+/* hold the splash for 2.2 s from the moment its pictures are on screen (never more than 4 s in all), then close it with the circle */
+var t,gone=false,done=function(){if(gone)return;gone=true;clearTimeout(t);requestAnimationFrame(function(){sp.classList.add("out")});setTimeout(function(){sp.remove()},1600)};
+var start=function(){clearTimeout(t);t=setTimeout(done,2200)};
+var bg=new Image();bg.src="images/motif.webp";var lg=sp.querySelector("img");
+Promise.all([bg.decode?bg.decode().catch(function(){}):0,lg.decode?lg.decode().catch(function(){}):0]).then(start);
+setTimeout(done,4000);sp.addEventListener("click",done)})();</script>
 
 <header class="top">
   <div class="wrap">
@@ -285,7 +293,7 @@ var done=function(){sp.classList.add("out");setTimeout(function(){sp.remove()},1
     <p class="kicker">Snacks &amp; sweets</p>
     <h1>Homemade snacks from Chandrika’s kitchen</h1>
   </div>
-  <div class="reel"><video id="reel" muted loop playsinline preload="metadata" aria-label="A short silent film of the snacks being made and served"></video></div>
+  <div class="reel"><video id="reel" muted autoplay loop playsinline preload="auto" aria-label="A short silent film of the snacks being made and served"></video><button type="button" class="reel-btn" id="reelBtn" aria-label="Pause film" aria-pressed="false"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path class="i-pause" d="M4 3h3v10H4zM9 3h3v10H9z" fill="currentColor"/><path class="i-play" d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg></button></div>
   <div class="wrap intro after-reel">
     <p class="lede">Made with love, using date sweeteners and real, unprocessed ingredients. These are recipes developed while trying to get the kids to eat healthier.</p>
   </div>
@@ -745,15 +753,21 @@ document.querySelectorAll(".card").forEach(card => {
   });
 })();
 
-// Reel: pick the upright or wide cut, play only while on screen, never autoplay for reduced motion
+// Reel: pick the upright or wide cut and autoplay it (muted, inline); it rests while scrolled away. The small button pauses it for good.
 (function(){
-  const v = document.getElementById("reel"); if (!v) return;
+  const v = document.getElementById("reel"), btn = document.getElementById("reelBtn"); if (!v) return;
   const wide = matchMedia("(min-width:768px) and (orientation:landscape)").matches;
+  v.muted = true; v.defaultMuted = true;
   v.poster = wide ? "video/reel-desktop.jpg" : "video/reel-phone.jpg";
   v.src = wide ? "video/reel-desktop.mp4" : "video/reel-phone.mp4";
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { v.controls = true; return; }
-  if (!("IntersectionObserver" in window)) { v.play().catch(() => {}); return; }
-  new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), {threshold: 0.25}).observe(v);
+  let stopped = false;
+  const play = () => { if (!stopped) v.play().catch(() => {}); };
+  play();
+  btn.addEventListener("click", () => {
+    stopped = !stopped; btn.setAttribute("aria-pressed", stopped); btn.setAttribute("aria-label", stopped ? "Play film" : "Pause film");
+    stopped ? v.pause() : play();
+  });
+  if ("IntersectionObserver" in window) new IntersectionObserver(es => es.forEach(e => { e.isIntersecting ? play() : v.pause(); }), {threshold: 0.25}).observe(v);
 })();
 </script>
 </body>
