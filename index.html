@@ -409,7 +409,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":
 
 function keyFor(p){ return p.flavours ? p.id + "|" + (flavourPick[p.id] || p.flavours[0]) : p.id; }
 
-// products with a photograph from the shoot (images/photo/<id>.webp)
+// products with a photograph from the shoot, cut out onto a circle like the illustrations (images/cut/<id>.webp)
 const PHOTO = new Set(["murukku-sticks","ribbon-murukku","ragi-theinkuzhal","uppu-seedai","thattai","oma-pudi","rice-crispies","choco-chunk-cookies","jowar-oats-cookies","dryfruit-brittles","dryfruit-delight","protein-bites","wholewheat-bites","ragi-choc-fudge"]);
 function cardHTML(p){
   const alt = (p.ta||p.hi) ? `<div class="alt">${p.ta?`<span lang="ta">${p.ta}</span>`:""}${p.hi?`<span lang="hi">${p.hi}</span>`:""}</div>` : "";
@@ -417,7 +417,7 @@ function cardHTML(p){
   return `<article class="card" id="p-${p.id}">
     ${PHOTO.has(p.id) ? `<div class="pic slides" tabindex="0" role="group" aria-label="Pictures of ${esc(p.name)}, swipe for more">
       <div class="slide"><img src="images/circle/${p.id}.webp" loading="lazy" alt="Illustration of ${esc(p.name)}"></div>
-      <div class="slide photo"><img src="images/photo/${p.id}.webp" loading="lazy" alt="Photograph of ${esc(p.name)} in a bowl"></div>
+      <div class="slide"><img src="images/cut/${p.id}.webp" loading="lazy" alt="Photograph of ${esc(p.name)}"></div>
     </div>` : `<div class="pic"><img src="images/circle/${p.id}.webp" loading="lazy" alt="Illustration of ${esc(p.name)}"></div>`}
     <div class="body">${PHOTO.has(p.id) ? `<div class="dots"><button type="button" data-slide="0" aria-label="Show illustration" aria-current="true"><i></i></button><button type="button" data-slide="1" aria-label="Show photograph" aria-current="false"><i></i></button></div>` : `<div class="dots" aria-hidden="true"></div>`}
       <h3>${esc(p.name)}</h3>${alt}
