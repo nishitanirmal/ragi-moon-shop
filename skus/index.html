@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Ragi &amp; Moon SKUs</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;600;700&display=swap">
+<style>
+/* Layout: one column. Form card on top, live SKU preview, then the full SKU list. Big type for older phone users. */
+:root{--bg:#FFFFFF;--fg:#3A1D16;--muted:#6B4A42;--line:#E3D6D3;--accent:#B35642;--accent-ink:#FFFFFF;--soft:#FFF4F1;--ok:#2E6B3F;--warn:#9A3412;
+ --display:"Fraunces",Georgia,serif;--body:"Inter",system-ui,-apple-system,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1E110E;--fg:#FFEFEC;--muted:#D8BEB8;--line:#4A2E28;--accent:#E07A62;--accent-ink:#1E110E;--soft:#2C1A16;--ok:#7BC48E;--warn:#F4A27F;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1E110E;--fg:#FFEFEC;--muted:#D8BEB8;--line:#4A2E28;--accent:#E07A62;--accent-ink:#1E110E;--soft:#2C1A16;--ok:#7BC48E;--warn:#F4A27F;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:18px;line-height:1.45}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px}
+h1{font-family:var(--display);font-weight:600;font-size:34px;margin:0}
+h2{font-family:var(--display);font-weight:600;font-size:26px;margin:40px 0 12px}
+.lede{margin:6px 0 24px;color:var(--muted)}
+form{display:grid;gap:20px;background:var(--soft);border-radius:14px;padding:20px}
+label,.lab{display:block;font-weight:700;margin-bottom:6px}
+.hint{display:block;font-weight:400;font-size:15px;color:var(--muted)}
+input,textarea,select{width:100%;box-sizing:border-box;font:inherit;font-size:18px;color:var(--fg);background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:12px 14px}
+textarea{min-height:90px;resize:vertical}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.seg{display:flex;flex-wrap:wrap;gap:10px}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg label{margin:0;font-weight:600;padding:12px 18px;border:2px solid var(--line);border-radius:999px;cursor:pointer;background:var(--bg)}
+.seg input:checked+label{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.seg input:focus-visible+label{outline:3px solid var(--accent);outline-offset:2px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.preview{border:2px dashed var(--accent);border-radius:12px;padding:16px;text-align:center}
+.preview .code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:28px;font-weight:700;letter-spacing:.04em;word-break:break-all}
+.preview .why{font-size:15px;color:var(--muted);margin-top:4px}
+button{font:inherit;font-weight:700;border:0;border-radius:12px;padding:16px 20px;cursor:pointer}
+.primary{background:var(--accent);color:var(--accent-ink);font-size:20px;width:100%}
+.primary:disabled{opacity:.6;cursor:not-allowed}
+.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:10px 14px;font-size:16px}
+.msg{font-weight:600;min-height:1.4em;margin:0}
+.msg.ok{color:var(--ok)}.msg.err{color:var(--warn)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.tools input{flex:1 1 220px;width:auto}
+ul.list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.item{border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:start}
+.item .code{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:19px;word-break:break-all}
+.item .name{font-weight:600}
+.item .meta{font-size:15px;color:var(--muted);grid-column:1/-1}
+.item .desc{font-size:15px;grid-column:1/-1}
+.item .act{display:flex;gap:8px;grid-row:1/3;grid-column:2}
+.empty{color:var(--muted)}
+.howto{font-size:16px;color:var(--muted)}
+.howto code{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--fg)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--bg);border:2px solid var(--accent);border-radius:999px;padding:6px 6px 6px 14px;font-weight:600}
+.chip button{background:transparent;color:var(--accent);padding:4px 10px;font-size:18px;line-height:1;border-radius:999px}
+.chip button:focus-visible{outline:3px solid var(--accent)}
+.addrow{display:flex;gap:10px;flex-wrap:wrap}
+.addrow input{flex:1 1 120px;width:auto}.addrow select{flex:0 1 150px;width:auto}
+.add{background:var(--fg);color:var(--bg);padding:12px 16px;font-size:17px}
+.combos{display:grid;gap:8px}
+.combo{display:grid;grid-template-columns:auto minmax(0,1fr) 110px;gap:10px;align-items:center;background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:10px 12px}
+.combo input[type=checkbox]{width:26px;height:26px;accent-color:var(--accent)}
+.combo .c{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:18px;word-break:break-all}
+.combo .l{font-size:15px;color:var(--muted)}
+.combo input.m{padding:8px 10px;font-size:16px}
+.combo.exists{opacity:.65}
+@media (max-width:480px){.item{grid-template-columns:minmax(0,1fr)}.item .act{grid-row:auto;grid-column:1;order:5}}
+@media (max-width:420px){.combo{grid-template-columns:auto minmax(0,1fr)}.combo input.m{grid-column:2}}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.gear{background:transparent;color:var(--fg);border:2px solid var(--line);border-radius:12px;padding:10px 12px;font-size:16px;font-weight:600;flex:none}
+.note{background:var(--soft);border-left:4px solid var(--accent);padding:12px 14px;border-radius:8px;margin:0 0 20px;font-size:16px}
+dialog{border:0;border-radius:16px;padding:20px;max-width:520px;width:calc(100% - 32px);background:var(--bg);color:var(--fg)}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+dialog h3{font-family:var(--display);font-size:24px;margin:0 0 8px}
+dialog p{font-size:16px;margin:0 0 14px}
+dialog .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+details{margin-top:12px;font-size:16px}
+body{margin:0}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top"><h1>Ragi &amp; Moon SKUs</h1><button type="button" class="gear" id="gear" aria-label="Settings">⚙︎ Settings</button></div>
+  <p class="lede">Fill in the form to add a new product with all its sizes and flavours. The SKU codes are made for you and saved to the shared list below.</p>
+
+  <form id="f" novalidate>
+    <div>
+      <label for="name">Product name</label>
+      <input id="name" autocomplete="off" placeholder="e.g. Amaranth Bites" required>
+    </div>
+    <div>
+      <label for="desc">Description <span class="hint">What it is, main ingredients</span></label>
+      <textarea id="desc" placeholder="e.g. Rajgira, roasted almonds, A2 cow ghee, unrefined jaggery"></textarea>
+    </div>
+    <div>
+      <span class="lab" id="catLab">Type</span>
+      <div class="seg" role="radiogroup" aria-labelledby="catLab">
+        <input type="radio" name="cat" id="cat-sv" value="SV"><label for="cat-sv">Savoury</label>
+        <input type="radio" name="cat" id="cat-sw" value="SW"><label for="cat-sw">Sweet</label>
+        <input type="radio" name="cat" id="cat-gf" value="GF"><label for="cat-gf">Gift / festive</label>
+      </div>
+    </div>
+    <div>
+      <label for="qty">Pack sizes <span class="hint">Add every size this product comes in</span></label>
+      <div class="addrow">
+        <input id="qty" inputmode="numeric" placeholder="200" aria-label="Pack size number">
+        <select id="unit" aria-label="Unit"><option value="G">grams (g)</option><option value="PC">pieces</option></select>
+        <button type="button" class="add" id="addSize">+ Add size</button>
+      </div>
+      <div class="chips" id="sizes"></div>
+    </div>
+    <div>
+      <label for="flav">Flavours <span class="hint">"Original" means no flavour. Remove it if every pack has a flavour.</span></label>
+      <div class="addrow">
+        <input id="flav" autocomplete="off" placeholder="e.g. Chocolate" aria-label="Flavour name">
+        <button type="button" class="add" id="addFlav">+ Add flavour</button>
+      </div>
+      <div class="chips" id="flavs"></div>
+    </div>
+    <div>
+      <label for="pack">Pack</label><select id="pack"><option value="">Not decided</option><option>Pouch</option><option>Window box</option><option>Sleeve box</option><option>Gift box</option><option>Other</option></select>
+    </div>
+    <div>
+      <span class="lab">SKUs to create <span class="hint">One per size and flavour. Untick any you don't make. MRP is optional.</span></span>
+      <div class="combos" id="combos" aria-live="polite"></div>
+      <p class="why" id="why"></p>
+    </div>
+    <button class="primary" id="save" type="submit">Save product</button>
+    <p class="msg" id="msg" role="status"></p>
+  </form>
+
+  <h2>All SKUs <span id="count" class="hint" style="display:inline"></span></h2>
+  <div class="tools">
+    <input id="q" type="search" placeholder="Search name or code" aria-label="Search">
+    <button class="ghost" id="dl" type="button">Download list (opens in Excel)</button>
+  </div>
+  <p class="note" id="offline" hidden><strong>Saving on this phone only.</strong> Tap ⚙︎ Settings and paste the GitHub key so everyone shares one list.</p>
+  <ul class="list" id="list"><li class="empty">Loading the list…</li></ul>
+
+  <h2>How the code works</h2>
+  <p class="howto"><code>RM-SW-AMB-200G</code>: RM is Ragi &amp; Moon, SW is the type (SV savoury, SW sweet, GF gift), AMB is three letters for the product, 200G is the pack size (G grams, PC pieces). The same product in a new size keeps its three letters. A flavour changes the last letter (BRV vanilla, BRC chocolate). Every SKU needs its own barcode.</p>
+</div>
+
+<dialog id="dlg" aria-labelledby="dlgT">
+  <form id="dlgF" method="dialog">
+    <h3 id="dlgT">Settings</h3>
+    <p>The list is saved as one file in a private GitHub repo, so everyone sees the same SKUs. Paste a GitHub key (token) that can read and write that repo. It stays on this phone only.</p>
+    <label for="tok">GitHub key</label><input type="password" id="tok" autocomplete="off" placeholder="github_pat_…">
+    <details><summary>Repo details</summary>
+      <label for="repo" style="margin-top:10px">Repo (owner/name)</label><input id="repo">
+      <label for="path" style="margin-top:10px">File path</label><input id="path">
+    </details>
+    <p class="msg err" id="dlgErr"></p>
+    <div class="btns"><button type="submit" class="primary" style="width:auto">Connect</button><button type="button" class="ghost" id="dlgOff">Use offline</button><button type="button" class="ghost" id="dlgX">Close</button></div>
+  </form>
+</dialog>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+let rows=[];
+const STOP=new Set(["and","the","of","with","&","a","in"]);
+const VOW=new Set(["A","E","I","O","U"]);
+const clean=s=>(s||"").trim().replace(/\s+/g," ");
+const norm=s=>clean(s).toLowerCase();
+const letters=w=>w.toUpperCase().replace(/[^A-Z]/g,"");
+function candidates(name){
+  const words=norm(name).split(" ").map(letters).filter(w=>w&&!STOP.has(w.toLowerCase()));
+  const out=[];
+  if(!words.length) return out;
+  const cons=w=>w.slice(1).split("").filter(c=>!VOW.has(c));
+  if(words.length>=3) out.push(words[0][0]+words[1][0]+words[2][0]);
+  if(words.length===2){ const c=cons(words[1]); out.push(words[0][0]+words[1][0]+(c[0]||words[1][1]||"X")); c.slice(1).forEach(x=>out.push(words[0][0]+words[1][0]+x)); }
+  const w=words[0], c=cons(w);
+  if(words.length===1){ out.push(w[0]+(c[0]||w[1]||"X")+(c[1]||w[2]||"X")); for(let i=0;i<c.length;i++)for(let j=i+1;j<c.length;j++)out.push(w[0]+c[i]+c[j]); }
+  const all=words.join("");
+  for(let i=1;i<all.length;i++)for(let j=i+1;j<all.length;j++)out.push(all[0]+all[i]+all[j]);
+  return [...new Set(out.filter(x=>/^[A-Z]{3}$/.test(x)))];
+}
+const isOrig=f=>{const n=norm(f);return !n||n==="original"||n==="no flavour"||n==="no flavor"};
+let sizes=[]; let flavs=["Original"]; const mrps={}; const unticked=new Set();
+function chip(box,label,onRemove){const c=document.createElement("span");c.className="chip";const t=document.createElement("span");t.textContent=label;
+  const x=document.createElement("button");x.type="button";x.setAttribute("aria-label","Remove "+label);x.textContent="×";x.addEventListener("click",onRemove);c.append(t,x);box.appendChild(c);}
+function drawChips(){
+  const sb=$("sizes");sb.textContent="";sizes.forEach((z,i)=>chip(sb,z.qty+(z.unit==="G"?" g":" pieces"),()=>{sizes.splice(i,1);drawChips();preview();}));
+  const fb=$("flavs");fb.textContent="";flavs.forEach((f,i)=>chip(fb,isOrig(f)?"Original (no flavour)":f,()=>{flavs.splice(i,1);drawChips();preview();}));
+}
+function addSize(){const q=($("qty").value||"").replace(/[^0-9]/g,"");if(!q){$("qty").focus();return;}const u=$("unit").value;
+  if(!sizes.some(z=>z.qty===q&&z.unit===u))sizes.push({qty:q,unit:u});$("qty").value="";drawChips();preview();}
+function addFlav(){const f=clean($("flav").value);if(!f){$("flav").focus();return;}
+  if(isOrig(f)){if(!flavs.some(isOrig))flavs.unshift("Original");}else if(!flavs.some(x=>norm(x)===norm(f)))flavs.push(f);
+  $("flav").value="";drawChips();preview();}
+$("addSize").addEventListener("click",addSize);$("addFlav").addEventListener("click",addFlav);
+$("qty").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addSize();}});
+$("flav").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addFlav();}});
+function form(){return {name:clean($("name").value),desc:clean($("desc").value),cat:(document.querySelector('input[name=cat]:checked')||{}).value||"",pack:$("pack").value};}
+function plan(v){
+  if(!v.name) return {err:"Fill in the product name"};
+  if(!v.cat) return {err:"Choose a type"};
+  if(!sizes.length) return {err:"Add at least one pack size"};
+  if(!flavs.length) return {err:"Add at least one flavour, or Original"};
+  const key=(n,f)=>norm(n)+"|"+(isOrig(f)?"":norm(f));
+  const owner={}; rows.forEach(r=>{owner[r.productCode]=owner[r.productCode]||new Set();owner[r.productCode].add(key(r.name,r.flavour));});
+  const reserved={};
+  const free=(c,k)=>(!owner[c]||(owner[c].size===1&&owner[c].has(k)))&&(!reserved[c]||reserved[c]===k);
+  const existing=k=>{const r=rows.find(r=>key(r.name,r.flavour)===k);return r&&r.productCode;};
+  const sameName=rows.filter(r=>norm(r.name)===norm(v.name));
+  const cands=candidates(v.name);
+  const pick=(list,k)=>{let c=list.find(x=>free(x,k));if(!c){const st=(list[0]||"XXX").slice(0,2);for(let n=2;n<100&&!c;n++){if(free(st+n,k))c=st+n;}}reserved[c]=k;return c;};
+  const codes={};
+  // original first, so flavours build on its letters
+  const order=flavs.slice().sort((a,b)=>isOrig(b)-isOrig(a));
+  let stem=sameName.length?sameName[0].productCode.slice(0,2):null;
+  for(const f of order){
+    const k=key(v.name,f); const ex=existing(k);
+    if(ex){codes[k]=ex;reserved[ex]=k;if(!stem)stem=ex.slice(0,2);continue;}
+    if(isOrig(f)){codes[k]=pick(stem?letters(v.name).split("").filter(c=>!VOW.has(c)).map(c=>stem+c).concat(cands):cands,k);}
+    else{const st=stem||(codes[key(v.name,"")]||cands[0]||"XX").slice(0,2);const L=letters(f);
+      codes[k]=pick([st+L[0]].concat(L.slice(1).split("").map(c=>st+c)).concat(cands),k);}
+    if(!stem)stem=codes[k].slice(0,2);
+  }
+  const out=[];
+  for(const f of flavs)for(const z of sizes){
+    const sku=["RM",v.cat,codes[key(v.name,f)],z.qty+z.unit].join("-");
+    out.push({sku,code:codes[key(v.name,f)],flav:isOrig(f)?"":f,size:z.qty+(z.unit==="G"?" g":" pc"),exists:rows.some(r=>r.sku===sku)});
+  }
+  return {out};
+}
+function preview(){
+  const p=plan(form()); const box=$("combos"); box.textContent="";
+  if(p.err){$("why").textContent=p.err;$("save").disabled=true;$("save").textContent="Save";return;}
+  let n=0;
+  for(const c of p.out){
+    const d=document.createElement("div");d.className="combo"+(c.exists?" exists":"");
+    const cb=document.createElement("input");cb.type="checkbox";cb.checked=!c.exists&&!unticked.has(c.sku);cb.disabled=c.exists;cb.setAttribute("aria-label","Create "+c.sku);
+    cb.addEventListener("change",()=>{cb.checked?unticked.delete(c.sku):unticked.add(c.sku);preview();});
+    const t=document.createElement("div");const cc=document.createElement("div");cc.className="c";cc.textContent=c.sku;
+    const l=document.createElement("div");l.className="l";l.textContent=(c.flav||"Original")+" · "+c.size+(c.exists?" · already in the list":"");t.append(cc,l);
+    const m=document.createElement("input");m.className="m";m.inputMode="numeric";m.placeholder="MRP ₹";m.value=mrps[c.sku]||"";m.disabled=c.exists;m.setAttribute("aria-label","MRP for "+c.sku);
+    m.addEventListener("input",()=>{mrps[c.sku]=m.value.replace(/[^0-9.]/g,"");});
+    d.append(cb,t,m);box.appendChild(d); if(cb.checked)n++;
+  }
+  $("why").textContent=n?"":"Nothing new to save.";
+  $("save").disabled=!n; $("save").textContent=n===1?"Save 1 SKU":"Save "+n+" SKUs";
+}
+["name","desc","pack"].forEach(id=>$(id).addEventListener("input",preview));
+document.querySelectorAll('input[name=cat]').forEach(e=>e.addEventListener("change",preview));
+drawChips();preview();
+
+function render(){
+  const q=norm($("q").value);
+  const list=$("list"); list.textContent="";
+  const shown=rows.filter(r=>!q||norm(r.name+" "+r.sku+" "+(r.flavour||"")).includes(q)).sort((a,b)=>a.sku.localeCompare(b.sku));
+  $("count").textContent="("+rows.length+")";
+  if(!shown.length){const li=document.createElement("li");li.className="empty";li.textContent=rows.length?"Nothing matches that search.":"No products yet. Add the first one with the form above.";list.appendChild(li);return;}
+  const catName={SV:"Savoury",SW:"Sweet",GF:"Gift / festive"};
+  for(const r of shown){
+    const li=document.createElement("li");li.className="item";
+    const c=document.createElement("div");c.className="code";c.textContent=r.sku;
+    const act=document.createElement("div");act.className="act";
+    const cp=document.createElement("button");cp.type="button";cp.className="ghost";cp.textContent="Copy";
+    cp.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(r.sku);cp.textContent="Copied";}catch(e){const s=window.getSelection(),rg=document.createRange();rg.selectNodeContents(c);s.removeAllRanges();s.addRange(rg);cp.textContent="Selected";}setTimeout(()=>cp.textContent="Copy",1500)});
+    act.appendChild(cp);
+    if(true){const del=document.createElement("button");del.type="button";del.className="ghost";del.textContent="Remove";
+      let armed=false;del.addEventListener("click",async()=>{if(!armed){armed=true;del.textContent="Tap again to remove";setTimeout(()=>{armed=false;del.textContent="Remove"},3000);return;}
+        store.busy=true;try{await store.remove(r.sku);render();preview();}catch(e){$("msg").className="msg err";$("msg").textContent=e.message;}finally{store.busy=false;}});act.appendChild(del);}
+    const n=document.createElement("div");n.className="name";n.textContent=r.name+(r.flavour?" · "+r.flavour:"");
+    const m=document.createElement("div");m.className="meta";
+    m.textContent=[catName[r.category]||r.category, r.size, r.pack, r.mrp?"₹"+r.mrp:""].filter(Boolean).join(" · ");
+    li.append(c,act,n,m);
+    if(r.description){const d=document.createElement("div");d.className="desc";d.textContent=r.description;li.appendChild(d);}
+    list.appendChild(li);
+  }
+}
+$("q").addEventListener("input",render);
+
+$("f").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const v=form(), p=plan(v), msg=$("msg");
+  if(p.err){msg.className="msg err";msg.textContent=p.err;return;}
+  const todo=p.out.filter(c=>!c.exists&&!unticked.has(c.sku));
+  $("save").disabled=true; let done=[]; store.busy=true;
+  try{
+    const now=new Date().toISOString();
+    const newRows=todo.map(c=>({sku:c.sku,productCode:c.code,name:v.name,description:v.desc,category:v.cat,flavour:c.flav,size:c.size,pack:v.pack,mrp:mrps[c.sku]||"",createdAt:now}));
+    await store.add(newRows,"Add "+newRows.map(r=>r.sku).join(", "));
+    done=newRows.map(r=>r.sku); render();
+    msg.className="msg ok";msg.textContent="Saved "+done.length+(done.length===1?" SKU: ":" SKUs: ")+done.join(", ");
+    $("f").reset();sizes=[];flavs=["Original"];unticked.clear();Object.keys(mrps).forEach(k=>delete mrps[k]);drawChips();preview();
+  }catch(err){msg.className="msg err";
+    msg.textContent=(err&&err.message)||"Could not save. Check the internet and try again.";
+    preview();}finally{store.busy=false;}
+});
+
+$("dl").addEventListener("click",async()=>{
+  const cols=["sku","name","flavour","category","size","pack","mrp","description"];
+  const esc=s=>'"'+String(s??"").replace(/"/g,'""')+'"';
+  const csv=[cols.join(",")].concat(rows.slice().sort((a,b)=>a.sku.localeCompare(b.sku)).map(r=>cols.map(c=>esc(r[c])).join(","))).join("\n");
+  const url=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv"}));const el=document.createElement("a");el.href=url;el.download="ragi-moon-skus.csv";document.body.appendChild(el);el.click();el.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+
+const SEED=[{"sku": "RM-SV-MST-200G", "productCode": "MST", "name": "Murukku Sticks", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-RBM-200G", "productCode": "RBM", "name": "Ribbon Murukku", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-PPM-200G", "productCode": "PPM", "name": "Pepper Murukku", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-THK-200G", "productCode": "THK", "name": "Theinkuzhal", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-RTK-200G", "productCode": "RTK", "name": "Ragi Theinkuzhal", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-RBC-200G", "productCode": "RBC", "name": "Ragi Beetroot Chips", "category": "SV", "flavour": "", "size": "200 g (to confirm)", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-THT-200G", "productCode": "THT", "name": "Thattai", "category": "SV", "flavour": "", "size": "200 g", "pack": "Window box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-UPS-200G", "productCode": "UPS", "name": "Uppu Seedai", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-OMP-200G", "productCode": "OMP", "name": "Oma Pudi", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-RCR-200G", "productCode": "RCR", "name": "Rice Crispies", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-ROC-200G", "productCode": "ROC", "name": "Ragi Oats Cookies", "category": "SW", "flavour": "", "size": "200 g", "pack": "Window box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-JOC-200G", "productCode": "JOC", "name": "Jowar Oats Cookies", "category": "SW", "flavour": "", "size": "200 g", "pack": "Window box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-BRV-100G", "productCode": "BRV", "name": "Dry-fruit Brittles", "category": "SW", "flavour": "Vanilla", "size": "100 g", "pack": "Window box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-BRC-100G", "productCode": "BRC", "name": "Dry-fruit Brittles", "category": "SW", "flavour": "Chocolate", "size": "100 g", "pack": "Window box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-PRB-200G", "productCode": "PRB", "name": "Protein Bites", "category": "SW", "flavour": "", "size": "200 g", "pack": "Sleeve box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-RGB-200G", "productCode": "RGB", "name": "Ragi Bites", "category": "SW", "flavour": "", "size": "200 g", "pack": "Sleeve box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-WGB-200G", "productCode": "WGB", "name": "Whole Wheat Gond Bites", "category": "SW", "flavour": "", "size": "200 g", "pack": "Sleeve box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-AMB-200G", "productCode": "AMB", "name": "Amaranth Bites", "category": "SW", "flavour": "", "size": "200 g", "pack": "Sleeve box", "mrp": "250", "description": "Rajgira (amaranth), roasted almonds, A2 cow ghee, unrefined jaggery", "createdAt": "2026-11-27"}, {"sku": "RM-SW-CFD-4PC", "productCode": "CFD", "name": "Dryfruit Chocolate Fudge", "category": "SW", "flavour": "", "size": "4 pc", "pack": "Sleeve box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-DFD-100G", "productCode": "DFD", "name": "Dry-fruit Delight", "category": "SW", "flavour": "", "size": "100 g", "pack": "", "mrp": "", "description": "", "createdAt": "2026-11-27"}];
+const DEFAULTS={repo:"nishitanirmal/ragi-moon-tracker",path:"data/skus.json"};
+const LS={get:(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+const store={cfg:Object.assign({token:""},DEFAULTS,LS.get("rm.skus.sync",{})),sha:null,busy:false,
+  get online(){return !!this.cfg.token;},
+  api(p,o={}){return fetch("https://api.github.com"+p,Object.assign({},o,{headers:Object.assign({Authorization:"Bearer "+this.cfg.token,Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"},o.headers||{})}));},
+  url(){return "/repos/"+this.cfg.repo+"/contents/"+this.cfg.path;},
+  async load(){
+    if(!this.online){rows=LS.get("rm.skus.local",null)||SEED.slice();return;}
+    const r=await this.api(this.url()+"?t="+Date.now(),{cache:"no-store"});
+    if(r.status===404){this.sha=null;rows=SEED.slice();return;}
+    if(!r.ok)throw new Error(r.status===401?"The GitHub key is wrong or expired.":r.status===403||r.status===404?"The GitHub key can't open this repo.":"GitHub error "+r.status);
+    const j=await r.json();this.sha=j.sha;
+    const d=JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g,""))))||"{}");rows=d.skus||[];
+  },
+  async add(newRows,msg){
+    if(!this.online){rows=rows.concat(newRows);LS.set("rm.skus.local",rows);return;}
+    for(let i=0;i<4;i++){
+      if(i)await this.load();
+      const have=new Set(rows.map(r=>r.sku));const merged=rows.concat(newRows.filter(r=>!have.has(r.sku)));
+      const body=JSON.stringify({message:msg,content:btoa(unescape(encodeURIComponent(JSON.stringify({skus:merged},null,1)))),...(this.sha?{sha:this.sha}:{})});
+      const r=await this.api(this.url(),{method:"PUT",body});
+      if(r.ok){this.sha=(await r.json()).content.sha;rows=merged;return;}
+      if(r.status!==409&&r.status!==422)throw new Error("GitHub error "+r.status);
+    }
+    throw new Error("Could not save. Try again.");
+  },
+  async remove(sku){
+    if(!this.online){rows=rows.filter(r=>r.sku!==sku);LS.set("rm.skus.local",rows);return;}
+    for(let i=0;i<4;i++){
+      if(i)await this.load();
+      const kept=rows.filter(r=>r.sku!==sku);
+      const body=JSON.stringify({message:"Remove "+sku,content:btoa(unescape(encodeURIComponent(JSON.stringify({skus:kept},null,1)))),...(this.sha?{sha:this.sha}:{})});
+      const r=await this.api(this.url(),{method:"PUT",body});
+      if(r.ok){this.sha=(await r.json()).content.sha;rows=kept;return;}
+      if(r.status!==409&&r.status!==422)throw new Error("GitHub error "+r.status);
+    }
+    throw new Error("Could not remove. Try again.");
+  }};
+async function boot(){
+  $("offline").hidden=store.online;
+  try{await store.load();}catch(e){$("msg").className="msg err";$("msg").textContent=e.message;rows=LS.get("rm.skus.local",null)||SEED.slice();}
+  render();preview();
+}
+setInterval(async()=>{if(!store.online||store.busy)return;try{const b=JSON.stringify(rows);await store.load();if(JSON.stringify(rows)!==b){render();preview();}}catch(e){}},30000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&store.online&&!store.busy)store.load().then(()=>{render();preview();}).catch(()=>{});});
+$("gear").addEventListener("click",()=>{$("tok").value=store.cfg.token;$("repo").value=store.cfg.repo;$("path").value=store.cfg.path;$("dlgErr").textContent="";$("dlg").showModal();});
+$("dlgX").addEventListener("click",()=>$("dlg").close());
+$("dlgOff").addEventListener("click",()=>{store.cfg.token="";LS.set("rm.skus.sync",store.cfg);$("dlg").close();boot();});
+$("dlgF").addEventListener("submit",async e=>{e.preventDefault();
+  const cfg={token:$("tok").value.trim(),repo:$("repo").value.trim()||DEFAULTS.repo,path:$("path").value.trim()||DEFAULTS.path};
+  const old=store.cfg;store.cfg=cfg;
+  try{await store.load();LS.set("rm.skus.sync",cfg);$("dlg").close();boot();}
+  catch(err){store.cfg=old;$("dlgErr").textContent=err.message;}
+});
+boot();
+})();
+</script>
+
+</body>
+</html>
