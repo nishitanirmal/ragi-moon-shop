@@ -638,9 +638,9 @@ document.getElementById("hSweets").src = IMG["h-sweets"];
 
 renderGrid(); renderCtls(); renderCart();
 
-/* ---- Picture slides: dots follow the swipe, a tap on a dot slides there, and every 5 seconds the pictures turn over on their own.
+/* ---- Picture slides: dots follow the swipe, a tap on a dot slides there, and every 7 seconds the pictures turn over on their own.
    Turning stops for good on a card once someone swipes, taps or focuses it, and never runs for people who ask for reduced motion. ---- */
-const SLIDE_EVERY = 5000;
+const SLIDE_EVERY = 7000;
 const slideCards = [];
 document.querySelectorAll(".card").forEach(card => {
   const track = card.querySelector(".slides"); if (!track) return;
