@@ -232,6 +232,7 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
   .grid{grid-template-columns:1fr}
 }
 /* Each product shows its illustration first, then its photograph: swipe sideways inside the picture, or use the dots */
+.card .pic.slides{overflow-x:auto;overflow-y:hidden}
 .slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .slides::-webkit-scrollbar{display:none}
 .slides:focus-visible{outline:2px solid var(--peach);outline-offset:-4px}
