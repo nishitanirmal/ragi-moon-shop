@@ -81,7 +81,7 @@ body{margin:0}
 <body>
 
 <div class="wrap">
-  <div class="top"><h1>Ragi &amp; Moon SKUs</h1><button type="button" class="gear" id="gear" aria-label="Settings">⚙︎ Settings</button></div>
+  <div class="top"><h1>Ragi &amp; Moon SKUs</h1></div>
   <p class="lede">Fill in the form to add a new product with all its sizes and flavours. The SKU codes are made for you and saved to the shared list below.</p>
 
   <form id="f" novalidate>
@@ -135,26 +135,13 @@ body{margin:0}
     <input id="q" type="search" placeholder="Search name or code" aria-label="Search">
     <button class="ghost" id="dl" type="button">Download list (opens in Excel)</button>
   </div>
-  <p class="note" id="offline" hidden><strong>Saving on this phone only.</strong> Tap ⚙︎ Settings and paste the GitHub key so everyone shares one list.</p>
+  <p class="note">The list is saved on this phone. Tap <strong>Download list</strong> now and then to keep a copy.</p>
   <ul class="list" id="list"><li class="empty">Loading the list…</li></ul>
 
   <h2>How the code works</h2>
   <p class="howto"><code>RM-SW-AMB-200G</code>: RM is Ragi &amp; Moon, SW is the type (SV savoury, SW sweet, GF gift), AMB is three letters for the product, 200G is the pack size (G grams, PC pieces). The same product in a new size keeps its three letters. A flavour changes the last letter (BRV vanilla, BRC chocolate). Every SKU needs its own barcode.</p>
 </div>
 
-<dialog id="dlg" aria-labelledby="dlgT">
-  <form id="dlgF" method="dialog">
-    <h3 id="dlgT">Settings</h3>
-    <p>The list is saved as one file in a private GitHub repo, so everyone sees the same SKUs. Paste a GitHub key (token) that can read and write that repo. It stays on this phone only.</p>
-    <label for="tok">GitHub key</label><input type="password" id="tok" autocomplete="off" placeholder="github_pat_…">
-    <details><summary>Repo details</summary>
-      <label for="repo" style="margin-top:10px">Repo (owner/name)</label><input id="repo">
-      <label for="path" style="margin-top:10px">File path</label><input id="path">
-    </details>
-    <p class="msg err" id="dlgErr"></p>
-    <div class="btns"><button type="submit" class="primary" style="width:auto">Connect</button><button type="button" class="ghost" id="dlgOff">Use offline</button><button type="button" class="ghost" id="dlgX">Close</button></div>
-  </form>
-</dialog>
 <script>
 (function(){
 const $=id=>document.getElementById(id);
@@ -300,61 +287,12 @@ $("dl").addEventListener("click",async()=>{
 });
 
 const SEED=[{"sku": "RM-SV-MST-200G", "productCode": "MST", "name": "Murukku Sticks", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-RBM-200G", "productCode": "RBM", "name": "Ribbon Murukku", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-PPM-200G", "productCode": "PPM", "name": "Pepper Murukku", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-THK-200G", "productCode": "THK", "name": "Theinkuzhal", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-RTK-200G", "productCode": "RTK", "name": "Ragi Theinkuzhal", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-RBC-200G", "productCode": "RBC", "name": "Ragi Beetroot Chips", "category": "SV", "flavour": "", "size": "200 g (to confirm)", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-THT-200G", "productCode": "THT", "name": "Thattai", "category": "SV", "flavour": "", "size": "200 g", "pack": "Window box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-UPS-200G", "productCode": "UPS", "name": "Uppu Seedai", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-OMP-200G", "productCode": "OMP", "name": "Oma Pudi", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SV-RCR-200G", "productCode": "RCR", "name": "Rice Crispies", "category": "SV", "flavour": "", "size": "200 g", "pack": "Pouch", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-ROC-200G", "productCode": "ROC", "name": "Ragi Oats Cookies", "category": "SW", "flavour": "", "size": "200 g", "pack": "Window box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-JOC-200G", "productCode": "JOC", "name": "Jowar Oats Cookies", "category": "SW", "flavour": "", "size": "200 g", "pack": "Window box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-BRV-100G", "productCode": "BRV", "name": "Dry-fruit Brittles", "category": "SW", "flavour": "Vanilla", "size": "100 g", "pack": "Window box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-BRC-100G", "productCode": "BRC", "name": "Dry-fruit Brittles", "category": "SW", "flavour": "Chocolate", "size": "100 g", "pack": "Window box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-PRB-200G", "productCode": "PRB", "name": "Protein Bites", "category": "SW", "flavour": "", "size": "200 g", "pack": "Sleeve box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-RGB-200G", "productCode": "RGB", "name": "Ragi Bites", "category": "SW", "flavour": "", "size": "200 g", "pack": "Sleeve box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-WGB-200G", "productCode": "WGB", "name": "Whole Wheat Gond Bites", "category": "SW", "flavour": "", "size": "200 g", "pack": "Sleeve box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-AMB-200G", "productCode": "AMB", "name": "Amaranth Bites", "category": "SW", "flavour": "", "size": "200 g", "pack": "Sleeve box", "mrp": "250", "description": "Rajgira (amaranth), roasted almonds, A2 cow ghee, unrefined jaggery", "createdAt": "2026-11-27"}, {"sku": "RM-SW-CFD-4PC", "productCode": "CFD", "name": "Dryfruit Chocolate Fudge", "category": "SW", "flavour": "", "size": "4 pc", "pack": "Sleeve box", "mrp": "", "description": "", "createdAt": "2026-11-27"}, {"sku": "RM-SW-DFD-100G", "productCode": "DFD", "name": "Dry-fruit Delight", "category": "SW", "flavour": "", "size": "100 g", "pack": "", "mrp": "", "description": "", "createdAt": "2026-11-27"}];
-const DEFAULTS={repo:"nishitanirmal/ragi-moon-tracker",path:"data/skus.json"};
-const LS={get:(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
-const store={cfg:Object.assign({token:""},DEFAULTS,LS.get("rm.skus.sync",{})),sha:null,busy:false,
-  get online(){return !!this.cfg.token;},
-  api(p,o={}){return fetch("https://api.github.com"+p,Object.assign({},o,{headers:Object.assign({Authorization:"Bearer "+this.cfg.token,Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"},o.headers||{})}));},
-  url(){return "/repos/"+this.cfg.repo+"/contents/"+this.cfg.path;},
-  async load(){
-    if(!this.online){rows=LS.get("rm.skus.local",null)||SEED.slice();return;}
-    const r=await this.api(this.url()+"?t="+Date.now(),{cache:"no-store"});
-    if(r.status===404){this.sha=null;rows=SEED.slice();return;}
-    if(!r.ok)throw new Error(r.status===401?"The GitHub key is wrong or expired.":r.status===403||r.status===404?"The GitHub key can't open this repo.":"GitHub error "+r.status);
-    const j=await r.json();this.sha=j.sha;
-    const d=JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g,""))))||"{}");rows=d.skus||[];
-  },
-  async add(newRows,msg){
-    if(!this.online){rows=rows.concat(newRows);LS.set("rm.skus.local",rows);return;}
-    for(let i=0;i<4;i++){
-      if(i)await this.load();
-      const have=new Set(rows.map(r=>r.sku));const merged=rows.concat(newRows.filter(r=>!have.has(r.sku)));
-      const body=JSON.stringify({message:msg,content:btoa(unescape(encodeURIComponent(JSON.stringify({skus:merged},null,1)))),...(this.sha?{sha:this.sha}:{})});
-      const r=await this.api(this.url(),{method:"PUT",body});
-      if(r.ok){this.sha=(await r.json()).content.sha;rows=merged;return;}
-      if(r.status!==409&&r.status!==422)throw new Error("GitHub error "+r.status);
-    }
-    throw new Error("Could not save. Try again.");
-  },
-  async remove(sku){
-    if(!this.online){rows=rows.filter(r=>r.sku!==sku);LS.set("rm.skus.local",rows);return;}
-    for(let i=0;i<4;i++){
-      if(i)await this.load();
-      const kept=rows.filter(r=>r.sku!==sku);
-      const body=JSON.stringify({message:"Remove "+sku,content:btoa(unescape(encodeURIComponent(JSON.stringify({skus:kept},null,1)))),...(this.sha?{sha:this.sha}:{})});
-      const r=await this.api(this.url(),{method:"PUT",body});
-      if(r.ok){this.sha=(await r.json()).content.sha;rows=kept;return;}
-      if(r.status!==409&&r.status!==422)throw new Error("GitHub error "+r.status);
-    }
-    throw new Error("Could not remove. Try again.");
-  }};
-async function boot(){
-  $("offline").hidden=store.online;
-  try{await store.load();}catch(e){$("msg").className="msg err";$("msg").textContent=e.message;rows=LS.get("rm.skus.local",null)||SEED.slice();}
-  render();preview();
-}
-setInterval(async()=>{if(!store.online||store.busy)return;try{const b=JSON.stringify(rows);await store.load();if(JSON.stringify(rows)!==b){render();preview();}}catch(e){}},30000);
-document.addEventListener("visibilitychange",()=>{if(!document.hidden&&store.online&&!store.busy)store.load().then(()=>{render();preview();}).catch(()=>{});});
-$("gear").addEventListener("click",()=>{$("tok").value=store.cfg.token;$("repo").value=store.cfg.repo;$("path").value=store.cfg.path;$("dlgErr").textContent="";$("dlg").showModal();});
-$("dlgX").addEventListener("click",()=>$("dlg").close());
-$("dlgOff").addEventListener("click",()=>{store.cfg.token="";LS.set("rm.skus.sync",store.cfg);$("dlg").close();boot();});
-$("dlgF").addEventListener("submit",async e=>{e.preventDefault();
-  const cfg={token:$("tok").value.trim(),repo:$("repo").value.trim()||DEFAULTS.repo,path:$("path").value.trim()||DEFAULTS.path};
-  const old=store.cfg;store.cfg=cfg;
-  try{await store.load();LS.set("rm.skus.sync",cfg);$("dlg").close();boot();}
-  catch(err){store.cfg=old;$("dlgErr").textContent=err.message;}
-});
-boot();
+const LS={get:(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){return false;}}};
+const store={busy:false,
+  async add(newRows){const have=new Set(rows.map(r=>r.sku));rows=rows.concat(newRows.filter(r=>!have.has(r.sku)));if(!LS.set("rm.skus.local",rows))throw new Error("Could not save on this phone. Download the list to keep a copy.");},
+  async remove(sku){rows=rows.filter(r=>r.sku!==sku);LS.set("rm.skus.local",rows);}};
+rows=LS.get("rm.skus.local",null)||SEED.slice();
+render();preview();
 })();
 </script>
 
