@@ -237,7 +237,7 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 .slides:focus-visible{outline:2px solid var(--peach);outline-offset:-4px}
 .sweet .slides:focus-visible{outline-color:var(--maroon)}
 .slide{flex:0 0 100%;position:relative;scroll-snap-align:start;scroll-snap-stop:always}
-.card .pic .slide.photo img{padding:0;object-fit:cover}
+.card .pic .slide.photo img,.card .pic img.solo{padding:0;object-fit:cover}
 .dots{display:flex;justify-content:center;gap:2px;min-height:24px;margin:6px 0 -6px}
 .dots button{width:24px;height:24px;border:0;padding:0;background:transparent;display:grid;place-items:center;cursor:pointer}
 .dots button i{width:8px;height:8px;border-radius:999px;background:rgba(253,220,192,.45);transition:background-color .2s,width .2s}
@@ -391,6 +391,7 @@ const PRODUCTS = [
   {id:"protein-bites",cat:"sweet",name:"Protein Bites",size:"200g",price:300,tags:["Sweet","Chewy","Crunchy"],desc:"Five seeds and three nuts, sweetened only with dates, no added sugar. Nutty and naturally sweet. Rich in protein, omega-3, magnesium, zinc, healthy fats and fibre."},
   {id:"ragi-bites",cat:"sweet",name:"Ragi Bites",size:"200g",price:250,tags:["Sweet","Chewy","Crumbly"],desc:"Ragi, slow roasted the traditional way. Melts in the mouth, medium sweet. High in calcium, iron, vitamin E, magnesium and plant based protein."},
   {id:"wholewheat-bites",cat:"sweet",name:"Whole-wheat Bites (Gondh)",size:"200g",price:250,tags:["Sweet","Chewy","Crumbly"],desc:"Whole wheat and gondh, made the slow way. Rich in iron, calcium, magnesium, fibre and vitamins A, D, E and K."},
+  {id:"amaranth-bites",cat:"sweet",name:"Amaranth Bites",size:"200g",price:250,tags:["Sweet","Crumbly"],desc:"Rajgira, roasted almonds, pure A2 cow ghee and unrefined jaggery, for sustained energy. Rich in protein, iron, calcium, magnesium and fibre."},
   {id:"ragi-choc-fudge",cat:"sweet",name:"Ragi Chocolate Fudge",size:"4 pc",price:275,tags:["Sweet","Chewy","Crunchy","Crumbly"],desc:"Dry fruit praline, dates, almond butter, ragi and oats, with bitter dark chocolate. No added sugar, sweetened with dates alone. Good for a sugar craving, and good for everyone."}
 ];
 const byId = Object.fromEntries(PRODUCTS.map(p=>[p.id,p]));
@@ -410,7 +411,9 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":
 function keyFor(p){ return p.flavours ? p.id + "|" + (flavourPick[p.id] || p.flavours[0]) : p.id; }
 
 // products with a photograph from the shoot (images/photo/<id>.webp)
-const PHOTO = new Set(["murukku-sticks","ribbon-murukku","ragi-theinkuzhal","uppu-seedai","thattai","oma-pudi","rice-crispies","choco-chunk-cookies","jowar-oats-cookies","dryfruit-brittles","dryfruit-delight","protein-bites","wholewheat-bites","ragi-choc-fudge"]);
+const PHOTO = new Set(["murukku-sticks","ribbon-murukku","ragi-theinkuzhal","uppu-seedai","thattai","oma-pudi","rice-crispies","choco-chunk-cookies","jowar-oats-cookies","dryfruit-brittles","dryfruit-delight","protein-bites","wholewheat-bites","ragi-choc-fudge","amaranth-bites"]);
+// products with a photograph but no illustration yet: photo only, no swipe
+const NOART = new Set(["amaranth-bites"]);
 // every other card in a range starts on the photograph, the rest on the illustration
 function slidesFor(p){
   const flip = PRODUCTS.filter(x => x.cat === p.cat).findIndex(x => x.id === p.id) % 2 === 1;
@@ -420,12 +423,12 @@ function cardHTML(p){
   const alt = (p.ta||p.hi) ? `<div class="alt">${p.ta?`<span lang="ta">${p.ta}</span>`:""}${p.hi?`<span lang="hi">${p.hi}</span>`:""}</div>` : "";
   const fl = p.flavours ? `<div class="flavours" role="group" aria-label="Flavour">${p.flavours.map(f=>`<button type="button" data-flavour="${f}" data-id="${p.id}" aria-pressed="${(flavourPick[p.id]||p.flavours[0])===f}">${f}</button>`).join("")}</div>` : "";
   return `<article class="card" id="p-${p.id}">
-    ${PHOTO.has(p.id) ? `<div class="pic slides" tabindex="0" role="group" aria-label="Pictures of ${esc(p.name)}, swipe for more">
+    ${NOART.has(p.id) ? `<div class="pic"><img class="solo" src="images/photo/${p.id}.webp" loading="lazy" alt="Photograph of ${esc(p.name)}"></div>` : PHOTO.has(p.id) ? `<div class="pic slides" tabindex="0" role="group" aria-label="Pictures of ${esc(p.name)}, swipe for more">
       ${slidesFor(p).map(k => k === "photo"
         ? `<div class="slide photo"><img src="images/photo/${p.id}.webp" loading="lazy" alt="Photograph of ${esc(p.name)} in a bowl"></div>`
         : `<div class="slide"><img src="images/circle/${p.id}.webp" loading="lazy" alt="Illustration of ${esc(p.name)}"></div>`).join("")}
     </div>` : `<div class="pic"><img src="images/circle/${p.id}.webp" loading="lazy" alt="Illustration of ${esc(p.name)}"></div>`}
-    <div class="body">${PHOTO.has(p.id) ? `<div class="dots">${slidesFor(p).map((k, i) => `<button type="button" data-slide="${i}" aria-label="Show ${k === "photo" ? "photograph" : "illustration"}" aria-current="${i === 0}"><i></i></button>`).join("")}</div>` : `<div class="dots" aria-hidden="true"></div>`}
+    <div class="body">${PHOTO.has(p.id) && !NOART.has(p.id) ? `<div class="dots">${slidesFor(p).map((k, i) => `<button type="button" data-slide="${i}" aria-label="Show ${k === "photo" ? "photograph" : "illustration"}" aria-current="${i === 0}"><i></i></button>`).join("")}</div>` : `<div class="dots" aria-hidden="true"></div>`}
       <h3>${esc(p.name)}</h3>${alt}
       <div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join("")}</div>
       <p class="desc">${esc(p.desc)}</p>
