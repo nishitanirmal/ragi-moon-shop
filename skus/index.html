@@ -283,6 +283,8 @@ $("dl").addEventListener("click",async()=>{
   const cols=["sku","name","flavour","category","size","pack","mrp","description"];
   const esc=s=>'"'+String(s??"").replace(/"/g,'""')+'"';
   const csv=[cols.join(",")].concat(rows.slice().sort((a,b)=>a.sku.localeCompare(b.sku)).map(r=>cols.map(c=>esc(r[c])).join(","))).join("\n");
+  const blob=new Blob(["\ufeff"+csv],{type:"text/csv"});
+  try{const dc=window.claude&&await window.claude.use("downloads");if(dc){await dc.save({filename:"ragi-moon-skus.csv",data:blob});return;}}catch(e){return;}
   const url=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv"}));const el=document.createElement("a");el.href=url;el.download="ragi-moon-skus.csv";document.body.appendChild(el);el.click();el.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
 });
 
