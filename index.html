@@ -257,8 +257,9 @@ section.gifting{background:var(--terracotta);color:var(--peach);padding-block:48
 /* Splash on entering: the circle pattern with the wordmark on a terracotta band across the middle, for 3 seconds, then a circle closes it into the centre to reveal the page. Once per visit. Tap to skip. */
 #splash{position:fixed;inset:0;z-index:100;background:var(--terracotta) url(images/motif.webp) center/240px repeat;display:grid;place-items:center;clip-path:circle(150% at 50% 50%);transition:clip-path .9s cubic-bezier(.65,0,.35,1);cursor:pointer}
 .no-splash #splash{display:none}
-#splash .band{width:100%;background:var(--terracotta);padding:28px 16px;display:flex;justify-content:center}
-#splash img{width:min(72vw,420px);height:auto;display:block}
+/* band is exactly two pattern rows tall and centred like the pattern, so its edges fall between rows and no circle is cut */
+#splash .band{width:100%;height:120px;box-sizing:border-box;background:var(--terracotta);padding:0 16px;display:flex;align-items:center;justify-content:center}
+#splash img{width:min(72vw,380px);height:auto;display:block}
 #splash.out{clip-path:circle(0% at 50% 50%);pointer-events:none}
 @media (prefers-reduced-motion:reduce){#splash{transition:opacity .3s}#splash.out{clip-path:none;opacity:0}}
 </style>
