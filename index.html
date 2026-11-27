@@ -638,9 +638,9 @@ document.getElementById("hSweets").src = IMG["h-sweets"];
 
 renderGrid(); renderCtls(); renderCart();
 
-/* ---- Picture slides: dots follow the swipe, a tap on a dot slides there, and every 7 seconds the pictures turn over on their own.
+/* ---- Picture slides: dots follow the swipe, a tap on a dot slides there, and every 5 seconds the pictures turn over on their own, each card a little after the one before so they never all move at once.
    Turning stops for good on a card once someone swipes, taps or focuses it, and never runs for people who ask for reduced motion. ---- */
-const SLIDE_EVERY = 7000;
+const SLIDE_EVERY = 5000;
 const slideCards = [];
 document.querySelectorAll(".card").forEach(card => {
   const track = card.querySelector(".slides"); if (!track) return;
@@ -667,10 +667,16 @@ document.querySelectorAll(".card").forEach(card => {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
   const io = new IntersectionObserver(es => es.forEach(e => { slideCards.find(sc => sc.track === e.target).seen = e.intersectionRatio > 0.6; }), {threshold: [0, 0.6, 1]});
   slideCards.forEach(sc => io.observe(sc.track));
+  const start = Date.now();
+  slideCards.forEach((sc, i) => { sc.next = start + SLIDE_EVERY + (i * 1300) % SLIDE_EVERY; });
   setInterval(() => {
-    if (document.hidden || document.body.style.position === "fixed") return; // tab hidden or order sheet open
-    slideCards.forEach(sc => { if (sc.seen && !sc.held) sc.go((sc.idx + 1) % sc.dots.length, true); });
-  }, SLIDE_EVERY);
+    const now = Date.now(), paused = document.hidden || document.body.style.position === "fixed"; // tab hidden or order sheet open
+    slideCards.forEach(sc => {
+      if (now < sc.next) return;
+      sc.next += SLIDE_EVERY;
+      if (!paused && sc.seen && !sc.held) sc.go((sc.idx + 1) % sc.dots.length, true);
+    });
+  }, 200);
 })();
 
 // Section chips: offset jumps below the sticky header, and highlight the section being viewed.
