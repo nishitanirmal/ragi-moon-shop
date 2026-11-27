@@ -411,15 +411,21 @@ function keyFor(p){ return p.flavours ? p.id + "|" + (flavourPick[p.id] || p.fla
 
 // products with a photograph from the shoot (images/photo/<id>.webp)
 const PHOTO = new Set(["murukku-sticks","ribbon-murukku","ragi-theinkuzhal","uppu-seedai","thattai","oma-pudi","rice-crispies","choco-chunk-cookies","jowar-oats-cookies","dryfruit-brittles","dryfruit-delight","protein-bites","wholewheat-bites","ragi-choc-fudge"]);
+// every other card in a range starts on the photograph, the rest on the illustration
+function slidesFor(p){
+  const flip = PRODUCTS.filter(x => x.cat === p.cat).findIndex(x => x.id === p.id) % 2 === 1;
+  return flip ? ["photo", "art"] : ["art", "photo"];
+}
 function cardHTML(p){
   const alt = (p.ta||p.hi) ? `<div class="alt">${p.ta?`<span lang="ta">${p.ta}</span>`:""}${p.hi?`<span lang="hi">${p.hi}</span>`:""}</div>` : "";
   const fl = p.flavours ? `<div class="flavours" role="group" aria-label="Flavour">${p.flavours.map(f=>`<button type="button" data-flavour="${f}" data-id="${p.id}" aria-pressed="${(flavourPick[p.id]||p.flavours[0])===f}">${f}</button>`).join("")}</div>` : "";
   return `<article class="card" id="p-${p.id}">
     ${PHOTO.has(p.id) ? `<div class="pic slides" tabindex="0" role="group" aria-label="Pictures of ${esc(p.name)}, swipe for more">
-      <div class="slide"><img src="images/circle/${p.id}.webp" loading="lazy" alt="Illustration of ${esc(p.name)}"></div>
-      <div class="slide photo"><img src="images/photo/${p.id}.webp" loading="lazy" alt="Photograph of ${esc(p.name)} in a bowl"></div>
+      ${slidesFor(p).map(k => k === "photo"
+        ? `<div class="slide photo"><img src="images/photo/${p.id}.webp" loading="lazy" alt="Photograph of ${esc(p.name)} in a bowl"></div>`
+        : `<div class="slide"><img src="images/circle/${p.id}.webp" loading="lazy" alt="Illustration of ${esc(p.name)}"></div>`).join("")}
     </div>` : `<div class="pic"><img src="images/circle/${p.id}.webp" loading="lazy" alt="Illustration of ${esc(p.name)}"></div>`}
-    <div class="body">${PHOTO.has(p.id) ? `<div class="dots"><button type="button" data-slide="0" aria-label="Show illustration" aria-current="true"><i></i></button><button type="button" data-slide="1" aria-label="Show photograph" aria-current="false"><i></i></button></div>` : `<div class="dots" aria-hidden="true"></div>`}
+    <div class="body">${PHOTO.has(p.id) ? `<div class="dots">${slidesFor(p).map((k, i) => `<button type="button" data-slide="${i}" aria-label="Show ${k === "photo" ? "photograph" : "illustration"}" aria-current="${i === 0}"><i></i></button>`).join("")}</div>` : `<div class="dots" aria-hidden="true"></div>`}
       <h3>${esc(p.name)}</h3>${alt}
       <div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join("")}</div>
       <p class="desc">${esc(p.desc)}</p>
@@ -632,22 +638,40 @@ document.getElementById("hSweets").src = IMG["h-sweets"];
 
 renderGrid(); renderCtls(); renderCart();
 
-/* ---- Picture slides: dots follow the swipe, and a tap on a dot slides there ---- */
+/* ---- Picture slides: dots follow the swipe, a tap on a dot slides there, and every 5 seconds the pictures turn over on their own.
+   Turning stops for good on a card once someone swipes, taps or focuses it, and never runs for people who ask for reduced motion. ---- */
+const SLIDE_EVERY = 5000;
+const slideCards = [];
 document.querySelectorAll(".card").forEach(card => {
   const track = card.querySelector(".slides"); if (!track) return;
   const dots = [...card.querySelectorAll(".dots button")];
   const calm = matchMedia("(prefers-reduced-motion: reduce)");
+  const sc = {track, dots, idx: 0, held: false, seen: false};
+  slideCards.push(sc);
+  const go = (i, smooth) => track.scrollTo({left: i * track.clientWidth, behavior: smooth && !calm.matches ? "smooth" : "instant"});
+  sc.go = go;
   let t;
   track.addEventListener("scroll", () => {
     clearTimeout(t);
-    t = setTimeout(() => { const i = Math.round(track.scrollLeft / track.clientWidth); dots.forEach((d, j) => d.setAttribute("aria-current", j === i ? "true" : "false")); }, 50);
+    t = setTimeout(() => { sc.idx = Math.round(track.scrollLeft / track.clientWidth); dots.forEach((d, j) => d.setAttribute("aria-current", j === sc.idx ? "true" : "false")); }, 50);
   }, {passive: true});
-  dots.forEach((d, i) => d.addEventListener("click", () => track.scrollTo({left: i * track.clientWidth, behavior: calm.matches ? "instant" : "smooth"})));
+  const hold = () => { sc.held = true; };
+  ["pointerdown", "touchstart", "focusin"].forEach(ev => card.addEventListener(ev, hold, {passive: true}));
+  dots.forEach((d, i) => d.addEventListener("click", () => go(i, true)));
   track.addEventListener("keydown", e => {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
     e.preventDefault(); dots[e.key === "ArrowRight" ? 1 : 0].click();
   });
 });
+(function(){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e => { slideCards.find(sc => sc.track === e.target).seen = e.intersectionRatio > 0.6; }), {threshold: [0, 0.6, 1]});
+  slideCards.forEach(sc => io.observe(sc.track));
+  setInterval(() => {
+    if (document.hidden || document.body.style.position === "fixed") return; // tab hidden or order sheet open
+    slideCards.forEach(sc => { if (sc.seen && !sc.held) sc.go((sc.idx + 1) % sc.dots.length, true); });
+  }, SLIDE_EVERY);
+})();
 
 // Section chips: offset jumps below the sticky header, and highlight the section being viewed.
 (function(){
